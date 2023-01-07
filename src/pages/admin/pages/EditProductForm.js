@@ -10,18 +10,18 @@ import {
 } from "firebase/storage"
 import app from "../../../services/firebase"
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   width: 100%;
 `
-const Header = styled.div`
+const Header = styled.header`
   display: flex;
   justify-content: space-between;
 `
-const Title = styled.div`
+const Title = styled.h1`
   text-transform: capitalize;
   font-size: 2em;
   font-weight: 500;
@@ -38,22 +38,22 @@ const Content = styled.div`
   align-items: center;
 `
 
-const Left = styled.div`
+const ContentWrapper = styled.div`
   margin: 1em;
 `
-const FormOne = styled.div`
+const FormOne = styled.section`
   flex: 1;
   margin: 1em;
   display: flex;
   flex-direction: column;
 `
-const FormTwo = styled.div`
+const FormTwo = styled.section`
   flex: 1;
   margin: 1em;
   display: flex;
   flex-direction: column;
 `
-const ImageSection = styled.div`
+const ImageSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -106,7 +106,7 @@ const InStock = styled.input`
   margin: 1em 0;
 `
 
-const Sections = styled.div`
+const Sections = styled.section`
   margin: 1em;
   display: flex;
   flex-direction: column;
@@ -249,6 +249,7 @@ const EditProductForm = ({ product }) => {
   }
 
   const onSubmitClicked = async (e) => {
+    alert("please wait for image to upload...")
     e.preventDefault()
     if (file) {
       const fileName = new Date().getTime() + file.name
@@ -360,7 +361,7 @@ const EditProductForm = ({ product }) => {
           </Button>
         </Header>
         <Content>
-          <Left>
+          <ContentWrapper>
             <Form onSubmit={onSubmitClicked}>
               <FormOne>
                 <Label>title</Label>
@@ -378,7 +379,7 @@ const EditProductForm = ({ product }) => {
                 <Label>price</Label>
                 <Input
                   placeholder="$200"
-                  value={price.replace(/\D/g, "")}
+                  value={price}
                   onChange={onPriceChanged}
                 />
                 <Label>cpu</Label>
@@ -429,8 +430,13 @@ const EditProductForm = ({ product }) => {
                   <Option value="chromebook">chromebook</Option>
                   <Option value="touchScreen">touchScreen</Option>
                 </Select>
-                <Label>brand</Label>
-                <Select value={brand} onChange={onBrandChanged}>
+                <Label htmlFor="brand">brand</Label>
+                <Select
+                  id="brand"
+                  name="brand"
+                  value={brand}
+                  onChange={onBrandChanged}
+                >
                   <Option value="acer">acer</Option>
                   <Option value="dell">dell</Option>
                   <Option value="lenovo">lenovo</Option>
@@ -445,17 +451,19 @@ const EditProductForm = ({ product }) => {
                   <Option value="condor">condor</Option>
                   <Option value="wiseTech">wiseTech</Option>
                 </Select>
-                <Label>stock</Label>
+                <Label htmlFor="stock">stock</Label>
                 <InputWrapper>
                   <InStock
+                    id="stock"
+                    name="stock"
                     type="checkbox"
                     checked={stock}
                     value={stock}
                     onChange={onStockChanged}
                   />
                 </InputWrapper>
-                <Label>sections</Label>
-                <Sections>
+                <Label htmlFor="sections">sections</Label>
+                <Sections id="sections" name="sections">
                   <InputWrapper>
                     <SectionName htmlFor="secondSlider">
                       secondSlider
@@ -480,7 +488,7 @@ const EditProductForm = ({ product }) => {
                 <Button>update</Button>
               </FormTwo>
             </Form>
-          </Left>
+          </ContentWrapper>
         </Content>
       </Edit>
     </Container>

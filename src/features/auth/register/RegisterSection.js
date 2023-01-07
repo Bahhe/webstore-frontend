@@ -10,7 +10,7 @@ import {
 const Form = styled.form`
   width: 100%;
 `
-const Container = styled.div`
+const Container = styled.main`
   width: 100%;
   display: flex;
   gap: 2em;
@@ -18,29 +18,30 @@ const Container = styled.div`
     flexDirection: "column",
   })}
 `
-const Title = styled.div`
+const Title = styled.h1`
   width: 100%;
   font-size: 2.5em;
+  font-weight: 400;
   text-transform: capitalize;
   padding: 0.5em 0;
 `
-const Left = styled.div`
+const Left = styled.section`
   flex: 1;
   background-color: rgba(0, 0, 0, 0.05);
   padding: 1em;
 `
-const Right = styled.div`
+const Right = styled.section`
   flex: 1;
   background-color: rgba(0, 0, 0, 0.05);
   padding: 1em;
 `
-const SectionTitle = styled.div`
+const SectionTitle = styled.h2`
   font-size: 1.3em;
   text-transform: uppercase;
   padding: 1em 0;
   margin: 1em 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  opacity: 0.9;
+  opacity: 0.7;
 `
 const SmallTitle = styled.label`
   text-transform: capitalize;

@@ -3,7 +3,17 @@ import { useNavigate } from "react-router-dom"
 import PulseLoader from "react-spinners/PulseLoader"
 import styled from "styled-components"
 
-const Title = styled.div`
+const Date = styled.div`
+  text-align: start;
+  width: 15em;
+  opacity: 0.7;
+`
+const StatusSection = styled.div`
+  text-align: start;
+  width: 15em;
+  opacity: 0.7;
+`
+const ButtonContainer = styled.div`
   text-align: start;
   width: 15em;
   opacity: 0.7;
@@ -34,7 +44,7 @@ const Image = styled.img`
   height: 3em;
   border-radius: 50%;
 `
-const Name = styled.div`
+const Name = styled.h2`
   text-transform: capitalize;
   font-size: 0.9em;
   font-weight: 500;
@@ -80,10 +90,10 @@ const Orders = ({ order }) => {
         />
         <Name>{`${order.firstName} ${order.lastName}`}</Name>
       </UserItem>
-      <Title style={{ width: "13em" }}>
-        {convertTimeStamp(order.createdAt)}
-      </Title>
-      <Title style={{ width: "5em" }}>{order.products?.length}</Title>
+      <Date style={{ width: "13em" }}>{convertTimeStamp(order.createdAt)}</Date>
+      <StatusSection style={{ width: "5em" }}>
+        {order.products?.length}
+      </StatusSection>
       {order.status === "pending" ? (
         <Status style={{ color: "orange" }}>{order.status}</Status>
       ) : order.status === "waiting" ? (
@@ -91,11 +101,11 @@ const Orders = ({ order }) => {
       ) : order.status === "approved" ? (
         <Status style={{ color: "green" }}>{order.status}</Status>
       ) : null}
-      <Title style={{ marginLeft: "1em", width: "4em" }}>
+      <ButtonContainer style={{ marginLeft: "1em", width: "4em" }}>
         <Button onClick={() => navigate(`/admin/orders/${order._id}`)}>
           check
         </Button>
-      </Title>
+      </ButtonContainer>
     </User>
   )
 }

@@ -1,4 +1,4 @@
-import { createEntityAdapter, createSelector } from "@reduxjs/toolkit"
+import { createEntityAdapter } from "@reduxjs/toolkit"
 import { apiSlice } from "../../app/api/apiSlice"
 
 const ordersAdapter = createEntityAdapter({})
@@ -63,18 +63,3 @@ export const {
   useDeleteOrderMutation,
   useUpdateOrderMutation,
 } = ordersApiSlice
-
-export const selectOrdersResult = ordersApiSlice.endpoints.getOrders.select()
-
-const selectOrdersData = createSelector(
-  selectOrdersResult,
-  (ordersResult) => ordersResult.data
-)
-
-export const {
-  selectAll: selectAllOrders,
-  selectById: selectOrderById,
-  selectIds: selectOrderIds,
-} = ordersAdapter.getSelectors(
-  (state) => selectOrdersData(state) ?? initialState
-)

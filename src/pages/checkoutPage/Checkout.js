@@ -123,8 +123,6 @@ const Checkout = () => {
     })
     return { totalPrice, totalQuantity }
   }
-  console.log(getTotal().totalPrice)
-
   const content = cart?.map((product) => (
     <Product
       key={product.id}

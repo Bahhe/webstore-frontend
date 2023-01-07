@@ -47,11 +47,13 @@ const ProductListPage = () => {
 
   const [deleteProduct] = useDeleteProductMutation()
 
-  const {
-    data: products,
-    isLoading,
-    isSuccess,
-  } = useGetProductsQuery("products", {
+  const { products, isLoading, isSuccess } = useGetProductsQuery("products", {
+    selectFromResult: ({ data, isLoading, isSuccess }) => ({
+      products: data?.entities,
+      isLoading,
+      isSuccess,
+    }),
+    pollingInterval: 3000,
     refetchOnMountOrArgChange: true,
   })
 
@@ -60,7 +62,6 @@ const ProductListPage = () => {
   }
 
   if (isSuccess) {
-    const { entities } = products
     const columns = [
       { field: "id", headerName: "ID", width: 240 },
       {
@@ -110,7 +111,7 @@ const ProductListPage = () => {
       },
     ]
 
-    const rows = Object.values(entities).map((product) => ({
+    const rows = Object.values(products).map((product) => ({
       id: product.id,
       image: product.img,
       title: product.title,

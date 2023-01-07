@@ -63,16 +63,19 @@ const SecondSlider = () => {
 
   let filteredIds
   let dataLength
-  const { data, isSuccess, isLoading, isError, error } =
-    useGetProductsQuery("products")
-  if (isError) {
-    return <p>{error?.data?.message}</p>
-  }
+  const { products, isSuccess, isLoading } = useGetProductsQuery("products", {
+    selectFromResult: ({ data, isLoading, isSuccess }) => ({
+      products: data,
+      isLoading,
+      isSuccess,
+    }),
+  })
+
   if (isLoading) {
     return <PulseLoader />
   }
   if (isSuccess) {
-    const { ids, entities } = data
+    const { ids, entities } = products
     filteredIds = ids.filter((productId) =>
       entities[productId].section.includes("secondSlider")
     )

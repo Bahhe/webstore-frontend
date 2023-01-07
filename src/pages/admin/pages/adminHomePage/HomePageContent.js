@@ -22,19 +22,19 @@ import {
 import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
 import { PulseLoader } from "react-spinners"
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   border-left: 1px solid lightgrey;
   padding: 0 5em;
 `
-const Left = styled.div`
+const Left = styled.section`
   margin: 1em;
   padding: 1em;
   box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
   border-radius: 1em;
 `
-const Title = styled.div`
+const Title = styled.h1`
   font-size: 1.5em;
   text-transform: capitalize;
   font-weight: 500;
@@ -55,12 +55,13 @@ const Image = styled.img`
 const UserInfo = styled.div`
   margin: 0 0 0 1em;
 `
-const Name = styled.div`
+const Name = styled.h2`
   text-transform: capitalize;
   font-size: 0.9em;
   font-weight: 500;
 `
-const Display = styled.div`
+const Display = styled.button`
+  border: none;
   display: flex;
   align-items: center;
   margin: 0 0 0 4em;
@@ -71,16 +72,16 @@ const Display = styled.div`
   text-transform: capitalize;
   cursor: pointer;
 `
-const Right = styled.div`
+const Right = styled.section`
   margin: 1em;
   padding: 1em;
   box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
   border-radius: 1em;
 `
-const Table = styled.div`
+const Table = styled.section`
   padding: 0.5em;
 `
-const TableTitle = styled.div`
+const TableTitle = styled.header`
   display: flex;
   align-items: center;
   margin: 1em 0;
@@ -93,7 +94,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `
-const Statistics = styled.div`
+const Statistics = styled.section`
   padding: 1em;
   display: flex;
   width: 100%;
@@ -111,19 +112,19 @@ const Item = styled.div`
   box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
   cursor: pointer;
 `
-const ItemName = styled.div`
+const ItemName = styled.h3`
   font-weight: 500;
   opacity: 0.9;
   text-transform: capitalize;
 `
-const ItemQuantity = styled.div`
+const ItemQuantity = styled.p`
   display: flex;
   align-items: center;
   font-size: 1.5em;
   font-weight: 300;
   margin: 1em 0 0 0;
 `
-const Chart = styled.div``
+const Chart = styled.section``
 
 const HomePageContent = () => {
   const data = [

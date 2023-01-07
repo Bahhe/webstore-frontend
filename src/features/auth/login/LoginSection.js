@@ -6,11 +6,12 @@ import { setCredentials } from "../authSlice"
 import { useLoginMutation } from "../authApiSlice"
 import jwtDecode from "jwt-decode"
 import { mobile } from "../../../assests/globalStyles/responsive"
+import PulseLoader from "react-spinners/PulseLoader"
 
-const Container = styled.div`
+const Container = styled.main`
   width: 100%;
 `
-const Section = styled.div`
+const Section = styled.section`
   width: 100%;
   display: flex;
   gap: 2em;
@@ -18,11 +19,12 @@ const Section = styled.div`
     flexDirection: "column",
   })}
 `
-const Title = styled.div`
+const Title = styled.h1`
   width: 100%;
   font-size: 2.5em;
   text-transform: capitalize;
   padding: 0.5em 0;
+  font-weight: 400;
 `
 const Left = styled.form`
   flex: 1;
@@ -34,12 +36,12 @@ const Right = styled.div`
   background-color: rgba(0, 0, 0, 0.05);
   padding: 1em;
 `
-const SectionTitle = styled.div`
+const SectionTitle = styled.h1`
   font-size: 1.3em;
   text-transform: uppercase;
   padding: 1em 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  opacity: 0.9;
+  opacity: 0.7;
 `
 const SmallTitle = styled.label`
   text-transform: capitalize;
@@ -79,7 +81,7 @@ const Button = styled.button`
   cursor: pointer;
   margin: 0 1em 0 0;
 `
-const Desc = styled.div`
+const Desc = styled.p`
   font-size: 0.9em;
   opacity: 0.8;
   padding: 1em 0;
@@ -90,9 +92,9 @@ const Wrapper = styled.div`
 `
 
 const LoginSection = () => {
-  const [showPassword, setShowPassword] = useState(false)
   const userRef = useRef()
   const errRef = useRef()
+  const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errMsg, setErrMsg] = useState("")
@@ -142,7 +144,8 @@ const LoginSection = () => {
   const onPasswordChanged = (e) => setPassword(e.target.value)
 
   const [login, { isLoading }] = useLoginMutation()
-  if (isLoading) return <p>login...</p>
+
+  if (isLoading) return <PulseLoader />
 
   return (
     <Container>
@@ -182,6 +185,7 @@ const LoginSection = () => {
               checked={showPassword}
               type="checkbox"
               name="radio"
+              id="radio"
             />
             <Label htmlFor="radio">show password</Label>
           </RadioButton>

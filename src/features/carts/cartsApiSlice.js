@@ -1,5 +1,5 @@
-import { createEntityAdapter, createSelector } from '@reduxjs/toolkit'
-import { apiSlice } from '../../app/api/apiSlice'
+import { createEntityAdapter } from "@reduxjs/toolkit"
+import { apiSlice } from "../../app/api/apiSlice"
 
 const cartsAdapter = createEntityAdapter({})
 
@@ -9,7 +9,7 @@ export const cartsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCarts: builder.query({
       query: () => ({
-        url: '/carts',
+        url: "/carts",
         validateStatus: (response, result) => {
           return response.status === 200 && !result.isError
         },
@@ -24,27 +24,27 @@ export const cartsApiSlice = apiSlice.injectEndpoints({
       providesTags: (result, error, arg) => {
         if (result?.ids) {
           return [
-            { type: 'Cart', id: 'LIST' },
-            ...result.ids.map((id) => ({ type: 'Cart', id })),
+            { type: "Cart", id: "LIST" },
+            ...result.ids.map((id) => ({ type: "Cart", id })),
           ]
-        } else return [{ type: 'Cart', id: 'LIST' }]
+        } else return [{ type: "Cart", id: "LIST" }]
       },
     }),
     addNewCart: builder.mutation({
       query: (cart) => ({
-        url: '/carts',
-        method: 'POST',
+        url: "/carts",
+        method: "POST",
         body: cart,
       }),
-      invalidatesTags: [{ type: 'Cart', id: 'LIST' }],
+      invalidatesTags: [{ type: "Cart", id: "LIST" }],
     }),
     deleteCart: builder.mutation({
       query: ({ id }) => ({
-        url: '/carts',
-        method: 'DELETE',
+        url: "/carts",
+        method: "DELETE",
         body: { id },
       }),
-      invalidatesTags: [{ type: 'Cart', id: 'LIST' }],
+      invalidatesTags: [{ type: "Cart", id: "LIST" }],
     }),
   }),
 })
@@ -54,16 +54,3 @@ export const {
   useAddNewCartMutation,
   useDeleteCartMutation,
 } = cartsApiSlice
-
-export const selectCartsResult = cartsApiSlice.endpoints.getCarts.select()
-
-const selectCartsData = createSelector(
-  selectCartsResult,
-  (cartsResult) => cartsResult.data
-)
-
-export const {
-  selectAll: selectAllCarts,
-  selectById: selectCartById,
-  selectIds: selectCartIds,
-} = cartsAdapter.getSelectors((state) => selectCartsData(state) ?? initialState)

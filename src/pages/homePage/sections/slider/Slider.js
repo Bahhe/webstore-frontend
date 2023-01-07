@@ -4,8 +4,8 @@ import { useRef, useState } from "react"
 import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
 import Product from "./Product"
 import styled from "styled-components"
-import PulseLoader from "react-spinners/PulseLoader"
 import { mobile } from "../../../../assests/globalStyles/responsive"
+import Loader from "../../../../components/Loader"
 
 const Arrow = styled.div`
   display: flex;
@@ -61,15 +61,20 @@ const Slider = () => {
 
   const [slideIndex, setSlideIndex] = useState(0)
 
-  const { data: products, isLoading } = useGetProductsQuery("products")
-
-  let content
-  if (isLoading) return (content = <PulseLoader />)
+  const { products, isLoading } = useGetProductsQuery("products", {
+    selectFromResult: ({ data, isLoading }) => ({
+      products: data,
+      isLoading,
+    }),
+  })
+  if (isLoading) return <Loader />
+  if (!products) return <p>no product found</p>
   const { ids, entities } = products
-  const filteredIds = ids.filter((productId) =>
-    entities[productId].section.includes("slider")
-  )
-  const dataLength = filteredIds.length - 1
+  const filteredIds =
+    ids?.length &&
+    ids.filter((productId) => entities[productId].section.includes("slider"))
+  const dataLength = filteredIds?.length && filteredIds.length - 1
+
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : dataLength)
@@ -78,23 +83,23 @@ const Slider = () => {
     }
   }
 
-  const sliderContent = filteredIds.map((productId) => (
-    <Product key={productId} productId={productId} slideIndex={slideIndex} />
-  ))
+  const sliderContent =
+    ids?.length &&
+    filteredIds.map((productId) => (
+      <Product key={productId} productId={productId} slideIndex={slideIndex} />
+    ))
 
-  content = (
+  return (
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowBackIosIcon style={{ fontSize: "1em" }} />
       </Arrow>
-      <Slide>{sliderContent}</Slide>
+      <Slide>{sliderContent && sliderContent}</Slide>
       <Arrow ref={ref} direction="right" onClick={() => handleClick("right")}>
         <ArrowForwardIosIcon style={{ fontSize: "1em" }} />
       </Arrow>
     </Container>
   )
-
-  return content
 }
 
 export default Slider

@@ -54,13 +54,15 @@ function App() {
 
         {/* protected routes */}
         <Route element={<PersistLogin />}>
-          <Route index element={<Home />} />
-          <Route path="shop">
-            <Route index element={<Shop />} />
-            <Route path="product/:userId" element={<ProductView />} />
+          <Route element={<Prefetch />}>
+            <Route index element={<Home />} />
+            <Route path="shop">
+              <Route index element={<Shop />} />
+              <Route path="product/:userId" element={<ProductView />} />
+            </Route>
+            <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<Checkout />} />
           </Route>
-          <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<Checkout />} />
         </Route>
         {/* protected routes */}
       </Route>

@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { Outlet } from "react-router-dom"
 import Footer from "../../../components/Footer"
 
-const Container = styled.div`
+const Container = styled.main`
   width: 100%;
 `
 const Wrapper = styled.div`

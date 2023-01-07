@@ -1,18 +1,19 @@
 import SearchIcon from "@mui/icons-material/Search"
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined"
-import { Badge } from "@mui/material"
+import { Dashboard, LogoutOutlined } from "@mui/icons-material"
 import MenuIcon from "@mui/icons-material/Menu"
+import styled from "styled-components"
+import { Badge } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useSendLogoutMutation } from "../features/auth/authApiSlice"
-import styled from "styled-components"
 import { useSelector } from "react-redux"
-import { selectCurrentToken } from "../features/auth/authSlice"
-import useAuth from "../hooks/useAuth"
-import { Dashboard, LogoutOutlined } from "@mui/icons-material"
-import { laptop, mobile } from "../assests/globalStyles/responsive"
-import ToggleMenu from "./ToggleMenu"
 import { useState } from "react"
+import { selectCurrentToken } from "../features/auth/authSlice"
+import { laptop, mobile } from "../assests/globalStyles/responsive"
+import useAuth from "../hooks/useAuth"
+import ToggleMenu from "./ToggleMenu"
+import PulseLoader from "react-spinners/PulseLoader"
 
 const Container = styled.div`
   display: flex;
@@ -172,7 +173,7 @@ const NavBar = () => {
 
   const onLogoutClicked = () => sendLogout()
 
-  if (isLoading) return <p>login out...</p>
+  if (isLoading) return <PulseLoader />
   if (isError) return <p>{error.message}</p>
 
   return (

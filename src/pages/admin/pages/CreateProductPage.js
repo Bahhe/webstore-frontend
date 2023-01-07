@@ -12,38 +12,38 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import useTitle from "../../../hooks/useTitle"
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
 `
-const Header = styled.div`
+const Header = styled.header`
   display: flex;
   justify-content: space-between;
 `
-const Title = styled.div`
+const Title = styled.h1`
   text-transform: capitalize;
   font-size: 2em;
   font-weight: 500;
 `
-const Edit = styled.div`
+const Edit = styled.section`
   margin: 1em;
   border-radius: 1em;
   box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
   padding: 1em;
 `
 
-const Content = styled.div`
+const Content = styled.section`
   display: flex;
 `
 
-const Left = styled.div`
+const Left = styled.section`
   margin: 1em;
 `
 
-const ImageSection = styled.div`
+const ImageSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -52,11 +52,11 @@ const ImageSection = styled.div`
 
 const ImageInput = styled.input``
 
-const FormOne = styled.div`
+const FormOne = styled.section`
   display: flex;
   flex-direction: column;
 `
-const FormTwo = styled.div`
+const FormTwo = styled.section`
   display: flex;
   flex-direction: column;
 `
@@ -103,7 +103,7 @@ const Wrapper = styled.div`
   align-items: flex-start;
 `
 
-const Sections = styled.div`
+const Sections = styled.section`
   display: flex;
   flex-direction: column;
   margin: 1em;

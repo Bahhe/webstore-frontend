@@ -4,9 +4,9 @@ import styled from "styled-components"
 import Products from "./Products"
 import { useListProductsQuery } from "../../features/products/productsApiSlice"
 import { useLocation } from "react-router-dom"
-import PulseLoader from "react-spinners/PulseLoader"
 import { laptop, mobile } from "../../assests/globalStyles/responsive"
 import useTitle from "../../hooks/useTitle"
+import Loader from "../../components/Loader"
 
 const Container = styled.div`
   margin: 5em 0 0 0;
@@ -106,6 +106,7 @@ const Right = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 `
 const LayoutSection = styled.div`
   display: flex;
@@ -113,6 +114,7 @@ const LayoutSection = styled.div`
   margin: 0 1em;
 `
 const NumberOfItems = styled.div`
+  text-align: right;
   font-size: 0.8em;
   color: rgba(0, 0, 0, 0.8);
 `
@@ -229,7 +231,8 @@ const ShopSection = () => {
   }
 
   let shopProducts
-  if (isLoading) return (shopProducts = <PulseLoader size={10} />)
+  if (isLoading) return <Loader />
+  if (!products) return <p>something went wrong</p>
   shopProducts = !products.products?.length ? (
     <p>no product found</p>
   ) : (
@@ -622,7 +625,7 @@ const ShopSection = () => {
             </LayoutSection>
           </Left>
           <Right>
-            <SortBySection>
+            <SortBySection style={{ alignItems: "flex-end" }}>
               <NumberOfItems style={{ marginRight: ".5em" }}>
                 {products?.products?.length > 1 ? "items" : "item"}{" "}
                 {products?.products?.length} of {products.total}

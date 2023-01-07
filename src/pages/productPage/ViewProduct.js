@@ -9,8 +9,8 @@ import { useGetProductByIdQuery } from "../../features/products/productsApiSlice
 import { useNavigate, useParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../../features/carts/cartSlice"
-import PulseLoader from "react-spinners/PulseLoader"
 import { mobile } from "../../assests/globalStyles/responsive"
+import Loader from "../../components/Loader"
 
 const Container = styled.div`
   width: 100%;
@@ -136,7 +136,7 @@ const ViewProduct = () => {
     navigate(`/checkout`)
   }
 
-  if (isLoading) return <PulseLoader />
+  if (isLoading) return <Loader />
 
   if (!product) return <p>product not found</p>
 

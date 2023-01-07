@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom"
 import useAuth from "../../../hooks/useAuth"
 import { useGetUsersQuery } from "../../../features/users/usersApiSlice"
 
-const Container = styled.div`
+const Container = styled.ul`
   padding: 2em;
   position: sticky;
   top: 0;
@@ -22,14 +22,14 @@ const Container = styled.div`
   border: 1px solid lightgrey;
   margin: 1em;
 `
-const Title = styled.div`
+const Title = styled.h1`
   margin: 1.5em 0 0 0;
   font-size: 0.9em;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.3);
   text-transform: capitalize;
 `
-const ListItem = styled.div`
+const ListItem = styled.li`
   margin: 0.5em;
   text-transform: capitalize;
   color: rgba(0, 0, 0, 0.7);
@@ -41,13 +41,13 @@ const ListItem = styled.div`
     color: red;
   }
 `
-const Wrapper = styled.div`
+const Wrapper = styled.aside`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 1em 0 0 0;
 `
-const Admin = styled.div`
+const Admin = styled.section`
   display: flex;
   align-items: center;
   font-size: 0.5em;
@@ -59,6 +59,7 @@ const Img = styled.img`
 `
 const Name = styled.h1`
   cursor: pointer;
+  font-size: 2em;
 `
 
 const AdminSideBar = () => {

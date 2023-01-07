@@ -2,21 +2,21 @@ import styled from "styled-components"
 import UploadIcon from "@mui/icons-material/Upload"
 import useTitle from "../../../hooks/useTitle"
 
-const Container = styled.div`
+const Container = styled.main`
   margin: 10em 10em 0 15%;
   width: 100%;
 `
-const Header = styled.div`
+const Header = styled.header`
   display: flex;
   width: 100%;
   justify-content: space-between;
 `
-const Title = styled.div`
+const Title = styled.h1`
   text-transform: capitalize;
   font-size: 2em;
   font-weight: 500;
 `
-const Edit = styled.div`
+const Edit = styled.section`
   width: 100%;
   margin: 1em;
   border-radius: 1em;
@@ -24,21 +24,21 @@ const Edit = styled.div`
   padding: 1em;
 `
 
-const Content = styled.div`
+const Content = styled.form`
   display: flex;
 `
-const Right = styled.div`
+const Right = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
 `
 
-const Left = styled.div`
+const Left = styled.section`
   margin: 1em;
 `
 
-const ImageSection = styled.div`
+const ImageSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -60,7 +60,7 @@ const ProfilePic = styled.img`
   object-fit: contain;
 `
 
-const ButtonSection = styled.div`
+const ButtonSection = styled.section`
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
@@ -78,7 +78,7 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const Form = styled.div`
+const Form = styled.section`
   display: flex;
   flex-direction: column;
 `

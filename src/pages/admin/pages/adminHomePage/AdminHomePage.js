@@ -3,7 +3,7 @@ import styled from "styled-components"
 import useTitle from "../../../../hooks/useTitle"
 import Users from "./HomePageContent"
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   height: 100%;

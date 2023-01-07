@@ -1,4 +1,4 @@
-import { createEntityAdapter, createSelector } from "@reduxjs/toolkit"
+import { createEntityAdapter } from "@reduxjs/toolkit"
 import { apiSlice } from "../../app/api/apiSlice"
 
 const productsAdapter = createEntityAdapter({
@@ -122,19 +122,3 @@ export const {
   useUpdateProductMutation,
   useListProductsQuery,
 } = productsApiSlice
-
-export const selectProductsResult =
-  productsApiSlice.endpoints.getProducts.select()
-
-const selectProductsData = createSelector(
-  selectProductsResult,
-  (productsResult) => productsResult.data
-)
-
-export const {
-  selectAll: selectAllProducts,
-  selectById: selectProductById,
-  selectIds: selectProductIds,
-} = productsAdapter.getSelectors(
-  (state) => selectProductsData(state) ?? initialState
-)

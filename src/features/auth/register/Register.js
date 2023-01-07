@@ -1,8 +1,8 @@
-import React from 'react'
-import RegisterSection from './RegisterSection'
-import styled from 'styled-components'
+import React from "react"
+import RegisterSection from "./RegisterSection"
+import styled from "styled-components"
 
-const Container = styled.div`
+const Container = styled.main`
   margin: 10em 0 0 0;
 `
 
