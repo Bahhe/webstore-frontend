@@ -164,7 +164,7 @@ const MobileSearch = styled.input`
 
 const Search = styled.input`
   width: 50%;
-  margin: auto;
+  margin: 0 3em 0 0;
   padding: 0.5em;
   border-radius: 50px;
   border: none;
@@ -210,6 +210,7 @@ const ShopSection = () => {
   }
 
   const handleSearch = (e) => {
+    setCategory("all")
     setSearch(e.target.value)
     refetch()
   }
@@ -452,7 +453,7 @@ const ShopSection = () => {
                   opacity: ".6",
                 }}
               />
-              <Text name="toshiba" onClick={handleFilters}>
+              <Text name="fujitsu" onClick={handleFilters}>
                 fujitsu
               </Text>
             </TextWrapper>
@@ -482,7 +483,7 @@ const ShopSection = () => {
                   opacity: ".6",
                 }}
               />
-              <Text name="toshiba" onClick={handleFilters}>
+              <Text name="samsung" onClick={handleFilters}>
                 samsung
               </Text>
             </TextWrapper>
@@ -497,7 +498,7 @@ const ShopSection = () => {
                   opacity: ".6",
                 }}
               />
-              <Text name="toshiba" onClick={handleFilters}>
+              <Text name="lg" onClick={handleFilters}>
                 lg
               </Text>
             </TextWrapper>
@@ -512,7 +513,7 @@ const ShopSection = () => {
                   opacity: ".6",
                 }}
               />
-              <Text name="toshiba" onClick={handleFilters}>
+              <Text name="condor" onClick={handleFilters}>
                 condor
               </Text>
             </TextWrapper>
@@ -527,7 +528,7 @@ const ShopSection = () => {
                   opacity: ".6",
                 }}
               />
-              <Text name="toshiba" onClick={handleFilters}>
+              <Text name="msi" onClick={handleFilters}>
                 msi
               </Text>
             </TextWrapper>
@@ -542,7 +543,7 @@ const ShopSection = () => {
                   opacity: ".6",
                 }}
               />
-              <Text name="toshiba" onClick={handleFilters}>
+              <Text name="wiseTech" onClick={handleFilters}>
                 wiseTech
               </Text>
             </TextWrapper>
@@ -557,7 +558,7 @@ const ShopSection = () => {
                   opacity: ".6",
                 }}
               />
-              <Text name="toshiba" onClick={handleFilters}>
+              <Text name="honor" onClick={handleFilters}>
                 honor
               </Text>
             </TextWrapper>
