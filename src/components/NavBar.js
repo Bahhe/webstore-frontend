@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react'
-import SearchIcon from '@mui/icons-material/Search'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined'
-import { Badge } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
-import { useSendLogoutMutation } from '../features/auth/authApiSlice'
-import styled from 'styled-components'
-import { useSelector } from 'react-redux'
-import { selectCurrentToken } from '../features/auth/authSlice'
+import SearchIcon from "@mui/icons-material/Search"
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined"
+import { Badge } from "@mui/material"
+import MenuIcon from "@mui/icons-material/Menu"
+import { useNavigate } from "react-router-dom"
+import { useSendLogoutMutation } from "../features/auth/authApiSlice"
+import styled from "styled-components"
+import { useSelector } from "react-redux"
+import { selectCurrentToken } from "../features/auth/authSlice"
+import useAuth from "../hooks/useAuth"
+import { Dashboard, LogoutOutlined } from "@mui/icons-material"
+import { laptop, mobile } from "../assests/globalStyles/responsive"
+import ToggleMenu from "./ToggleMenu"
+import { useState } from "react"
 
 const Container = styled.div`
   display: flex;
@@ -32,10 +37,13 @@ const Right = styled.div`
   justify-content: flex-end;
   flex: 1;
   text-align: center;
+  ${mobile({
+    display: "none",
+  })}
 `
 
 const Left = styled.div`
-  flex: 1;
+  flex: 2;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -56,6 +64,9 @@ const Links = styled.ul`
   justify-content: space-around;
   text-transform: capitalize;
   cursor: pointer;
+  ${mobile({
+    display: "none",
+  })}
 `
 const LinkElement = styled.li`
   flex: 1;
@@ -92,7 +103,6 @@ const Register = styled.span`
 `
 const IconsContainer = styled.div`
   display: flex;
-  align-items: center;
   justify-content: flex-start;
 `
 const Search = styled.div`
@@ -109,10 +119,39 @@ const Cart = styled.div`
     opacity: 0.5;
   }
 `
-const Logout = styled.button``
+const MobileCart = styled.div`
+  padding: 0.5em;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.5;
+  }
+  ${laptop({
+    display: "none",
+  })}
+`
+const Logout = styled.button`
+  border: none;
+  background-color: transparent;
+  margin: 0 1em;
+  cursor: pointer;
+`
+const AdminDashBoard = styled.button`
+  border: none;
+  background-color: transparent;
+  margin: 0 1em;
+  cursor: pointer;
+`
+const MenuButton = styled.div`
+  cursor: pointer;
+  ${laptop({
+    display: "none",
+  })}
+`
+const MenuWrapper = styled.div``
 
 const NavBar = () => {
-  const {cart} = useSelector((state) => state.cart)
+  const [showButton, setShowButton] = useState(false)
+  const { cart } = useSelector((state) => state.cart)
 
   const getTotalQuantity = () => {
     let total = 0
@@ -123,17 +162,13 @@ const NavBar = () => {
   }
   const token = useSelector(selectCurrentToken)
   const navigate = useNavigate()
+  const { isAdmin } = useAuth()
 
-  const onSearchBarClicked = () => {}
+  const onSearchBarClicked = () => {
+    navigate("/shop")
+  }
 
-  const [sendLogout, { isSuccess, isLoading, isError, error }] =
-    useSendLogoutMutation()
-
-  useEffect(() => {
-    if (isSuccess) {
-      navigate('/')
-    }
-  }, [isSuccess, navigate])
+  const [sendLogout, { isLoading, isError, error }] = useSendLogoutMutation()
 
   const onLogoutClicked = () => sendLogout()
 
@@ -144,51 +179,70 @@ const NavBar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Link to="/">
-            <Logo>TIMGAD.</Logo>
-          </Link>
+          <MenuButton onClick={() => setShowButton((prev) => !prev)}>
+            <MenuIcon style={{ color: "black", fontSize: "2em" }} />
+          </MenuButton>
+          {showButton && (
+            <MenuWrapper onClick={() => setShowButton((prev) => !prev)}>
+              <ToggleMenu />
+            </MenuWrapper>
+          )}
+          <Logo onClick={() => navigate("/")}>TIMGAD.</Logo>
+          <MobileCart onClick={() => navigate("/cart")}>
+            <Badge badgeContent={getTotalQuantity() || 0} color="success">
+              <ShoppingCartOutlinedIcon style={{ width: ".9em" }} />
+            </Badge>
+          </MobileCart>
           <Links>
-            <Link style={{ textDecoration: 'none', color: 'black' }} to="/">
-              <LinkElement>home</LinkElement>
-            </Link>
-            <Link style={{ textDecoration: 'none', color: 'black' }} to="shop">
-              <LinkElement>shop</LinkElement>
-            </Link>
-            <Link
-              style={{ textDecoration: 'none', color: 'black' }}
-              to="contact"
+            <LinkElement onClick={() => navigate(`/`)}>home</LinkElement>
+            <LinkElement onClick={() => navigate(`/shop`)}>shop</LinkElement>
+            <LinkElement
+              onClick={() =>
+                window.scrollBy({
+                  top: document.documentElement.scrollHeight,
+                  behavior: "smooth",
+                })
+              }
             >
-              <LinkElement>contact us</LinkElement>
-            </Link>
-            <Link style={{ textDecoration: 'none', color: 'black' }} to="about">
-              <LinkElement>about</LinkElement>
-            </Link>
+              contact us
+            </LinkElement>
+            <LinkElement>about</LinkElement>
           </Links>
         </Left>
         <Right>
-          <RegisterContainer>
-            <Link to="login">
-              <Login>
-                <PersonOutlineOutlinedIcon style={{ width: '.7em' }} />
+          {isAdmin && (
+            <AdminDashBoard onClick={() => navigate("/admin")}>
+              <Dashboard />
+            </AdminDashBoard>
+          )}
+          {token ? (
+            <Logout onClick={onLogoutClicked}>
+              <LogoutOutlined />
+            </Logout>
+          ) : (
+            <RegisterContainer>
+              <Login
+                onClick={() => {
+                  navigate("/login")
+                }}
+              >
+                <PersonOutlineOutlinedIcon style={{ width: ".7em" }} />
                 login
               </Login>
-            </Link>
-            <span>/</span>
-            <Link to="register">
-              <Register>register</Register>
-            </Link>
-            {token && <Logout onClick={onLogoutClicked}>logout</Logout>}
-          </RegisterContainer>
+              <span>/</span>
+              <Register onClick={() => navigate("/register")}>
+                register
+              </Register>
+            </RegisterContainer>
+          )}
           <IconsContainer>
             <Search onClick={onSearchBarClicked}>
-              <SearchIcon style={{ width: '1em' }} />
+              <SearchIcon style={{ width: "1em" }} />
             </Search>
-            <Cart>
-              <Link to="/cart">
-                <Badge badgeContent={getTotalQuantity() || 0} color="success">
-                  <ShoppingCartOutlinedIcon style={{ width: '.9em' }} />
-                </Badge>
-              </Link>
+            <Cart onClick={() => navigate("/cart")}>
+              <Badge badgeContent={getTotalQuantity() || 0} color="success">
+                <ShoppingCartOutlinedIcon style={{ width: ".9em" }} />
+              </Badge>
             </Cart>
           </IconsContainer>
         </Right>

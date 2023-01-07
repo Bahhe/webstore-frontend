@@ -1,8 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import CartProduct from './CartProduct'
-import { useSelector } from 'react-redux'
+import React from "react"
+import { useNavigate } from "react-router-dom"
+import styled from "styled-components"
+import CartProduct from "./CartProduct"
+import { useSelector } from "react-redux"
+import { mobile } from "../../assests/globalStyles/responsive"
+import useTitle from "../../hooks/useTitle"
 
 const Container = styled.div`
   width: 100%;
@@ -11,6 +13,9 @@ const TitleSection = styled.div``
 const MainContent = styled.div`
   display: flex;
   gap: 5em;
+  ${mobile({
+    flexDirection: "column",
+  })}
 `
 
 const Title = styled.div`
@@ -79,22 +84,6 @@ const MainTitle = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 0 0 1em 0;
 `
-const SmallTitle = styled.div`
-  padding: 1em 0 0 0;
-  text-transform: capitalize;
-  font-weight: 600;
-`
-const Desc = styled.div`
-  font-size: 0.8em;
-  padding: 1em 0 0 0;
-`
-const Input = styled.input`
-  width: 100%;
-  height: 2.5em;
-  padding: 0 0 0 1em;
-  margin: 0.8em 0 0 0;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-`
 const Pricing = styled.div`
   display: flex;
   align-items: center;
@@ -135,6 +124,8 @@ const CheckOutButton = styled.button`
 `
 
 const ShoppingCart = () => {
+  useTitle("TIMGAD. | Cart")
+  const navigate = useNavigate()
   const { cart } = useSelector((state) => state.cart)
 
   const getTotal = () => {
@@ -175,27 +166,16 @@ const ShoppingCart = () => {
             </LeftLabels>
             <RightLabels>
               <Label>price</Label>
-              <Label>qty</Label>
-              <Label>subtotal</Label>
             </RightLabels>
           </Labels>
           {product}
           <LowerSection>
-            <Button>continue shopping</Button>
-            <Button>update cart</Button>
+            <Button onClick={() => navigate("/shop")}>continue shopping</Button>
           </LowerSection>
         </Left>
         <Right>
           <MainTitle>summary</MainTitle>
-          <SmallTitle>estimated shipping and tax</SmallTitle>
-          <Desc>Lorem ipsum dolor sit amet.</Desc>
-          <SmallTitle>country</SmallTitle>
-          <Input />
-          <SmallTitle>state/province</SmallTitle>
-          <Input />
-          <SmallTitle>zip/postal code</SmallTitle>
-          <Input />
-          <Pricing style={{ margin: '3em 0 0 0' }}>
+          <Pricing style={{ borderTop: "none" }}>
             <PricingTitle>subtotal</PricingTitle>
             <Amount>${subtotal}</Amount>
           </Pricing>
@@ -203,15 +183,15 @@ const ShoppingCart = () => {
             <PricingTitle>shipping</PricingTitle>
             <Amount>${shippingPrice}</Amount>
           </Pricing>
-          <OrderTotal style={{ padding: '2em 0' }}>
+          <OrderTotal style={{ padding: "2em 0" }}>
             <PricingTitle>order total</PricingTitle>
-            <Amount style={{ fontWeight: '600' }}>
+            <Amount style={{ fontWeight: "600" }}>
               ${subtotal && orderTotal}
             </Amount>
           </OrderTotal>
           <ButtonContainer>
-            <CheckOutButton>
-              <Link to="/checkout">proceed to checkout</Link>
+            <CheckOutButton onClick={() => navigate(`/checkout`)}>
+              proceed to checkout
             </CheckOutButton>
           </ButtonContainer>
         </Right>

@@ -1,5 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
+import { mobile } from "../../../assests/globalStyles/responsive"
 
 const Container = styled.div`
   width: 100%;
@@ -7,6 +8,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${mobile({ flexDirection: "column" })}
 `
 const ImgOne = styled.img`
   object-fit: cover;
@@ -16,6 +18,7 @@ const ImgOne = styled.img`
   &:hover {
     opacity: 0.8;
   }
+  ${mobile({ width: "100%" })}
 `
 
 const ImgTwo = styled.img`
@@ -26,6 +29,7 @@ const ImgTwo = styled.img`
   &:hover {
     opacity: 0.8;
   }
+  ${mobile({ width: "100%" })}
 `
 
 const DoubleProduct = () => {

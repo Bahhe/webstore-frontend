@@ -1,13 +1,15 @@
-import React from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper'
-import 'swiper/css'
-import 'swiper/css/free-mode'
-import styled from 'styled-components'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
-import Product from './Product'
+import React from "react"
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation, FreeMode } from "swiper"
+import "swiper/css"
+import "swiper/css/free-mode"
+import styled from "styled-components"
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
+import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
+import Product from "./Product"
+import PulseLoader from "react-spinners/PulseLoader"
+import { mobile } from "../../../../assests/globalStyles/responsive"
 
 const Arrow = styled.div`
   display: flex;
@@ -18,10 +20,10 @@ const Arrow = styled.div`
   height: 5em;
   top: 0;
   bottom: 0;
-  left: ${(props) => props.direction === 'left' && '1em'};
-  right: ${(props) => props.direction === 'right' && '1em'};
+  left: ${(props) => props.direction === "left" && "1em"};
+  right: ${(props) => props.direction === "right" && "1em"};
   transform: translateX(
-    ${(props) => (props.direction === 'right' ? '6' : '-6')}em
+    ${(props) => (props.direction === "right" ? "6" : "-6")}em
   );
   margin: auto;
   border-radius: 50%;
@@ -34,6 +36,12 @@ const Arrow = styled.div`
   &:hover {
     opacity: 1;
   }
+  ${mobile({
+    visibility: "visible",
+    opacity: "1",
+    transform: (props) =>
+      props.direction === "right" ? `translateX(4em)` : `translateX(-4em)`,
+  })}
 `
 
 const MainContainer = styled.div`
@@ -42,21 +50,26 @@ const MainContainer = styled.div`
   height: 30em;
   position: relative;
   &:hover ${Arrow} {
-    visibility: visible;
+    visibility: ${(props) =>
+      props.direction === "left" ? "visible" : "visible"};
   }
 `
 
 const ProductSlider = () => {
   const {
     data: products,
+    isLoading,
     isSuccess,
     isError,
     error,
-  } = useGetProductsQuery('products')
+  } = useGetProductsQuery("products")
 
   let product
   if (isError) {
     return <p>{error}</p>
+  }
+  if (isLoading) {
+    return <PulseLoader />
   }
   if (isSuccess) {
     const { ids } = products
@@ -72,21 +85,34 @@ const ProductSlider = () => {
   return (
     <MainContainer>
       <Arrow direction="left" className="image-swiper-button-prev">
-        <ArrowBackIcon style={{ fontSize: '1.3em' }} />
+        <ArrowBackIcon style={{ fontSize: "1.3em" }} />
       </Arrow>
       <Arrow direction="right" className="image-swiper-button-next">
-        <ArrowForwardIcon style={{ fontSize: '1.3em' }} />
+        <ArrowForwardIcon style={{ fontSize: "1.3em" }} />
       </Arrow>
       <Swiper
         navigation={{
-          nextEl: '.image-swiper-button-next',
-          prevEl: '.image-swiper-button-prev',
-          disabledClass: 'swiper-button-disabled',
+          nextEl: ".image-swiper-button-next",
+          prevEl: ".image-swiper-button-prev",
+          disabledClass: "swiper-button-disabled",
         }}
-        modules={[Navigation]}
-        slidesPerView={4}
-        spaceBetween={50}
+        modules={[Navigation, FreeMode]}
+        slidesPerView={1}
+        spaceBetween={80}
+        freeMode={true}
         loop={true}
+        breakpoints={{
+          1600: {
+            width: 1600,
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
+          480: {
+            width: 480,
+            slidesPerView: 3,
+            spaceBetween: 50,
+          },
+        }}
       >
         {product}
       </Swiper>

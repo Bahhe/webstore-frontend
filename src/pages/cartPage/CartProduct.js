@@ -1,10 +1,6 @@
-import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
-import {
-  incrementQuantity,
-  decrementQuantity,
-  removeItem,
-} from '../../features/carts/cartSlice'
+import styled from "styled-components"
+import { useDispatch } from "react-redux"
+import { removeItem } from "../../features/carts/cartSlice"
 
 const ProductContainer = styled.div``
 
@@ -52,19 +48,6 @@ const Price = styled.div`
   margin: 0 0.5em;
   opacity: 0.7;
 `
-const Quantity = styled.p`
-  width: 4em;
-  height: 3em;
-  margin: 0 1em;
-  padding: 0 0 0 1.5em;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-`
-const Subtotal = styled.div`
-  font-weight: 600;
-  font-size: 1.3em;
-  margin: 0 0.5em;
-  opacity: 0.7;
-`
 const EditingSection = styled.div`
   width: 100%;
   margin: 1em 0;
@@ -101,10 +84,6 @@ const CartProduct = ({ id, image, title, price, quantity = 0 }) => {
         <Numbers>
           <NumbersWrapper>
             <Price>${price}</Price>
-            <button onClick={() => dispatch(decrementQuantity(id))}>-</button>
-            <Quantity>{quantity}</Quantity>
-            <button onClick={() => dispatch(incrementQuantity(id))}>+</button>
-            <Subtotal>${price * quantity}</Subtotal>
           </NumbersWrapper>
         </Numbers>
       </ProductsSection>

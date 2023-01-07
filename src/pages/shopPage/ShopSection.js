@@ -1,11 +1,12 @@
-import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined'
-import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined'
-import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined'
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import Products from './Products'
-import { useGetProductsQuery } from '../../features/products/productsApiSlice'
-import { useLocation } from 'react-router-dom'
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined"
+import React, { useState } from "react"
+import styled from "styled-components"
+import Products from "./Products"
+import { useListProductsQuery } from "../../features/products/productsApiSlice"
+import { useLocation } from "react-router-dom"
+import PulseLoader from "react-spinners/PulseLoader"
+import { mobile } from "../../assests/globalStyles/responsive"
+import useTitle from "../../hooks/useTitle"
 
 const Container = styled.div`
   margin: 5em 0 0 0;
@@ -14,6 +15,9 @@ const Container = styled.div`
 `
 const FilterSection = styled.div`
   flex: 1;
+  ${mobile({
+    display: "none",
+  })}
 `
 const TitleSection = styled.div`
   width: 100%;
@@ -21,6 +25,22 @@ const TitleSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+const Grid = styled.div`
+  margin: 0.5em 0.2em;
+  background-color: ${(props) =>
+    props.state === props.page ? "orange" : "white"};
+  color: ${(props) => (props.state === props.page ? "white" : "black")};
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &:hover {
+    background-color: orange;
+    color: white;
+  }
 `
 
 const SectionTitle = styled.div`
@@ -58,35 +78,6 @@ const Text = styled.div`
   cursor: pointer;
 `
 
-const Amount = styled.div`
-  margin-right: 1em;
-  font-size: 0.9em;
-  opacity: 0.8;
-`
-
-const PriceSection = styled.div`
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 0 0 2em 0;
-`
-const AmountSection = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 0.9em;
-`
-const From = styled.input`
-  width: 5em;
-  height: 2em;
-  margin: 0 1em;
-  padding-left: 0.5em;
-`
-const To = styled.input`
-  width: 5em;
-  height: 2em;
-  margin: 0 1em;
-  padding-left: 0.5em;
-`
 const ManufacturerSection = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0 0 2em 0;
@@ -97,16 +88,22 @@ const ProductsSection = styled.div`
 `
 const NavigationBar = styled.div`
   display: flex;
+  padding: 0.5em;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.03);
+  ${mobile({
+    width: "90%",
+  })}
 `
 const Left = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
 `
 const Right = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
 `
@@ -114,36 +111,6 @@ const LayoutSection = styled.div`
   display: flex;
   align-items: center;
   margin: 0 1em;
-`
-const List = styled.div`
-  margin: 0.5em 0.2em;
-  background-color: white;
-  width: 2em;
-  height: 2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(0, 0, 0, 0.7);
-  cursor: pointer;
-  &:hover {
-    background-color: orange;
-    color: white;
-  }
-`
-const Grid = styled.div`
-  margin: 0.5em 0.2em;
-  background-color: white;
-  width: 2em;
-  height: 2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(0, 0, 0, 0.7);
-  cursor: pointer;
-  &:hover {
-    background-color: orange;
-    color: white;
-  }
 `
 const NumberOfItems = styled.div`
   font-size: 0.8em;
@@ -156,6 +123,7 @@ const SortBySection = styled.div`
 const SortTitle = styled.div`
   margin: 0 1em 0 0;
   text-transform: capitalize;
+  font-size: 0.9em;
 `
 const SortOptions = styled.select`
   height: 2.5em;
@@ -163,6 +131,12 @@ const SortOptions = styled.select`
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.2em;
   text-transform: capitalize;
+  border-radius: 50px;
+  padding: 0.5em 1em;
+  border: none;
+  ${mobile({
+    width: "8em",
+  })}
 `
 const Options = styled.option``
 
@@ -176,65 +150,90 @@ const ProductsTitle = styled.div`
   text-transform: capitalize;
   padding: 0 0 1em 0;
 `
+const MobileSearch = styled.input`
+  width: 90%;
+  margin: auto;
+  margin-bottom: 1em;
+  padding: 0.5em;
+  border-radius: 50px;
+  border: 1px solid black;
+`
+
+const Search = styled.input`
+  width: 50%;
+  margin: auto;
+  padding: 0.5em;
+  border-radius: 50px;
+  border: none;
+  ${mobile({
+    display: "none",
+  })}
+`
+const Amount = styled.div`
+  display: flex;
+  align-items: flex-end;
+  opacity: 0.6;
+`
 
 const ShopSection = () => {
-  let location = useLocation()
-  const category = new URLSearchParams(location.search).get('category')
-
-  const [params, setParams] = useState({
-    sort: 'newest',
-    category: category ? category : '',
-  })
-  const [filters, setFilters] = useState({ sort: 'newest', category: '' })
+  useTitle("TIMGAD. | Shop")
+  const location = useLocation()
+  const [cat, setCat] = useState(location?.search.split("=")[1])
+  const [page, setPage] = useState(1)
+  const [category, setCategory] = useState("all")
+  const [sort, setSort] = useState("newest")
+  const [search, setSearch] = useState("")
 
   const {
     data: products,
     isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetProductsQuery(params.category ? params : filters, {
-    pollingInterval: 60000,
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
+    refetch,
+  } = useListProductsQuery({
+    category: cat ? cat : category,
+    page,
+    sort,
+    search,
+    limit: 6,
   })
 
   const handleFilters = (e) => {
-    setParams({
-      sort: 'newest',
-      category: '',
-    })
-    const value = e.target.getAttribute('name')
-    if (value === 'all') {
-      return setFilters({ sort: 'newest', category: '' })
-    }
-    setFilters({
-      ...filters,
-      category: value,
-    })
+    setCat("")
+    setCategory(e.target.getAttribute("name"))
+    refetch()
   }
+
   const handleSort = (e) => {
-    setParams({
-      sort: 'newest',
-      category: '',
-    })
-    const value = e.target.value
-    setFilters({
-      ...filters,
-      sort: value,
-    })
+    setSort(e.target.value)
   }
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+    refetch()
+  }
+
+  const handlePageBackward = () => {
+    setPage((prev) => prev - 1)
+    refetch()
+  }
+  const handlePageForward = () => {
+    setPage((prev) => prev + 1)
+    refetch()
+  }
+  const handlePageNumber = (number) => {
+    setPage(number)
+    refetch()
+  }
+
   let shopProducts
-  if (isLoading) shopProducts = <p>loading...</p>
+  if (isLoading) return (shopProducts = <PulseLoader size={10} />)
+  shopProducts = !products.products?.length ? (
+    <p>no product found</p>
+  ) : (
+    products.products.map((product) => (
+      <Products key={product.id} product={product} />
+    ))
+  )
 
-  if (isError) shopProducts = <p>Error: {error?.message}</p>
-
-  if (isSuccess) {
-    const { ids } = products
-    shopProducts =
-      ids?.length &&
-      ids.map((productId) => <Products key={productId} productId={productId} />)
-  }
   return (
     <Container>
       <FilterSection>
@@ -247,229 +246,350 @@ const ShopSection = () => {
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
               <Text name="all" onClick={handleFilters}>
                 all
               </Text>
             </TextWrapper>
-            <Amount>&#40;18&#41;</Amount>
+            <Amount>&#40;{products.totalProducts}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
-              <Text name="gamingPc" onClick={handleFilters}>
+              <Text name="gaming" onClick={handleFilters}>
                 gaming pc
               </Text>
             </TextWrapper>
-            <Amount>&#40;18&#41;</Amount>
+            <Amount>&#40;{products.gaming}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
               <Text name="allInOne" onClick={handleFilters}>
                 all in one
               </Text>
             </TextWrapper>
-            <Amount>&#40;7&#41;</Amount>
+            <Amount>&#40;{products.allInOne}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
-              <Text name="tabletPc" onClick={handleFilters}>
+              <Text name="tablet" onClick={handleFilters}>
                 tablet pc
               </Text>
             </TextWrapper>
-            <Amount>&#40;4&#41;</Amount>
+            <Amount>&#40;{products.tablet}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
+                }}
+              />
+              <Text name="chromebook" onClick={handleFilters}>
+                touchScreen
+              </Text>
+            </TextWrapper>
+            <Amount>&#40;{products.touchScreen}&#41;</Amount>
+          </Category>
+          <Category>
+            <TextWrapper>
+              <CheckBoxOutlinedIcon
+                style={{
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
               <Text name="chromebook" onClick={handleFilters}>
                 chromebook
               </Text>
             </TextWrapper>
-            <Amount>&#40;2&#41;</Amount>
+            <Amount>&#40;{products.chromebook}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
-              <Text name="macs" onClick={handleFilters}>
+              <Text name="apple" onClick={handleFilters}>
                 macs
               </Text>
             </TextWrapper>
-            <Amount>&#40;1&#41;</Amount>
+            <Amount>&#40;{products.apple}&#41;</Amount>
           </Category>
         </CategoriesSection>
-        <PriceSection>
-          <Title>price</Title>
-          <AmountSection>
-            $ <From placeholder="From" /> - $ <To placeholder="To" />
-          </AmountSection>
-        </PriceSection>
         <ManufacturerSection>
           <Title>Manufacturer</Title>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
               <Text name="hp" onClick={handleFilters}>
                 hp
               </Text>
             </TextWrapper>
-            <Amount>&#40;1&#41;</Amount>
+            <Amount>&#40;{products.hp}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
               <Text name="dell" onClick={handleFilters}>
                 dell
               </Text>
             </TextWrapper>
-            <Amount>&#40;1&#41;</Amount>
+            <Amount>&#40;{products.dell}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
               <Text name="acer" onClick={handleFilters}>
                 acer
               </Text>
             </TextWrapper>
-            <Amount>&#40;1&#41;</Amount>
+            <Amount>&#40;{products.acer}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
               <Text name="asus" onClick={handleFilters}>
                 asus
               </Text>
             </TextWrapper>
-            <Amount>&#40;1&#41;</Amount>
+            <Amount>&#40;{products.asus}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
               <Text name="lenovo" onClick={handleFilters}>
                 lenovo
               </Text>
             </TextWrapper>
-            <Amount>&#40;1&#41;</Amount>
+            <Amount>&#40;{products.lenovo}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
               <Text name="apple" onClick={handleFilters}>
                 apple
               </Text>
             </TextWrapper>
-            <Amount>&#40;1&#41;</Amount>
+            <Amount>&#40;{products.apple}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
               <CheckBoxOutlinedIcon
                 style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
+                }}
+              />
+              <Text name="toshiba" onClick={handleFilters}>
+                fujitsu
+              </Text>
+            </TextWrapper>
+            <Amount>&#40;{products.fujitsu}&#41;</Amount>
+          </Category>
+          <Category>
+            <TextWrapper>
+              <CheckBoxOutlinedIcon
+                style={{
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
                 }}
               />
               <Text name="toshiba" onClick={handleFilters}>
                 toshiba
               </Text>
             </TextWrapper>
-            <Amount>&#40;1&#41;</Amount>
+            <Amount>&#40;{products.toshiba}&#41;</Amount>
+          </Category>
+          <Category>
+            <TextWrapper>
+              <CheckBoxOutlinedIcon
+                style={{
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
+                }}
+              />
+              <Text name="toshiba" onClick={handleFilters}>
+                samsung
+              </Text>
+            </TextWrapper>
+            <Amount>&#40;{products.samsung}&#41;</Amount>
+          </Category>
+          <Category>
+            <TextWrapper>
+              <CheckBoxOutlinedIcon
+                style={{
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
+                }}
+              />
+              <Text name="toshiba" onClick={handleFilters}>
+                lg
+              </Text>
+            </TextWrapper>
+            <Amount>&#40;{products.lg}&#41;</Amount>
+          </Category>
+          <Category>
+            <TextWrapper>
+              <CheckBoxOutlinedIcon
+                style={{
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
+                }}
+              />
+              <Text name="toshiba" onClick={handleFilters}>
+                condor
+              </Text>
+            </TextWrapper>
+            <Amount>&#40;{products.condor}&#41;</Amount>
+          </Category>
+          <Category>
+            <TextWrapper>
+              <CheckBoxOutlinedIcon
+                style={{
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
+                }}
+              />
+              <Text name="toshiba" onClick={handleFilters}>
+                msi
+              </Text>
+            </TextWrapper>
+            <Amount>&#40;{products.msi}&#41;</Amount>
+          </Category>
+          <Category>
+            <TextWrapper>
+              <CheckBoxOutlinedIcon
+                style={{
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
+                }}
+              />
+              <Text name="toshiba" onClick={handleFilters}>
+                wiseTech
+              </Text>
+            </TextWrapper>
+            <Amount>&#40;{products.wiseTech}&#41;</Amount>
+          </Category>
+          <Category>
+            <TextWrapper>
+              <CheckBoxOutlinedIcon
+                style={{
+                  marginRight: ".2em",
+                  fontSize: "1.2em",
+                  opacity: ".6",
+                }}
+              />
+              <Text name="toshiba" onClick={handleFilters}>
+                honor
+              </Text>
+            </TextWrapper>
+            <Amount>&#40;{products.honor}&#41;</Amount>
           </Category>
         </ManufacturerSection>
       </FilterSection>
       <ProductsSection>
         <ProductsTitle>laptops</ProductsTitle>
+        <MobileSearch
+          placeholder="Search product ..."
+          value={search}
+          onChange={handleSearch}
+          autoFocus
+        />
         <NavigationBar>
           <Left>
-            <LayoutSection>
-              <List style={{ backgroundColor: 'orange', color: 'white' }}>
-                <FormatListBulletedOutlinedIcon />
-              </List>
-              <Grid>
-                <GridViewOutlinedIcon />
-              </Grid>
-            </LayoutSection>
-            <NumberOfItems>items 1-9 of 10</NumberOfItems>
+            <NumberOfItems>
+              {products?.products?.length > 1 ? "items" : "item"}{" "}
+              {products?.products?.length} of {products.total}
+            </NumberOfItems>
           </Left>
+          <Search
+            placeholder="Search product ..."
+            value={search}
+            onChange={handleSearch}
+            autoFocus
+          />
           <Right>
             <SortBySection>
-              <SortTitle>sort by:</SortTitle>
+              <SortTitle>sort by :</SortTitle>
               <SortOptions onChange={handleSort}>
                 <Options value="newest">newest</Options>
-                <Options value="highest">price highest - lowest</Options>
-                <Options value="lowest">price lowest - highest</Options>
+                <Options value="lowest">price: lowest - highest</Options>
+                <Options value="highest">price: highest - lowest</Options>
               </SortOptions>
             </SortBySection>
           </Right>
@@ -478,23 +598,30 @@ const ShopSection = () => {
         <NavigationBar>
           <Left>
             <LayoutSection>
-              <List
-                style={{
-                  fontSize: '.9em',
-                  backgroundColor: 'orange',
-                  color: 'white',
-                }}
-              >
-                1
-              </List>
-              <Grid style={{ fontSize: '.9em' }}>2</Grid>
-              <Grid>&#8594;</Grid>
+              {page > 1 && <Grid onClick={handlePageBackward}>&#8592;</Grid>}
+              {[...Array(Math.ceil(products.total / products.limit))].map(
+                (val, index) => (
+                  <Grid
+                    onClick={() => handlePageNumber(index + 1)}
+                    key={index}
+                    style={{ fontSize: ".9em" }}
+                    state={index + 1}
+                    page={page}
+                  >
+                    {index + 1}
+                  </Grid>
+                )
+              )}
+              {page < Math.ceil(products.total / products.limit) && (
+                <Grid onClick={handlePageForward}>&#8594;</Grid>
+              )}
             </LayoutSection>
           </Left>
           <Right>
             <SortBySection>
-              <NumberOfItems style={{ marginRight: '.5em' }}>
-                items 1-9 of 10
+              <NumberOfItems style={{ marginRight: ".5em" }}>
+                {products?.products?.length > 1 ? "items" : "item"}{" "}
+                {products?.products?.length} of {products.total}
               </NumberOfItems>
             </SortBySection>
           </Right>

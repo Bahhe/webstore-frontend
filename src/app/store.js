@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { apiSlice } from './api/apiSlice'
-import { setupListeners } from '@reduxjs/toolkit/dist/query'
-import authReducer from '../features/auth/authSlice'
-import cartReducer from '../features/carts/cartSlice'
+import { configureStore } from "@reduxjs/toolkit"
+import { apiSlice } from "./api/apiSlice"
+import { setupListeners } from "@reduxjs/toolkit/dist/query"
+import authReducer from "../features/auth/authSlice"
+import cartReducer from "../features/carts/cartSlice"
 import {
   persistStore,
   persistReducer,
@@ -12,12 +12,12 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist'
+} from "redux-persist"
 
-import storage from 'redux-persist/lib/storage'
+import storage from "redux-persist/lib/storage"
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
 }
 
@@ -35,7 +35,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(apiSlice.middleware),
-  devTools: true,
+  devTools: false,
 })
 
 setupListeners(store.dispatch)

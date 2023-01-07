@@ -1,9 +1,11 @@
-import styled from 'styled-components'
-import { Link, useNavigate } from 'react-router-dom'
-import { useRef, useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { setCredentials } from '../authSlice'
-import { useLoginMutation } from '../authApiSlice'
+import styled from "styled-components"
+import { useNavigate } from "react-router-dom"
+import { useRef, useState, useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { setCredentials } from "../authSlice"
+import { useLoginMutation } from "../authApiSlice"
+import jwtDecode from "jwt-decode"
+import { mobile } from "../../../assests/globalStyles/responsive"
 
 const Container = styled.div`
   width: 100%;
@@ -12,6 +14,9 @@ const Section = styled.div`
   width: 100%;
   display: flex;
   gap: 2em;
+  ${mobile({
+    flexDirection: "column",
+  })}
 `
 const Title = styled.div`
   width: 100%;
@@ -38,7 +43,6 @@ const SectionTitle = styled.div`
 `
 const SmallTitle = styled.label`
   text-transform: capitalize;
-  padding: 1em 0;
   font-weight: 500;
   opacity: 0.9;
 `
@@ -46,6 +50,7 @@ const Input = styled.input`
   width: 100%;
   height: 2.9em;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 1em 0;
 `
 const RadioButton = styled.div`
   margin: 2em 0;
@@ -85,11 +90,12 @@ const Wrapper = styled.div`
 `
 
 const LoginSection = () => {
+  const [showPassword, setShowPassword] = useState(false)
   const userRef = useRef()
   const errRef = useRef()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errMsg, setErrMsg] = useState('')
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [errMsg, setErrMsg] = useState("")
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -99,7 +105,7 @@ const LoginSection = () => {
   }, [])
 
   useEffect(() => {
-    setErrMsg('')
+    setErrMsg("")
   }, [email, password])
 
   const handleSubmit = async (e) => {
@@ -107,16 +113,24 @@ const LoginSection = () => {
     try {
       const { accessToken } = await login({ email, password }).unwrap()
       dispatch(setCredentials({ accessToken }))
-      setEmail('')
-      setPassword('')
-      navigate('/')
+      const decoded = jwtDecode(accessToken)
+      const { isAdmin } = decoded.UserInfo
+      setEmail("")
+      setPassword("")
+      if (isAdmin) {
+        navigate("/admin")
+      } else {
+        navigate("/")
+      }
     } catch (err) {
       if (!err.status) {
-        setErrMsg('No server response')
+        setErrMsg("No server response")
       } else if (err.status === 400) {
-        setErrMsg('Missing Email or password')
+        setErrMsg("Missing Email or password")
       } else if (err.status === 401) {
-        setErrMsg('Unauthorized')
+        setEmail("")
+        setPassword("")
+        setErrMsg("Unauthorized")
       } else {
         setErrMsg(err.data?.message)
       }
@@ -156,13 +170,19 @@ const LoginSection = () => {
           <Input
             onChange={onPasswordChanged}
             value={password}
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             name="password"
             required
           />
           <RadioButton>
-            <Radio type="checkbox" name="radio" />
+            <Radio
+              onClick={() => setShowPassword((prev) => !prev)}
+              value={showPassword}
+              checked={showPassword}
+              type="checkbox"
+              name="radio"
+            />
             <Label htmlFor="radio">show password</Label>
           </RadioButton>
           <Button type="submit">login</Button>
@@ -176,9 +196,7 @@ const LoginSection = () => {
             Creating an account has many benefits: check out faster, keep more
             than one address, track orders and more.
           </Desc>
-          <Button>
-            <Link to="/register">register</Link>
-          </Button>
+          <Button onClick={() => navigate("/register")}>register</Button>
         </Right>
       </Section>
     </Container>

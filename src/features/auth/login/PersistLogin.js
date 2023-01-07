@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
-import { useRefreshMutation } from '../authApiSlice'
-import { useSelector } from 'react-redux'
-import { selectCurrentToken } from '../authSlice'
+import { Outlet } from "react-router-dom"
+import { useEffect, useRef, useState } from "react"
+import { useRefreshMutation } from "../authApiSlice"
+import { useSelector } from "react-redux"
+import { selectCurrentToken } from "../authSlice"
 
 const PersistLogin = () => {
   const token = useSelector(selectCurrentToken)
@@ -14,9 +14,9 @@ const PersistLogin = () => {
     useRefreshMutation()
 
   useEffect(() => {
-    if (effectRan.current === true || process.env.NODE_ENV !== 'development') {
+    if (effectRan.current === true || process.env.NODE_ENV !== "development") {
       const verifyRefreshToken = async () => {
-        console.log('verify refresh token')
+        console.log("verify refresh token")
         try {
           await refresh()
           setTrueSuccess(true)
@@ -33,13 +33,13 @@ const PersistLogin = () => {
 
   let content
   if (isLoading) {
-    console.log('loading')
+    console.log("loading")
     content = <Outlet />
   } else if (isSuccess && trueSuccess) {
-    console.log('success')
+    console.log("success")
     content = <Outlet />
   } else if (token && isUninitialized) {
-    console.log('token and uninitialized')
+    console.log("token and uninitialized")
     console.log(isUninitialized)
     content = <Outlet />
   } else {

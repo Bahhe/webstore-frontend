@@ -1,15 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import SearchIcon from '@mui/icons-material/Search'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
-import StarIcon from '@mui/icons-material/Star'
-import 'swiper/css'
-import 'swiper/css/free-mode'
-import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
-import { useDispatch } from 'react-redux'
-import { addToCart } from '../../../../features/carts/cartSlice'
-import { Link } from 'react-router-dom'
+import React from "react"
+import styled from "styled-components"
+import SearchIcon from "@mui/icons-material/Search"
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
+import "swiper/css"
+import "swiper/css/free-mode"
+import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
+import { useDispatch } from "react-redux"
+import { addToCart } from "../../../../features/carts/cartSlice"
+import { useNavigate } from "react-router-dom"
+import { StarBorder } from "@mui/icons-material"
 
 const LinksWrapper = styled.div`
   display: flex;
@@ -42,7 +41,6 @@ const LinksContainer = styled.div`
   z-index: -1;
 `
 const Container = styled.div`
-  width: 20em;
   height: 30em;
   margin: 1em;
   &:hover ${LinksContainer} {
@@ -56,10 +54,12 @@ const ImgContainer = styled.div`
   height: 60%;
   background-color: rgba(0, 0, 0, 0.05);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 const Img = styled.img`
-  border-radius: 1em;
-  width: 100%;
+  width: 90%;
   height: 100%;
   object-fit: contain;
   cursor: pointer;
@@ -77,7 +77,7 @@ const Title = styled.div`
 const Price = styled.div`
   text-align: center;
   opacity: 0.9;
-  color: orange;
+  color: red;
 `
 const StarsContainer = styled.div`
   display: flex;
@@ -87,8 +87,9 @@ const StarsContainer = styled.div`
 `
 
 const Product = ({ productId }) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { product, isLoading, isSuccess } = useGetProductsQuery('products', {
+  const { product, isLoading, isSuccess } = useGetProductsQuery("products", {
     selectFromResult: ({ data, isLoading, isSuccess }) => ({
       product: data?.entities[productId],
       isLoading,
@@ -114,33 +115,30 @@ const Product = ({ productId }) => {
   if (isSuccess) {
     content = (
       <Container>
-        <ImgContainer>
+        <ImgContainer onClick={() => navigate(`/shop/product/${product.id}`)}>
           <Img src={product.img} />
           <LinksContainer>
             <LinksWrapper>
               <Links onClick={handleClick}>
-                <ShoppingCartOutlinedIcon style={{ fontSize: '1.6em' }} />
+                <ShoppingCartOutlinedIcon style={{ fontSize: "1.6em" }} />
               </Links>
-              <Links>
-                <Link to={`/shop/product/${product.id}`}>
-                  <SearchIcon style={{ fontSize: '1.6em' }} />
-                </Link>
-              </Links>
-              <Links>
-                <FavoriteBorderOutlinedIcon style={{ fontSize: '1.6em' }} />
+              <Links onClick={() => navigate(`/shop/product/${product.id}`)}>
+                <SearchIcon style={{ fontSize: "1.6em" }} />
               </Links>
             </LinksWrapper>
           </LinksContainer>
         </ImgContainer>
-        <Title>{product.title}</Title>
+        <Title onClick={() => navigate(`/shop/product/${product.id}`)}>
+          {product.title}
+        </Title>
         <StarsContainer>
-          <StarIcon style={{ fontSize: '1em', color: 'orange' }} />
-          <StarIcon style={{ fontSize: '1em', color: 'orange' }} />
-          <StarIcon style={{ fontSize: '1em', color: 'orange' }} />
-          <StarIcon style={{ fontSize: '1em', color: 'orange' }} />
-          <StarIcon style={{ fontSize: '1em', color: 'orange' }} />
+          <StarBorder style={{ fontSize: "1em", color: "orange" }} />
+          <StarBorder style={{ fontSize: "1em", color: "orange" }} />
+          <StarBorder style={{ fontSize: "1em", color: "orange" }} />
+          <StarBorder style={{ fontSize: "1em", color: "orange" }} />
+          <StarBorder style={{ fontSize: "1em", color: "orange" }} />
         </StarsContainer>
-        <Price>{product.price}</Price>
+        <Price>${product.price}</Price>
       </Container>
     )
   }

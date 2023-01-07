@@ -1,6 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import React from "react"
+import { useNavigate } from "react-router-dom"
+import styled from "styled-components"
+import { mobile } from "../../../assests/globalStyles/responsive"
 
 const Container = styled.div`
   justify-content: center;
@@ -11,11 +12,15 @@ const Container = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 20em);
   grid-template-areas:
-    'allInOne gaming gaming pcTablet'
-    'allInOne chromebook macs macs';
+    "allInOne gaming gaming pcTablet"
+    "allInOne chromebook macs macs";
+  ${mobile({
+    display: "flex",
+    flexDirection: "column",
+  })}
 `
 const AllInOne = styled.div`
-  background: url('https://images.unsplash.com/photo-1612814824743-c760091da7f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+  background: url("https://www.apple.com/v/imac-24/g/images/why-mac/hero_why_mac__epb9a0jlsu82_large.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -34,9 +39,12 @@ const AllInOne = styled.div`
     background: none;
     cursor: pointer;
   }
+  ${mobile({
+    height: "10em",
+  })}
 `
 const PcTablet = styled.div`
-  background: url('https://images.unsplash.com/photo-1623126908029-58cb08a2b272?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+  background: url("https://images.unsplash.com/photo-1623126908029-58cb08a2b272?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -55,9 +63,12 @@ const PcTablet = styled.div`
     background: none;
     cursor: pointer;
   }
+  ${mobile({
+    height: "10em",
+  })}
 `
 const Gaming = styled.div`
-  background: url('https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/Alienware_m17_R5_header.jpg');
+  background: url("https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/Alienware_m17_R5_header.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -76,9 +87,12 @@ const Gaming = styled.div`
     background: none;
     cursor: pointer;
   }
+  ${mobile({
+    height: "10em",
+  })}
 `
 const ChromeBook = styled.div`
-  background: url('https://images.unsplash.com/photo-1613432760965-f106c65b5a3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1931&q=80');
+  background: url("https://images.unsplash.com/photo-1613432760965-f106c65b5a3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1931&q=80");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -97,9 +111,12 @@ const ChromeBook = styled.div`
     background: none;
     cursor: pointer;
   }
+  ${mobile({
+    height: "10em",
+  })}
 `
 const Macs = styled.div`
-  background: url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1926&q=80');
+  background: url("https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1926&q=80");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -118,25 +135,27 @@ const Macs = styled.div`
     background: none;
     cursor: pointer;
   }
+  ${mobile({
+    height: "10em",
+  })}
 `
 const Categories = () => {
+  const navigate = useNavigate()
   return (
     <Container>
-      <AllInOne>
-        <Link to="/shop?category=allInOne">all in one</Link>
+      <AllInOne onClick={() => navigate("/shop?category=allInOne")}>
+        all in one
       </AllInOne>
-      <PcTablet>
-        <Link to="/shop?category=tabletPc">tablet pc</Link>
+      <PcTablet onClick={() => navigate("/shop?category=tablet")}>
+        tablet pc
       </PcTablet>
-      <Gaming>
-        <Link to="/shop?category=gamingPc">gaming pc</Link>
+      <Gaming onClick={() => navigate("/shop?category=gaming")}>
+        gaming pc
       </Gaming>
-      <ChromeBook>
-        <Link to="/shop?category=chromebook">chromebook</Link>
+      <ChromeBook onClick={() => navigate("/shop?category=chromebook")}>
+        chromebook
       </ChromeBook>
-      <Macs>
-        <Link to="/shop?category=macs">macs</Link>
-      </Macs>
+      <Macs onClick={() => navigate("/shop?category=apple")}>apple</Macs>
     </Container>
   )
 }

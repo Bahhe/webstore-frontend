@@ -1,7 +1,8 @@
-import React from 'react'
-import FacebookIcon from '@mui/icons-material/Facebook'
-import InstagramIcon from '@mui/icons-material/Instagram'
-import styled from 'styled-components'
+import React from "react"
+import FacebookIcon from "@mui/icons-material/Facebook"
+import InstagramIcon from "@mui/icons-material/Instagram"
+import styled from "styled-components"
+import { mobile } from "../assests/globalStyles/responsive"
 
 const Container = styled.div`
   background-color: #222;
@@ -16,6 +17,10 @@ const UpperSection = styled.div`
   justify-content: center;
   align-items: center;
   margin: 8em 3em 3em 3em;
+  ${mobile({
+    flexDirection: "column",
+    margin: "9em 3em 3em 3em",
+  })}
 `
 
 const Left = styled.div`
@@ -154,18 +159,18 @@ const Footer = () => {
           <SocialMedia>
             <FacebookIcon
               style={{
-                color: 'orange',
-                margin: '.4em',
-                fontSize: '2em',
-                cursor: 'pointer',
+                color: "orange",
+                margin: ".4em",
+                fontSize: "2em",
+                cursor: "pointer",
               }}
             />
             <InstagramIcon
               style={{
-                color: 'orange',
-                margin: '.4em',
-                fontSize: '2em',
-                cursor: 'pointer',
+                color: "orange",
+                margin: ".4em",
+                fontSize: "2em",
+                cursor: "pointer",
               }}
             />
           </SocialMedia>

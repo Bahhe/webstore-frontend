@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit"
 
 const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState: {
     cart: [],
   },
@@ -11,7 +11,7 @@ const cartSlice = createSlice({
         (item) => item.id === action.payload.id
       )
       if (itemInCart) {
-        itemInCart.quantity++
+        itemInCart.quantity = 1
       } else {
         state.cart.push({ ...action.payload, quantity: 1 })
       }

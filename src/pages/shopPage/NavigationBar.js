@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import React from "react"
+import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 const Container = styled.div`
   width: 100%;
@@ -13,18 +13,18 @@ const Separation = styled.div`
 `
 const Location = styled.div`
   margin: 1em 1em;
-  font-size: .8em;
+  font-size: 0.8em;
   text-transform: capitalize;
 `
 
 const NavigationBar = () => {
   return (
     <Container>
-      <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
-        <Location style={{ opacity: '.5' }}>home</Location>
+      <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+        <Location style={{ opacity: ".5" }}>home</Location>
       </Link>
       <Separation>/</Separation>
-      <Link to="/shop" style={{ textDecoration: 'none', color: 'black' }}>
+      <Link to="/shop" style={{ textDecoration: "none", color: "black" }}>
         <Location>shop</Location>
       </Link>
     </Container>

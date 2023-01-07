@@ -1,25 +1,23 @@
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import styled from 'styled-components'
-import SearchIcon from '@mui/icons-material/Search'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
-import { Link } from 'react-router-dom'
-import { useGetProductsQuery } from '../../features/products/productsApiSlice'
-import { useDispatch } from 'react-redux'
-import { addToCart } from '../../features/carts/cartSlice'
+import styled from "styled-components"
+import SearchIcon from "@mui/icons-material/Search"
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { addToCart } from "../../features/carts/cartSlice"
+import { StarBorder } from "@mui/icons-material"
+import PulseLoader from "react-spinners/PulseLoader"
 
 const LinksContainer = styled.div`
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   opacity: 0;
-  transition: 0.5s ease;
+  transition: 0.5s ease-in-out;
   transform: translateY(15%);
   z-index: -1;
 `
@@ -58,14 +56,22 @@ const ProductContainer = styled.div`
 `
 const ImageSection = styled.div`
   position: relative;
-  width: 100%;
-  height: 70%;
+  width: 20em;
+  height: 26em;
 `
-const Image = styled.img`
-  object-fit: cover;
+const ImageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.02);
+`
+
+const Image = styled.img`
+  object-fit: contain;
+  width: 90%;
+  height: 100%;
   cursor: pointer;
 `
 const InfoSection = styled.div`
@@ -74,6 +80,9 @@ const InfoSection = styled.div`
   align-items: center;
 `
 const Title = styled.div`
+  font-weight: 500;
+  opacity: 0.7;
+  letter-spacing: 0.1em;
   margin: 1em 0;
   text-transform: capitalize;
   cursor: pointer;
@@ -84,21 +93,13 @@ const Title = styled.div`
 const StarsSection = styled.div``
 const Stars = styled.div``
 const Price = styled.div`
-  margin: 1em 0;
-  font-size: 1.4em;
-  color: orange;
+  margin: 1.5em 0;
+  color: red;
 `
 
-const Products = ({ productId }) => {
+const Products = ({ product }) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
-
-  const { product, isLoading } = useGetProductsQuery('products', {
-    selectFromResult: ({ data, isLoading }) => ({
-      product: data?.entities[productId],
-      isLoading,
-    }),
-  })
-
   const handleClick = () => {
     dispatch(
       addToCart({
@@ -109,46 +110,50 @@ const Products = ({ productId }) => {
       })
     )
   }
-
-  if (isLoading) return <p>loading...</p>
+  if (!product) {
+    return <PulseLoader />
+  }
 
   return (
     <Container>
       <ProductContainer>
         <ImageSection>
-          <Image src={product.img} />
+          <ImageContainer>
+            <Image
+              onClick={() => navigate(`/shop/product/${product.id}`)}
+              src={product.img}
+            />
+          </ImageContainer>
           <LinksContainer>
             <LinksWrapper>
               <Links onClick={handleClick}>
-                <ShoppingCartOutlinedIcon style={{ fontSize: '1.6em' }} />
+                <ShoppingCartOutlinedIcon style={{ fontSize: "1.6em" }} />
               </Links>
-              <Links>
-                <Link to={`/shop/product/${product.id}`}>
-                  <SearchIcon style={{ fontSize: '1.6em' }} />
-                </Link>
-              </Links>
-              <Links>
-                <FavoriteBorderOutlinedIcon style={{ fontSize: '1.6em' }} />
+              <Links onClick={() => navigate(`/shop/product/${product.id}`)}>
+                <SearchIcon style={{ fontSize: "1.6em" }} />
               </Links>
             </LinksWrapper>
           </LinksContainer>
         </ImageSection>
         <InfoSection>
-          <Title>{product.title}</Title>
+          <Title onClick={() => navigate(`/shop/product/${product.id}`)}>
+            {product.title}
+          </Title>
           <StarsSection>
             <Stars>
-              <StarOutlinedIcon style={{ fontSize: '1em', color: 'orange' }} />
-              <StarOutlinedIcon style={{ fontSize: '1em', color: 'orange' }} />
-              <StarOutlinedIcon style={{ fontSize: '1em', color: 'orange' }} />
-              <StarOutlinedIcon style={{ fontSize: '1em', color: 'orange' }} />
-              <StarOutlinedIcon style={{ fontSize: '1em', color: 'orange' }} />
+              <StarBorder style={{ fontSize: "1em", color: "orange" }} />
+              <StarBorder style={{ fontSize: "1em", color: "orange" }} />
+              <StarBorder style={{ fontSize: "1em", color: "orange" }} />
+              <StarBorder style={{ fontSize: "1em", color: "orange" }} />
+              <StarBorder style={{ fontSize: "1em", color: "orange" }} />
             </Stars>
           </StarsSection>
-          <Price>{product.price}</Price>
+          <Price>${product.price}</Price>
         </InfoSection>
       </ProductContainer>
     </Container>
   )
 }
+// }
 
 export default Products

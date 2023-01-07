@@ -1,9 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
-import { useDispatch } from 'react-redux'
-import { addToCart } from '../../../../features/carts/cartSlice'
-import { useNavigate } from 'react-router-dom'
+import React from "react"
+import styled, { keyframes } from "styled-components"
+import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
+import { useDispatch } from "react-redux"
+import { addToCart } from "../../../../features/carts/cartSlice"
+import { useNavigate } from "react-router-dom"
+import { mobile } from "../../../../assests/globalStyles/responsive"
 
 const Wrapper = styled.div`
   min-width: 80vw;
@@ -13,6 +14,9 @@ const Wrapper = styled.div`
   justify-content: center;
   transform: translateX(${(props) => props.slideIndex * -80}vw);
   transition: 1s ease;
+  ${mobile({
+    flexDirection: "column",
+  })}
 `
 const Left = styled.div`
   flex: 1;
@@ -20,13 +24,15 @@ const Left = styled.div`
   align-items: center;
   justify-content: center;
 `
-const InfoContainer = styled.div``
+const InfoContainer = styled.div`
+  width: 80%;
+`
 
 const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
-  height: 80%;
+  cursor: pointer;
+  width: 70%;
 `
 
 const Image = styled.img`
@@ -40,40 +46,123 @@ const Right = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 1em;
 `
 const Title = styled.h1`
   font-weight: 300;
-  font-size: 5em;
+  font-size: 3em;
   text-transform: capitalize;
+  color: white;
+  cursor: pointer;
+  margin: 1em 0;
+  ${mobile({
+    fontSize: "1em",
+  })}
 `
 const Desc = styled.p`
   font-weight: 300;
   font-size: 1.3em;
   text-transform: capitalize;
+  color: rgba(255, 255, 255, 0.5);
+  ${mobile({
+    fontSize: ".8em",
+  })}
 `
+
+const glowing = keyframes`
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  `
+
 const Button = styled.button`
-  border: 1px solid lightgrey;
-  border-radius: 1em;
-  background-color: orange;
-  color: white;
-  width: 10em;
-  height: 3em;
-  margin-top: 1em;
-  font-size: 1em;
   text-transform: uppercase;
+  margin: 2em 0;
+  width: 220px;
+  height: 50px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #111;
   cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  &:hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+  }
+  &:before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: ${glowing} 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+  &:active {
+    color: #000;
+  }
+  &:active:after {
+    background: transparent;
+  }
+  &:hover:before {
+    opacity: 1;
+  }
+  &:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
 `
 
 const Product = ({ productId, slideIndex }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { product, isLoading, isSuccess } = useGetProductsQuery('products', {
-    selectFromResult: ({ data, isLoading, isSuccess }) => ({
+  const { product, isLoading } = useGetProductsQuery("products", {
+    selectFromResult: ({ data, isLoading }) => ({
       product: data?.entities[productId],
       isLoading,
-      isSuccess,
     }),
   })
 
@@ -86,31 +175,31 @@ const Product = ({ productId, slideIndex }) => {
         price: product.price,
       })
     )
-    navigate('/checkout')
+    navigate("/checkout")
   }
   let content
 
   if (isLoading) {
     content = <p>loading...</p>
   }
-  if (isSuccess) {
-    content = (
-      <Wrapper key={product.id} slideIndex={slideIndex}>
-        <Left>
-          <ImageContainer>
-            <Image src={product.img} />
-          </ImageContainer>
-        </Left>
-        <Right>
-          <InfoContainer>
-            <Title>{product.title}</Title>
-            <Desc>{product.desc}</Desc>
-            <Button onClick={onBuyClicked}>buy now</Button>
-          </InfoContainer>
-        </Right>
-      </Wrapper>
-    )
-  }
+  content = (
+    <Wrapper key={product.id} slideIndex={slideIndex}>
+      <Left>
+        <ImageContainer onClick={() => navigate(`/shop/product/${product.id}`)}>
+          <Image src={product.img} />
+        </ImageContainer>
+      </Left>
+      <Right>
+        <InfoContainer>
+          <Title onClick={() => navigate(`/shop/product/${product.id}`)}>
+            {product.title}
+          </Title>
+          <Desc>{product.desc}</Desc>
+          <Button onClick={onBuyClicked}>buy now</Button>
+        </InfoContainer>
+      </Right>
+    </Wrapper>
+  )
 
   return content
 }

@@ -1,11 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import { useNavigate } from "react-router-dom"
+import styled from "styled-components"
 
 const ProductContainer = styled.div`
   padding: 1em;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 `
 const ProductInfo = styled.div`
   display: flex;
@@ -21,9 +23,10 @@ const ProductTitle = styled.div`
   text-transform: capitalize;
 `
 
-const Product = ({ title, price, image }) => {
+const Product = ({ title, price, image, id }) => {
+  const navigate = useNavigate()
   const content = (
-    <ProductContainer>
+    <ProductContainer onClick={() => navigate(`/shop/product/${id}`)}>
       <ProductInfo>
         <Image src={image} />
         <ProductTitle>{title}</ProductTitle>

@@ -1,12 +1,15 @@
-import React from 'react'
-import AdminNavBar from './AdminNavBar'
-import AdminSideBar from './AdminSideBar'
-import styled from 'styled-components'
-import { Outlet } from 'react-router-dom'
+import React from "react"
+import AdminSideBar from "./AdminSideBar"
+import styled from "styled-components"
+import { Outlet } from "react-router-dom"
+import Footer from "../../../components/Footer"
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
+`
+const Wrapper = styled.div`
+  width: 80%;
+  margin: auto;
 `
 const Pages = styled.div`
   display: flex;
@@ -15,11 +18,13 @@ const Pages = styled.div`
 const AdminLayout = () => {
   return (
     <Container>
-      <AdminNavBar />
-      <Pages>
-        <AdminSideBar />
-        <Outlet />
-      </Pages>
+      <Wrapper>
+        <Pages>
+          <AdminSideBar />
+          <Outlet />
+        </Pages>
+      </Wrapper>
+      <Footer />
     </Container>
   )
 }
