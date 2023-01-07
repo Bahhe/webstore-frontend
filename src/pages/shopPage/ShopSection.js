@@ -5,7 +5,7 @@ import Products from "./Products"
 import { useListProductsQuery } from "../../features/products/productsApiSlice"
 import { useLocation } from "react-router-dom"
 import PulseLoader from "react-spinners/PulseLoader"
-import { mobile } from "../../assests/globalStyles/responsive"
+import { laptop, mobile } from "../../assests/globalStyles/responsive"
 import useTitle from "../../hooks/useTitle"
 
 const Container = styled.div`
@@ -157,6 +157,9 @@ const MobileSearch = styled.input`
   padding: 0.5em;
   border-radius: 50px;
   border: 1px solid black;
+  ${laptop({
+    display: "none",
+  })}
 `
 
 const Search = styled.input`
