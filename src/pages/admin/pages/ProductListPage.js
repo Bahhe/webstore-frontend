@@ -53,7 +53,6 @@ const ProductListPage = () => {
       isLoading,
       isSuccess,
     }),
-    pollingInterval: 3000,
     refetchOnMountOrArgChange: true,
   })
 

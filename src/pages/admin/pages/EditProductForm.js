@@ -9,6 +9,7 @@ import {
   getDownloadURL,
 } from "firebase/storage"
 import app from "../../../services/firebase"
+import CircularProgress from "@mui/material/CircularProgress"
 
 const Container = styled.main`
   display: flex;
@@ -140,6 +141,7 @@ const EditProductForm = ({ product }) => {
   const [updateProduct] = useUpdateProductMutation()
 
   const [file, setFile] = useState("")
+  const [progress, setProgress] = useState(0)
 
   const [title, setTitle] = useState(product.title)
   const [description, setDescription] = useState(product.desc)
@@ -259,8 +261,7 @@ const EditProductForm = ({ product }) => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
           console.log("Upload is " + progress + "% done")
           switch (snapshot.state) {
             case "paused":
@@ -485,7 +486,17 @@ const EditProductForm = ({ product }) => {
                     />
                   </InputWrapper>
                 </Sections>
-                <Button>update</Button>
+                <Button>
+                  {progress ? (
+                    <CircularProgress
+                      style={{ color: "white" }}
+                      variant="determinate"
+                      value={progress}
+                    />
+                  ) : (
+                    "update"
+                  )}
+                </Button>
               </FormTwo>
             </Form>
           </ContentWrapper>

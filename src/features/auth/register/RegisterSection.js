@@ -3,10 +3,7 @@ import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { mobile } from "../../../assests/globalStyles/responsive"
-import {
-  useAddNewUserMutation,
-  useGetUsersQuery,
-} from "../../users/usersApiSlice"
+import { useAddNewUserMutation } from "../../users/usersApiSlice"
 
 const Form = styled.form`
   width: 80%;
@@ -106,13 +103,6 @@ const PWD_REGEX = /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
 const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
 
 const RegisterSection = () => {
-  const { users } = useGetUsersQuery("users", {
-    selectFromResult: ({ data, isFetching }) => ({
-      users: data?.entities,
-      isFetching,
-    }),
-  })
-
   const [addNewUser, { isLoading, isSuccess, isError, error }] =
     useAddNewUserMutation()
 
@@ -165,16 +155,9 @@ const RegisterSection = () => {
     [validFirstName, validLastName, validPassword, validEmail].every(Boolean) &&
     !isLoading
 
-  const existingUser =
-    users && Object.values(users).filter((user) => user.email === email)
-
   const onSubmitClicked = async (e) => {
     e.preventDefault()
     if (canSave) {
-      if (existingUser.length) {
-        alert("this email already exists please login")
-        navigate("/login")
-      }
       await addNewUser({ firstName, lastName, email, password, newsLetter })
     }
   }
@@ -183,10 +166,12 @@ const RegisterSection = () => {
     <Form onSubmit={onSubmitClicked}>
       <Logo onClick={() => navigate("/")}>TIMGAD.</Logo>
       <Title>create new customer account</Title>
-      <span style={{ color: "red" }}>{isError && error}</span>
       <Container>
         <Left>
           <SectionTitle>personal information</SectionTitle>
+          <span style={{ color: "red" }}>
+            {isError && error?.status !== 409 && error?.data?.message}
+          </span>
           <SmallTitle htmlFor="firstName">first name</SmallTitle>
           <br />
           {firstName && !validFirstName && (
@@ -243,6 +228,9 @@ const RegisterSection = () => {
               Privacy Notice.{" "}
             </Link>
           </LegalInformations>
+          <p style={{ fontSize: ".9em", marginTop: "1em", opacity: ".8" }}>
+            Already have an account ? <Link to="/login">sign in</Link>
+          </p>
         </Left>
         <Right>
           <SectionTitle>sign-in information</SectionTitle>
@@ -253,6 +241,13 @@ const RegisterSection = () => {
               style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
             >
               * Email is not valid
+            </span>
+          )}
+          {isError && error?.status === 409 && (
+            <span
+              style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
+            >
+              {error?.data?.message} <Link to="/login">login</Link>
             </span>
           )}
           <Input

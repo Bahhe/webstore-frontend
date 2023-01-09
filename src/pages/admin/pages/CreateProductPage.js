@@ -11,6 +11,7 @@ import { useAddNewProductMutation } from "../../../features/products/productsApi
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import useTitle from "../../../hooks/useTitle"
+import { CircularProgress } from "@mui/material"
 
 const Container = styled.main`
   display: flex;
@@ -133,6 +134,7 @@ const CreateProductPage = () => {
   const [addNewProduct, { isSuccess }] = useAddNewProductMutation()
 
   const [file, setFile] = useState(null)
+  const [progress, setProgress] = useState(0)
 
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -161,16 +163,10 @@ const CreateProductPage = () => {
     const storageRef = ref(storage, fileName)
     const uploadTask = uploadBytesResumable(storageRef, file)
 
-    // Register three observers:
-    // 1. 'state_changed' observer, called any time the state changes
-    // 2. Error observer, called on failure
-    // 3. Completion observer, called on successful completion
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
         console.log("Upload is " + progress + "% done")
         switch (snapshot.state) {
           case "paused":
@@ -184,11 +180,9 @@ const CreateProductPage = () => {
         }
       },
       (error) => {
-        // Handle unsuccessful uploads
+        console.log(error)
       },
       () => {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref)
           .then((downloadURL) => {
             const product = {
@@ -364,7 +358,17 @@ const CreateProductPage = () => {
                     />
                   </Wrapper>
                 </Sections>
-                <Button>create</Button>
+                <Button>
+                  {progress ? (
+                    <CircularProgress
+                      style={{ color: "white" }}
+                      variant="determinate"
+                      value={progress}
+                    />
+                  ) : (
+                    "create"
+                  )}
+                </Button>
               </FormTwo>
             </Form>
           </Left>

@@ -184,12 +184,6 @@ const Search = styled.input`
     display: "none",
   })}
 `
-const Amount = styled.div`
-  display: flex;
-  align-items: flex-end;
-  opacity: 0.6;
-`
-
 const ShopSection = () => {
   useTitle("TIMGAD. | Shop")
   const location = useLocation()
@@ -215,6 +209,11 @@ const ShopSection = () => {
     setCat("")
     setCategory(e.target.getAttribute("name"))
     refetch()
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant", // Optional if you want to skip the scrolling animation
+    })
   }
 
   const handleSort = (e) => {
@@ -223,8 +222,8 @@ const ShopSection = () => {
 
   const handleSearch = (e) => {
     setCategory("all")
-    setSearch(e.target.value)
     refetch()
+    setSearch(e.target.value)
   }
 
   const handlePageBackward = () => {
@@ -256,7 +255,7 @@ const ShopSection = () => {
   }
 
   let shopProducts
-  if (isLoading) return <Loader />
+  if (isLoading) return (shopProducts = <Loader />)
   if (!products) return <p>something went wrong</p>
   shopProducts = !products.products?.length ? (
     <p>no product found</p>
@@ -287,7 +286,6 @@ const ShopSection = () => {
                 all
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.totalProducts}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -302,7 +300,6 @@ const ShopSection = () => {
                 gaming pc
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.gaming}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -317,7 +314,6 @@ const ShopSection = () => {
                 all in one
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.allInOne}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -332,7 +328,6 @@ const ShopSection = () => {
                 tablet pc
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.tablet}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -347,7 +342,6 @@ const ShopSection = () => {
                 touchScreen
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.touchScreen}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -362,7 +356,6 @@ const ShopSection = () => {
                 chromebook
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.chromebook}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -377,7 +370,6 @@ const ShopSection = () => {
                 macs
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.apple}&#41;</Amount>
           </Category>
         </CategoriesSection>
         <ManufacturerSection>
@@ -395,7 +387,6 @@ const ShopSection = () => {
                 hp
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.hp}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -410,7 +401,6 @@ const ShopSection = () => {
                 dell
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.dell}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -425,7 +415,6 @@ const ShopSection = () => {
                 acer
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.acer}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -440,7 +429,6 @@ const ShopSection = () => {
                 asus
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.asus}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -455,7 +443,6 @@ const ShopSection = () => {
                 lenovo
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.lenovo}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -470,7 +457,6 @@ const ShopSection = () => {
                 apple
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.apple}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -485,7 +471,6 @@ const ShopSection = () => {
                 fujitsu
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.fujitsu}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -500,7 +485,6 @@ const ShopSection = () => {
                 toshiba
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.toshiba}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -515,7 +499,6 @@ const ShopSection = () => {
                 samsung
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.samsung}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -530,7 +513,6 @@ const ShopSection = () => {
                 lg
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.lg}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -545,7 +527,6 @@ const ShopSection = () => {
                 condor
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.condor}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -560,7 +541,6 @@ const ShopSection = () => {
                 msi
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.msi}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -575,7 +555,6 @@ const ShopSection = () => {
                 wiseTech
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.wiseTech}&#41;</Amount>
           </Category>
           <Category>
             <TextWrapper>
@@ -590,7 +569,6 @@ const ShopSection = () => {
                 honor
               </Text>
             </TextWrapper>
-            <Amount>&#40;{products.honor}&#41;</Amount>
           </Category>
         </ManufacturerSection>
       </FilterSection>

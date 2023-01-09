@@ -92,6 +92,9 @@ const Button = styled.button`
   margin: 1em 0;
   cursor: pointer;
   margin: 0 1em 0 0;
+  &:disabled {
+    opacity: 0.5;
+  }
 `
 const Desc = styled.p`
   font-size: 0.9em;
@@ -110,6 +113,7 @@ const LoginSection = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errMsg, setErrMsg] = useState("")
+  const [disableButton, setDisableButton] = useState(false)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -141,6 +145,14 @@ const LoginSection = () => {
         setEmail("")
         setPassword("")
         setErrMsg("Unauthorized")
+      } else if (err.status === 429) {
+        setEmail("")
+        setPassword("")
+        setErrMsg("To many login attempts try again after 60 seconds")
+        setDisableButton(true)
+        setTimeout(() => {
+          setDisableButton(false)
+        }, 60000)
       } else {
         setErrMsg(err.data?.message)
       }
@@ -208,7 +220,9 @@ const LoginSection = () => {
             />
             <Label htmlFor="radio">show password</Label>
           </RadioButton>
-          <Button type="submit">login</Button>
+          <Button disabled={disableButton} type="submit">
+            login
+          </Button>
           <Wrapper>
             <Desc>forgot password ?</Desc>
           </Wrapper>
