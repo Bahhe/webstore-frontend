@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { mobile } from "../../../assests/globalStyles/responsive"
@@ -8,7 +9,10 @@ import {
 } from "../../users/usersApiSlice"
 
 const Form = styled.form`
-  width: 100%;
+  width: 80%;
+  position: relative;
+  padding-bottom: 5em;
+  padding-top: 10em;
 `
 const Container = styled.main`
   width: 100%;
@@ -18,7 +22,15 @@ const Container = styled.main`
     flexDirection: "column",
   })}
 `
-const Title = styled.h1`
+const Logo = styled.h1`
+  position: absolute;
+  top: 1em;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+`
+
+const Title = styled.h2`
   width: 100%;
   font-size: 2.5em;
   font-weight: 400;
@@ -66,6 +78,7 @@ const Label = styled.label`
 const Radio = styled.input`
   width: 2em;
   border: none;
+  cursor: pointer;
 `
 const Button = styled.button`
   width: 10em;
@@ -83,13 +96,16 @@ const Button = styled.button`
     opacity: 0.5;
   }
 `
-
-const USER_REGEX = /^[A-z]{3,20}$/
-const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
+const LegalInformations = styled.footer`
+  font-size: 0.8em;
+  opacity: 0.8;
+`
+// /^[A-z0-9!@#$%]{4,12}$/
+const USER_REGEX = /^[A-z]{3,10}$/
+const PWD_REGEX = /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
 const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
 
 const RegisterSection = () => {
-  const [showPassword, setShowPassword] = useState(false)
   const { users } = useGetUsersQuery("users", {
     selectFromResult: ({ data, isFetching }) => ({
       users: data?.entities,
@@ -102,6 +118,8 @@ const RegisterSection = () => {
 
   const navigate = useNavigate()
 
+  const [showPassword, setShowPassword] = useState(false)
+  const [newsLetter, setNewsLetter] = useState(false)
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
@@ -133,6 +151,7 @@ const RegisterSection = () => {
       setLastName("")
       setEmail("")
       setPassword("")
+      alert("now login")
       navigate("/login")
     }
   }, [isSuccess, navigate])
@@ -156,21 +175,27 @@ const RegisterSection = () => {
         alert("this email already exists please login")
         navigate("/login")
       }
-      await addNewUser({ firstName, lastName, email, password })
+      await addNewUser({ firstName, lastName, email, password, newsLetter })
     }
   }
 
   return (
     <Form onSubmit={onSubmitClicked}>
+      <Logo onClick={() => navigate("/")}>TIMGAD.</Logo>
       <Title>create new customer account</Title>
       <span style={{ color: "red" }}>{isError && error}</span>
       <Container>
         <Left>
           <SectionTitle>personal information</SectionTitle>
           <SmallTitle htmlFor="firstName">first name</SmallTitle>
-          <span style={{ color: "red" }}>
-            {firstName && !validFirstName && "first name not valid"}
-          </span>
+          <br />
+          {firstName && !validFirstName && (
+            <span
+              style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
+            >
+              * First Name length 3 to 8 characters and only letters
+            </span>
+          )}
           <Input
             id="firstName"
             name="firstName"
@@ -180,9 +205,14 @@ const RegisterSection = () => {
             onChange={onFirstNameChanged}
           />
           <SmallTitle htmlFor="lastName">last name</SmallTitle>
-          <span style={{ color: "red" }}>
-            {lastName && !validLastName && "last name not valid"}
-          </span>
+          <br />
+          {lastName && !validLastName && (
+            <span
+              style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
+            >
+              * Last Name length 3 to 8 characters and only letters
+            </span>
+          )}
           <Input
             id="lastName"
             name="lastName"
@@ -192,16 +222,39 @@ const RegisterSection = () => {
             onChange={onLastNameChanged}
           />
           <RadioButton>
-            <Radio type="checkbox" name="radio" />
-            <Label htmlfor="radio">sign up for newsletter</Label>
+            <Radio
+              type="checkbox"
+              name="newsletter"
+              id="newsletter"
+              value={newsLetter}
+              onChange={() => setNewsLetter((prev) => !prev)}
+            />
+            <Label htmlfor="newsletter">sign up for newsletter</Label>
           </RadioButton>
+          <LegalInformations>
+            By continuing, you agree to Timgad's
+            <Link style={{ textDecoration: "none" }} to="">
+              {" "}
+              Conditions of Use{" "}
+            </Link>
+            and
+            <Link style={{ textDecoration: "none" }} to="">
+              {" "}
+              Privacy Notice.{" "}
+            </Link>
+          </LegalInformations>
         </Left>
         <Right>
           <SectionTitle>sign-in information</SectionTitle>
           <SmallTitle htmlFor="email">email</SmallTitle>
-          <span style={{ color: "red" }}>
-            {email && !validEmail && "email not valid"}
-          </span>
+          <br />
+          {email && !validEmail && (
+            <span
+              style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
+            >
+              * Email is not valid
+            </span>
+          )}
           <Input
             id="email"
             name="email"
@@ -210,8 +263,31 @@ const RegisterSection = () => {
             onChange={onEmailChanged}
           />
           <SmallTitle htmlFor="password">password</SmallTitle>
-          <span style={{ color: "red" }}>
-            {password && !validPassword && "password not valid"}
+          <br />
+          <span
+            style={{
+              color: "red",
+              fontSize: ".8em",
+              margin: "0 0 0 3em",
+              textTransform: "capitalize",
+            }}
+          >
+            {password && !validPassword && (
+              <>
+                <br />
+                <span style={{ margin: "0 0 0 1em" }}>
+                  * Passwords will contain at least 1 upper case letter
+                </span>
+                <br />
+                <span style={{ margin: "0 0 0 1em" }}>
+                  * 1 lower case letter
+                </span>
+                <br />
+                <span style={{ margin: "0 0 0 1em" }}>
+                  * 1 number or special character
+                </span>
+              </>
+            )}
           </span>
           <Input
             id="password"
@@ -222,7 +298,7 @@ const RegisterSection = () => {
           />
           <RadioButton>
             <Radio
-              onClick={() => setShowPassword((prev) => !prev)}
+              onChange={() => setShowPassword((prev) => !prev)}
               value={showPassword}
               checked={showPassword}
               type="checkbox"
@@ -235,6 +311,38 @@ const RegisterSection = () => {
       <Button type="submit" disabled={!canSave}>
         register
       </Button>
+      <br />
+      <span
+        style={{
+          opacity: ".7",
+          fontSize: ".8em",
+          position: "absolute",
+          bottom: "2em",
+          left: "50%",
+          transform: "translate(-50%, 50%)",
+        }}
+      >
+        <Link style={{ textDecoration: "none", marginRight: "1em" }} to="">
+          {" "}
+          Conditions of Use{" "}
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="">
+          {" "}
+          Privacy Notice.{" "}
+        </Link>
+      </span>
+      <span
+        style={{
+          opacity: ".7",
+          fontSize: ".8em",
+          position: "absolute",
+          bottom: "0",
+          left: "50%",
+          transform: "translate(-50%, 50%)",
+        }}
+      >
+        © 1996-2022, timgad.com, Inc.
+      </span>
     </Form>
   )
 }

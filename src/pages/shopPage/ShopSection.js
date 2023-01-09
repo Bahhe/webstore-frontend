@@ -85,6 +85,12 @@ const ManufacturerSection = styled.div`
 
 const ProductsSection = styled.div`
   flex: 4;
+  ${mobile({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  })}
 `
 const NavigationBar = styled.div`
   display: flex;
@@ -145,6 +151,11 @@ const Options = styled.option``
 const ProductsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  ${mobile({
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  })}
 `
 
 const ProductsTitle = styled.div`
@@ -153,9 +164,8 @@ const ProductsTitle = styled.div`
   padding: 0 0 1em 0;
 `
 const MobileSearch = styled.input`
-  width: 90%;
-  margin: auto;
   margin-bottom: 1em;
+  width: 80%;
   padding: 0.5em;
   border-radius: 50px;
   border: 1px solid black;
@@ -220,14 +230,29 @@ const ShopSection = () => {
   const handlePageBackward = () => {
     setPage((prev) => prev - 1)
     refetch()
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant", // Optional if you want to skip the scrolling animation
+    })
   }
   const handlePageForward = () => {
     setPage((prev) => prev + 1)
     refetch()
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant", // Optional if you want to skip the scrolling animation
+    })
   }
   const handlePageNumber = (number) => {
     setPage(number)
     refetch()
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant", // Optional if you want to skip the scrolling animation
+    })
   }
 
   let shopProducts

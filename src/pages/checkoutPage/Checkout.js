@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import styled from "styled-components"
 import Product from "./Product"
 import { useAddNewOrderMutation } from "../../features/orders/ordersApiSlice"
@@ -8,6 +8,10 @@ import { useNavigate } from "react-router-dom"
 import { resetCart } from "../../features/carts/cartSlice"
 import { mobile } from "../../assests/globalStyles/responsive"
 import useTitle from "../../hooks/useTitle"
+import useAuth from "../../hooks/useAuth"
+import { useGetUsersQuery } from "../../features/users/usersApiSlice"
+import PulseLoader from "react-spinners/PulseLoader"
+import emailjs from "@emailjs/browser"
 
 const Container = styled.div`
   margin: 1em 0 0 0;
@@ -108,10 +112,18 @@ const Select = styled.select`
 const Option = styled.option``
 
 const Checkout = () => {
+  const form = useRef()
   useTitle("TIMGAD. | Checkout")
+  const { id } = useAuth()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [addNewOrder, { isSuccess }] = useAddNewOrderMutation()
+  const { user } = useGetUsersQuery("users", {
+    selectFromResult: ({ data }) => ({
+      user: data?.entities[id],
+    }),
+  })
+  const [addNewOrder, { isSuccess, isLoading }] = useAddNewOrderMutation()
+
   const { cart } = useSelector((state) => state.cart)
 
   const getTotal = () => {
@@ -148,6 +160,7 @@ const Checkout = () => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [city, setCity] = useState("")
+  const [address, setAddress] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [shipping, setShipping] = useState("yaladine")
 
@@ -163,6 +176,9 @@ const Checkout = () => {
   const onCityChanged = (e) => {
     setCity(e.target.value)
   }
+  const onAddressChanged = (e) => {
+    setAddress(e.target.value)
+  }
   const onPhoneNumberChanged = (e) => {
     setPhoneNumber(e.target.value)
   }
@@ -175,15 +191,43 @@ const Checkout = () => {
     const productId = cart?.map((product) => {
       return product.id
     })
+    if (user) {
+      await addNewOrder({
+        products: productId,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        city: user.city ? user.city : city,
+        address: user.address ? user.address : address,
+        number: user.number ? user.number : phoneNumber,
+        shipping: shipping,
+      })
+    }
     await addNewOrder({
       products: productId,
       email: email,
       firstName: firstName,
       lastName: lastName,
       city: city,
+      address: address,
       number: phoneNumber,
       shipping: shipping,
     })
+    emailjs
+      .sendForm(
+        "service_7ifymxp",
+        "template_1jluchl",
+        form.current,
+        "K2SgTvTxH6jO38nqH"
+      )
+      .then(
+        (result) => {
+          console.log(result.text)
+        },
+        (error) => {
+          console.log(error.text)
+        }
+      )
   }
 
   return (
@@ -191,58 +235,123 @@ const Checkout = () => {
       <PageTitle>checkout</PageTitle>
       <SmallTitle>shipping address</SmallTitle>
       <SectionsContainer>
-        <LeftSection onSubmit={onSubmitClicked}>
-          <InputContainer>
-            <Label>email address</Label>
-            <InputField
-              type="email"
-              id="email"
-              value={email}
-              onChange={onEmailChanged}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>first name</Label>
-            <InputField
-              type="text"
-              id="firstName"
-              value={firstName}
-              onChange={onFirstNameChanged}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>last name</Label>
-            <InputField
-              type="text"
-              id="lastName"
-              value={lastName}
-              onChange={onLastNameChanged}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>city</Label>
-            <InputField
-              type="text"
-              id="city"
-              value={city}
-              onChange={onCityChanged}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>phone number</Label>
-            <InputField
-              type="text"
-              id="phoneNumber"
-              value={phoneNumber}
-              onChange={onPhoneNumberChanged}
-            />
-          </InputContainer>
+        <LeftSection ref={form} onSubmit={onSubmitClicked}>
+          {!user && (
+            <>
+              <InputContainer>
+                <Label>email address</Label>
+                <InputField
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={onEmailChanged}
+                />
+              </InputContainer>
+
+              <InputContainer>
+                <Label>first name</Label>
+                <InputField
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value={firstName}
+                  onChange={onFirstNameChanged}
+                />
+              </InputContainer>
+              <InputContainer>
+                <Label>last name</Label>
+                <InputField
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={lastName}
+                  onChange={onLastNameChanged}
+                />
+              </InputContainer>
+            </>
+          )}
+          {user ? (
+            user.address ? null : (
+              <InputContainer>
+                <Label>address</Label>
+                <InputField
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={address}
+                  onChange={onAddressChanged}
+                />
+              </InputContainer>
+            )
+          ) : (
+            <InputContainer>
+              <Label>address</Label>
+              <InputField
+                type="text"
+                id="address"
+                name="address"
+                value={address}
+                onChange={onAddressChanged}
+              />
+            </InputContainer>
+          )}
+          {user ? (
+            user.city ? null : (
+              <InputContainer>
+                <Label>city</Label>
+                <InputField
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={city}
+                  onChange={onCityChanged}
+                />
+              </InputContainer>
+            )
+          ) : (
+            <InputContainer>
+              <Label>city</Label>
+              <InputField
+                type="text"
+                id="city"
+                name="city"
+                value={city}
+                onChange={onCityChanged}
+              />
+            </InputContainer>
+          )}
+          {user ? (
+            user.number ? null : (
+              <InputContainer>
+                <Label>phone number</Label>
+                <InputField
+                  type="text"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  value={phoneNumber}
+                  onChange={onPhoneNumberChanged}
+                />
+              </InputContainer>
+            )
+          ) : (
+            <InputContainer>
+              <Label>phone number</Label>
+              <InputField
+                type="text"
+                id="phoneNumber"
+                name="phoneNumber"
+                value={phoneNumber}
+                onChange={onPhoneNumberChanged}
+              />
+            </InputContainer>
+          )}
           <Shipping>
             <Title>shipping method</Title>
             <Wrapper>
               <Select
                 type="select"
                 id="shipping"
+                name="shipping"
                 value={shipping || "yalidine"}
                 onChange={onShippingChanged}
               >
@@ -252,7 +361,7 @@ const Checkout = () => {
             </Wrapper>
           </Shipping>
           <ButtonContainer>
-            <Button>next</Button>
+            <Button>{isLoading ? <PulseLoader /> : "next"}</Button>
           </ButtonContainer>
         </LeftSection>
         <RightSection>

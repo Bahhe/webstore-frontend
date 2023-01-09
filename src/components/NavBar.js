@@ -148,6 +148,14 @@ const MenuButton = styled.div`
     display: "none",
   })}
 `
+const User = styled.div``
+const Avatar = styled.img`
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  cursor: pointer;
+`
+
 const MenuWrapper = styled.div``
 
 const NavBar = () => {
@@ -163,7 +171,7 @@ const NavBar = () => {
   }
   const token = useSelector(selectCurrentToken)
   const navigate = useNavigate()
-  const { isAdmin } = useAuth()
+  const { isAdmin, id } = useAuth()
 
   const onSearchBarClicked = () => {
     navigate("/shop")
@@ -171,7 +179,10 @@ const NavBar = () => {
 
   const [sendLogout, { isLoading, isError, error }] = useSendLogoutMutation()
 
-  const onLogoutClicked = () => sendLogout()
+  const onLogoutClicked = async () => {
+    await sendLogout()
+    navigate(`/`)
+  }
 
   if (isLoading) return <PulseLoader />
   if (isError) return <p>{error.message}</p>
@@ -216,11 +227,7 @@ const NavBar = () => {
               <Dashboard />
             </AdminDashBoard>
           )}
-          {token ? (
-            <Logout onClick={onLogoutClicked}>
-              <LogoutOutlined />
-            </Logout>
-          ) : (
+          {!token && (
             <RegisterContainer>
               <Login
                 onClick={() => {
@@ -246,6 +253,16 @@ const NavBar = () => {
               </Badge>
             </Cart>
           </IconsContainer>
+          {token && (
+            <>
+              <Logout onClick={onLogoutClicked}>
+                <LogoutOutlined />
+              </Logout>
+              <User onClick={() => navigate(`/user/${id}`)}>
+                <Avatar src="https://firebasestorage.googleapis.com/v0/b/webstore-d48be.appspot.com/o/user(1).png?alt=media&token=477b5102-c1b2-4580-a74b-c3ce9907acae" />
+              </User>
+            </>
+          )}
         </Right>
       </Wrapper>
     </Container>

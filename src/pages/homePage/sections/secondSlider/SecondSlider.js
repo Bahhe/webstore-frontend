@@ -25,7 +25,7 @@ const Arrow = styled.div`
   position: absolute;
   cursor: pointer;
   transition: 0.5s ease;
-  z-index: 2;
+  z-index: 3;
   opacity: 0.2;
   visibility: hidden;
   &:hover {
@@ -33,7 +33,7 @@ const Arrow = styled.div`
   }
   ${mobile({
     opacity: "1",
-    visibility: (props) => props.direction === "right" && "visible",
+    visibility: (props) => (props.direction === "left" ? "hidden" : "visible"),
     right: (props) => props.direction === "right" && "-2em",
   })}
 `

@@ -124,6 +124,7 @@ const ItemQuantity = styled.p`
   font-weight: 300;
   margin: 1em 0 0 0;
 `
+
 const Chart = styled.section``
 
 const HomePageContent = () => {

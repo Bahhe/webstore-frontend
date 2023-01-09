@@ -121,6 +121,9 @@ const CheckOutButton = styled.button`
   border: none;
   text-transform: capitalize;
   cursor: pointer;
+  &:disabled {
+    opacity: 0.5;
+  }
 `
 
 const ShoppingCart = () => {
@@ -142,16 +145,18 @@ const ShoppingCart = () => {
   let subtotal = getTotal().totalPrice
   let orderTotal = getTotal().totalPrice + shippingPrice
 
-  const product = cart?.map((product) => (
-    <CartProduct
-      key={product.id}
-      id={product.id}
-      image={product.image}
-      title={product.title}
-      price={product.price}
-      quantity={product.quantity}
-    />
-  ))
+  const product = cart?.length
+    ? cart?.map((product) => (
+        <CartProduct
+          key={product.id}
+          id={product.id}
+          image={product.image}
+          title={product.title}
+          price={product.price}
+          quantity={product.quantity}
+        />
+      ))
+    : "no products in your cart"
 
   return (
     <Container>
@@ -190,7 +195,10 @@ const ShoppingCart = () => {
             </Amount>
           </OrderTotal>
           <ButtonContainer>
-            <CheckOutButton onClick={() => navigate(`/checkout`)}>
+            <CheckOutButton
+              disabled={!cart?.length}
+              onClick={() => navigate(`/checkout`)}
+            >
               proceed to checkout
             </CheckOutButton>
           </ButtonContainer>

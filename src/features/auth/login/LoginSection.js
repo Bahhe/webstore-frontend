@@ -7,10 +7,22 @@ import { useLoginMutation } from "../authApiSlice"
 import jwtDecode from "jwt-decode"
 import { mobile } from "../../../assests/globalStyles/responsive"
 import PulseLoader from "react-spinners/PulseLoader"
+import { Link } from "react-router-dom"
 
 const Container = styled.main`
-  width: 100%;
+  width: 80%;
+  position: relative;
+  padding-top: 10em;
+  padding-bottom: 10em;
 `
+const Logo = styled.h1`
+  position: absolute;
+  top: 1em;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+`
+
 const Section = styled.section`
   width: 100%;
   display: flex;
@@ -104,11 +116,7 @@ const LoginSection = () => {
 
   useEffect(() => {
     userRef.current.focus()
-  }, [])
-
-  useEffect(() => {
-    setErrMsg("")
-  }, [email, password])
+  }, [errMsg])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -136,12 +144,17 @@ const LoginSection = () => {
       } else {
         setErrMsg(err.data?.message)
       }
-      errRef.current.focus()
+      errRef.current && errRef.current.focus()
     }
   }
-
-  const onEmailChanged = (e) => setEmail(e.target.value)
-  const onPasswordChanged = (e) => setPassword(e.target.value)
+  const onEmailChanged = (e) => {
+    setErrMsg("")
+    setEmail(e.target.value)
+  }
+  const onPasswordChanged = (e) => {
+    setErrMsg("")
+    setPassword(e.target.value)
+  }
 
   const [login, { isLoading }] = useLoginMutation()
 
@@ -149,17 +162,23 @@ const LoginSection = () => {
 
   return (
     <Container>
+      <Logo onClick={() => navigate("/")}>TIMGAD.</Logo>
       <Title>customer login</Title>
       <Section>
         <Left onSubmit={handleSubmit}>
           <SectionTitle>registered customers</SectionTitle>
           <Desc>If you have an account, sign in with your email address.</Desc>
-          {errMsg && (
-            <span ref={errRef} aria-live="assertive">
-              {errMsg}
-            </span>
-          )}
           <SmallTitle htmlFor="email">email</SmallTitle>
+          <br />
+          {errMsg && (
+            <p
+              style={{ color: "red", marginLeft: "1em", fontSize: ".8em" }}
+              ref={errRef}
+              aria-live="assertive"
+            >
+              {`* ${errMsg}`}
+            </p>
+          )}
           <Input
             value={email}
             onChange={onEmailChanged}
@@ -180,7 +199,7 @@ const LoginSection = () => {
           />
           <RadioButton>
             <Radio
-              onClick={() => setShowPassword((prev) => !prev)}
+              onChange={() => setShowPassword((prev) => !prev)}
               value={showPassword}
               checked={showPassword}
               type="checkbox"
@@ -203,6 +222,38 @@ const LoginSection = () => {
           <Button onClick={() => navigate("/register")}>register</Button>
         </Right>
       </Section>
+      <br />
+      <p
+        style={{
+          opacity: ".7",
+          fontSize: ".8em",
+          position: "absolute",
+          bottom: "2em",
+          left: "50%",
+          transform: "translate(-50%, 50%)",
+        }}
+      >
+        <Link style={{ textDecoration: "none", marginRight: "1em" }} to="">
+          {" "}
+          Conditions of Use{" "}
+        </Link>
+        <Link style={{ textDecoration: "none" }} to="">
+          {" "}
+          Privacy Notice.{" "}
+        </Link>
+      </p>
+      <p
+        style={{
+          opacity: ".7",
+          fontSize: ".8em",
+          position: "absolute",
+          bottom: "0",
+          left: "50%",
+          transform: "translate(-50%, 50%)",
+        }}
+      >
+        © 1996-2022, timgad.com, Inc.
+      </p>
     </Container>
   )
 }

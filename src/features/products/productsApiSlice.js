@@ -63,7 +63,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     }),
     getProductById: builder.query({
       query: (id) => ({
-        url: `/products/?userId=${id}`,
+        url: `/products/?productId=${id}`,
         validateStatus: (response, result) => {
           return response.status === 200 && !result.isError
         },

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useGetProductsQuery } from "../../../features/products/productsApiSlice"
-import PulseLoader from "react-spinners/PulseLoader"
+import Loader from "../../../components/Loader"
 
 const ProductContainer = styled.div`
   padding: 1em;
@@ -30,7 +30,7 @@ const ProductTitle = styled.div`
 const InfoSection = styled.div``
 
 const OrderProduct = ({ productId }) => {
-  const { product, isLoading, isSuccess } = useGetProductsQuery("products", {
+  const { product, isLoading } = useGetProductsQuery("products", {
     selectFromResult: ({ data, isLoading, isSuccess }) => ({
       product: data?.entities[productId],
       isLoading,
@@ -38,21 +38,22 @@ const OrderProduct = ({ productId }) => {
     }),
   })
   if (isLoading) {
-    return <PulseLoader />
+    return <Loader />
   }
-  if (isSuccess) {
-    return (
-      <ProductContainer>
-        <ProductInfo>
-          <Image src={product.img} />
-          <InfoSection>
-            <ProductTitle>{product.title}</ProductTitle>
-            <ProductPrice>${product.price}</ProductPrice>
-          </InfoSection>
-        </ProductInfo>
-      </ProductContainer>
-    )
+  if (!product) {
+    return <p>no product found</p>
   }
+  return (
+    <ProductContainer>
+      <ProductInfo>
+        <Image src={product.img} />
+        <InfoSection>
+          <ProductTitle>{product.title}</ProductTitle>
+          <ProductPrice>${product.price}</ProductPrice>
+        </InfoSection>
+      </ProductInfo>
+    </ProductContainer>
+  )
 }
 
 export default OrderProduct

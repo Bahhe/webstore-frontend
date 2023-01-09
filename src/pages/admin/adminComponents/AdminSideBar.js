@@ -5,12 +5,15 @@ import {
   Home,
   Inventory,
   Inventory2Rounded,
+  LogoutOutlined,
   Person,
   ViewList,
 } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
 import useAuth from "../../../hooks/useAuth"
 import { useGetUsersQuery } from "../../../features/users/usersApiSlice"
+import { useSendLogoutMutation } from "../../../features/auth/authApiSlice"
+import PulseLoader from "react-spinners/PulseLoader"
 
 const Container = styled.ul`
   padding: 2em;
@@ -62,6 +65,13 @@ const Name = styled.h1`
   font-size: 2em;
 `
 
+const Logout = styled.button`
+  border: none;
+  background-color: transparent;
+  margin: 0 1em;
+  cursor: pointer;
+`
+
 const AdminSideBar = () => {
   const { id } = useAuth()
   const { user } = useGetUsersQuery("users", {
@@ -70,6 +80,16 @@ const AdminSideBar = () => {
     }),
   })
   const navigate = useNavigate()
+
+  const onLogoutClicked = async () => {
+    await sendLogout()
+    navigate(`/`)
+  }
+  const [sendLogout, { isLoading, isError, error }] = useSendLogoutMutation()
+
+  if (isLoading) return <PulseLoader />
+  if (isError) return <p>{error.message}</p>
+
   return (
     <Wrapper>
       <Admin>
@@ -77,6 +97,9 @@ const AdminSideBar = () => {
         <Name onClick={() => navigate(`/admin/user/edit/${user.id}`)}>
           {user && user.firstName + " " + user.lastName}
         </Name>
+        <Logout onClick={onLogoutClicked}>
+          <LogoutOutlined />
+        </Logout>
       </Admin>
       <Container>
         <Title>quick menu</Title>

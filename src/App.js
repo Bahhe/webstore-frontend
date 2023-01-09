@@ -22,6 +22,7 @@ import OrderPage from "./pages/admin/pages/OrderPage"
 import RequireAuth from "./features/auth/RequireAuth"
 import NotFound from "./pages/notFound/NotFound"
 import useTitle from "./hooks/useTitle"
+import UserPage from "./features/auth/user/UserPage"
 
 function App() {
   useTitle("TIMGAD.")
@@ -46,16 +47,16 @@ function App() {
           </Route>
         </Route>
       </Route>
+      {/* auth */}
+      <Route path="register" element={<Register />} />
+      <Route path="login" element={<Login />} />
+      {/* auth */}
       <Route path="/" element={<Layout />}>
-        {/* auth */}
-        <Route path="register" element={<Register />} />
-        <Route path="login" element={<Login />} />
-        {/* auth */}
-
         {/* protected routes */}
         <Route element={<PersistLogin />}>
           <Route element={<Prefetch />}>
             <Route index element={<Home />} />
+            <Route path="user/:userId" element={<UserPage />} />
             <Route path="shop">
               <Route index element={<Shop />} />
               <Route path="product/:userId" element={<ProductView />} />

@@ -20,7 +20,7 @@ const Container = styled.div`
   })}
 `
 const AllInOne = styled.div`
-  background: url("https://www.apple.com/v/imac-24/g/images/why-mac/hero_why_mac__epb9a0jlsu82_large.png");
+  background: url("https://firebasestorage.googleapis.com/v0/b/webstore-d48be.appspot.com/o/allInOne.webp?alt=media&token=3c9ac610-087c-4485-9923-fe9c832af0c3");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -44,7 +44,7 @@ const AllInOne = styled.div`
   })}
 `
 const PcTablet = styled.div`
-  background: url("https://images.unsplash.com/photo-1623126908029-58cb08a2b272?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
+  background: url("https://firebasestorage.googleapis.com/v0/b/webstore-d48be.appspot.com/o/tablet.webp?alt=media&token=4bcf0d32-554f-492b-9aa4-d381ae5dc164");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -68,7 +68,7 @@ const PcTablet = styled.div`
   })}
 `
 const Gaming = styled.div`
-  background: url("https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/Alienware_m17_R5_header.jpg");
+  background: url("https://firebasestorage.googleapis.com/v0/b/webstore-d48be.appspot.com/o/gaming.webp?alt=media&token=3165074d-d7b4-49ad-90de-e4b0ad73df45");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -92,7 +92,7 @@ const Gaming = styled.div`
   })}
 `
 const ChromeBook = styled.div`
-  background: url("https://images.unsplash.com/photo-1613432760965-f106c65b5a3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1931&q=80");
+  background: url("https://firebasestorage.googleapis.com/v0/b/webstore-d48be.appspot.com/o/chromebook.webp?alt=media&token=eea20a70-f059-461a-aab0-539801332ef7");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -116,7 +116,7 @@ const ChromeBook = styled.div`
   })}
 `
 const Macs = styled.div`
-  background: url("https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1926&q=80");
+  background: url("https://firebasestorage.googleapis.com/v0/b/webstore-d48be.appspot.com/o/apple.webp?alt=media&token=a5438ed1-b1a0-4a3c-92d1-f4d595472a61");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
