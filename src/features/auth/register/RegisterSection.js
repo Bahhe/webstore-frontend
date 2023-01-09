@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { mobile } from "../../../assests/globalStyles/responsive"
+import Loader from "../../../components/Loader"
 import { useAddNewUserMutation } from "../../users/usersApiSlice"
 
 const Form = styled.form`
@@ -109,11 +110,11 @@ const RegisterSection = () => {
   const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false)
-  const [newsLetter, setNewsLetter] = useState(false)
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [newsLetter, setNewsLetter] = useState(false)
   const [validPassword, setValidPassword] = useState(false)
   const [validFirstName, setValidFirstName] = useState(false)
   const [validLastName, setValidLastName] = useState(false)
@@ -141,7 +142,6 @@ const RegisterSection = () => {
       setLastName("")
       setEmail("")
       setPassword("")
-      alert("now login")
       navigate("/login")
     }
   }, [isSuccess, navigate])
@@ -150,6 +150,7 @@ const RegisterSection = () => {
   const onFirstNameChanged = (e) => setFirstName(e.target.value)
   const onLastNameChanged = (e) => setLastName(e.target.value)
   const onPasswordChanged = (e) => setPassword(e.target.value)
+  const onNewsLetterChanged = () => setNewsLetter((prev) => !prev)
 
   const canSave =
     [validFirstName, validLastName, validPassword, validEmail].every(Boolean) &&
@@ -160,6 +161,9 @@ const RegisterSection = () => {
     if (canSave) {
       await addNewUser({ firstName, lastName, email, password, newsLetter })
     }
+  }
+  if (isLoading) {
+    return <Loader />
   }
 
   return (
@@ -212,7 +216,7 @@ const RegisterSection = () => {
               name="newsletter"
               id="newsletter"
               value={newsLetter}
-              onChange={() => setNewsLetter((prev) => !prev)}
+              onChange={onNewsLetterChanged}
             />
             <Label htmlfor="newsletter">sign up for newsletter</Label>
           </RadioButton>

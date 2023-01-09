@@ -222,8 +222,8 @@ const ShopSection = () => {
 
   const handleSearch = (e) => {
     setCategory("all")
-    refetch()
     setSearch(e.target.value)
+    refetch()
   }
 
   const handlePageBackward = () => {

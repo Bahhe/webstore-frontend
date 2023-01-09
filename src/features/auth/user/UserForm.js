@@ -61,9 +61,9 @@ const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
 const UserForm = ({ user }) => {
   const navigate = useNavigate()
 
-  const [firstName, setFirstName] = useState(user.firstName)
-  const [lastName, setLastName] = useState(user.lastName)
-  const [email, setEmail] = useState(user.email)
+  const [firstName, setFirstName] = useState(user.firstName || "")
+  const [lastName, setLastName] = useState(user.lastName || "")
+  const [email, setEmail] = useState(user.email || "")
   const [password, setPassword] = useState("")
   const [address, setAddress] = useState(user.address || "")
   const [number, setNumber] = useState(user.number || "")

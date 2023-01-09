@@ -4,12 +4,15 @@ import { useState, useRef } from "react"
 import styled from "styled-components"
 import Product from "./Product"
 import { useAddNewOrderMutation } from "../../features/orders/ordersApiSlice"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { resetCart } from "../../features/carts/cartSlice"
 import { mobile } from "../../assests/globalStyles/responsive"
 import useTitle from "../../hooks/useTitle"
 import useAuth from "../../hooks/useAuth"
-import { useGetUsersQuery } from "../../features/users/usersApiSlice"
+import {
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+} from "../../features/users/usersApiSlice"
 import PulseLoader from "react-spinners/PulseLoader"
 import emailjs from "@emailjs/browser"
 
@@ -117,12 +120,11 @@ const Checkout = () => {
   const { id } = useAuth()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { user } = useGetUsersQuery("users", {
-    selectFromResult: ({ data }) => ({
-      user: data?.entities[id],
-    }),
+  const { data: user } = useGetUserByIdQuery(id, {
+    refetchOnMountOrArgChange: true,
   })
   const [addNewOrder, { isSuccess, isLoading }] = useAddNewOrderMutation()
+  const [updateUser, { isLoading: isLoadingUpdate }] = useUpdateUserMutation()
 
   const { cart } = useSelector((state) => state.cart)
 
@@ -148,9 +150,21 @@ const Checkout = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      alert(
-        "your order has been requested we will call you to confirm your order"
-      )
+      emailjs
+        .sendForm(
+          "service_7ifymxp",
+          "template_1jluchl",
+          form.current,
+          "K2SgTvTxH6jO38nqH"
+        )
+        .then(
+          (result) => {
+            console.log(result.text)
+          },
+          (error) => {
+            console.log(error.text)
+          }
+        )
       dispatch(resetCart())
       navigate("/")
     }
@@ -202,38 +216,37 @@ const Checkout = () => {
         number: user.number ? user.number : phoneNumber,
         shipping: shipping,
       })
+      await updateUser({
+        ...user,
+        id: user.id,
+        city: user.city ? user.city : city,
+        address: user.address ? user.address : address,
+        number: user.number ? user.number : phoneNumber,
+      })
+    } else {
+      await addNewOrder({
+        products: productId,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        city: city,
+        address: address,
+        number: phoneNumber,
+        shipping: shipping,
+      })
     }
-    await addNewOrder({
-      products: productId,
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      city: city,
-      address: address,
-      number: phoneNumber,
-      shipping: shipping,
-    })
-    emailjs
-      .sendForm(
-        "service_7ifymxp",
-        "template_1jluchl",
-        form.current,
-        "K2SgTvTxH6jO38nqH"
-      )
-      .then(
-        (result) => {
-          console.log(result.text)
-        },
-        (error) => {
-          console.log(error.text)
-        }
-      )
   }
 
   return (
     <Container>
       <PageTitle>checkout</PageTitle>
       <SmallTitle>shipping address</SmallTitle>
+      {user && (
+        <p style={{ marginBottom: "1em", fontSize: ".8em", opacity: ".9" }}>
+          click <Link to={`/user/${user.id}`}>here</Link> if you want to change
+          your shipping address
+        </p>
+      )}
       <SectionsContainer>
         <LeftSection ref={form} onSubmit={onSubmitClicked}>
           {!user && (
@@ -361,7 +374,9 @@ const Checkout = () => {
             </Wrapper>
           </Shipping>
           <ButtonContainer>
-            <Button>{isLoading ? <PulseLoader /> : "next"}</Button>
+            <Button>
+              {isLoading || isLoadingUpdate ? <PulseLoader /> : "next"}
+            </Button>
           </ButtonContainer>
         </LeftSection>
         <RightSection>
@@ -377,6 +392,12 @@ const Checkout = () => {
             <Desc style={{ padding: "1em 0", color: "red" }}>
               ${getTotal().totalPrice + 10}
             </Desc>
+            <Button
+              onClick={() => navigate("/cart")}
+              style={{ margin: "1em 0" }}
+            >
+              edit cart
+            </Button>
           </RightSectionContainer>
         </RightSection>
       </SectionsContainer>

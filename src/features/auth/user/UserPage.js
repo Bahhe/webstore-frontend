@@ -1,19 +1,16 @@
 import React from "react"
 import Loader from "../../../components/Loader"
-import useAuth from "../../../hooks/useAuth"
-import { useGetUsersQuery } from "../../users/usersApiSlice"
+import { useGetUserByIdQuery } from "../../users/usersApiSlice"
+import { useParams } from "react-router-dom"
 import UserForm from "./UserForm"
 
 const UserPage = () => {
-  const { id } = useAuth()
-  const { user } = useGetUsersQuery("users", {
-    selectFromResult: ({ data }) => ({
-      user: data?.entities[id],
-    }),
+  const { id } = useParams()
+  const { data: user } = useGetUserByIdQuery(id, {
+    refetchOnMountOrArgChange: true,
   })
 
   if (!user) return <Loader />
-
   return <UserForm user={user} />
 }
 

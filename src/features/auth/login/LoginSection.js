@@ -144,7 +144,7 @@ const LoginSection = () => {
       } else if (err.status === 401) {
         setEmail("")
         setPassword("")
-        setErrMsg("Unauthorized")
+        setErrMsg(err?.data?.message)
       } else if (err.status === 429) {
         setEmail("")
         setPassword("")
