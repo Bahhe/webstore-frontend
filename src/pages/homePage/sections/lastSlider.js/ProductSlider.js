@@ -106,14 +106,13 @@ const ProductSlider = () => {
         loop={true}
         breakpoints={{
           1600: {
-            width: 1600,
             slidesPerView: 4,
-            spaceBetween: 50,
           },
-          480: {
-            width: 480,
+          1280: {
             slidesPerView: 3,
-            spaceBetween: 50,
+          },
+          1180: {
+            slidesPerView: 2,
           },
         }}
       >

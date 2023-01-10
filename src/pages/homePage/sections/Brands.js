@@ -26,6 +26,7 @@ const BrandsContainer = styled.div`
 `
 const Brand = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -93,14 +94,13 @@ const Brands = () => {
         loop={true}
         breakpoints={{
           1600: {
-            width: 1600,
             slidesPerView: 4,
-            spaceBetween: 50,
           },
-          480: {
-            width: 480,
+          1280: {
             slidesPerView: 3,
-            spaceBetween: 50,
+          },
+          1180: {
+            slidesPerView: 2,
           },
         }}
       >
