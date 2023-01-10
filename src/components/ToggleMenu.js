@@ -6,6 +6,8 @@ import { PulseLoader } from "react-spinners"
 import styled from "styled-components"
 import { useSendLogoutMutation } from "../features/auth/authApiSlice"
 import { selectCurrentToken } from "../features/auth/authSlice"
+import { useGetUserByIdQuery } from "../features/users/usersApiSlice"
+import useAuth from "../hooks/useAuth"
 
 const Container = styled.div`
   position: fixed;
@@ -36,9 +38,27 @@ const LinkElement = styled.li`
   text-align: left;
   padding: 1em 0 1em 1em;
 `
+
+const UserName = styled.p``
+const User = styled.div`
+  width: 80%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+`
+const Avatar = styled.img`
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+  cursor: pointer;
+`
+
 const ToggleMenu = () => {
   const navigate = useNavigate()
   const token = useSelector(selectCurrentToken)
+  const { id } = useAuth()
+  const { data: user, isLoading: isLoadingUser } = useGetUserByIdQuery(id)
   const [sendLogout, { isLoading, isError, error }] = useSendLogoutMutation()
   const onLogoutClicked = () => sendLogout()
   if (isLoading) return <PulseLoader />
@@ -48,7 +68,16 @@ const ToggleMenu = () => {
       <Links>
         <GridMenuIcon style={{ marginBottom: "1em" }} />
         {token ? (
-          <LinkElement onClick={onLogoutClicked}>logout</LinkElement>
+          <User onClick={() => navigate(`/user/${id}`)}>
+            <Avatar src="https://firebasestorage.googleapis.com/v0/b/webstore-d48be.appspot.com/o/user(1).png?alt=media&token=477b5102-c1b2-4580-a74b-c3ce9907acae" />
+            <UserName onClick={() => navigate(`/user/${id}`)}>
+              {isLoadingUser ? (
+                <PulseLoader />
+              ) : (
+                user.firstName + " " + user.lastName
+              )}
+            </UserName>
+          </User>
         ) : (
           <>
             <LinkElement
@@ -79,13 +108,8 @@ const ToggleMenu = () => {
         >
           contact us
         </LinkElement>
-        <LinkElement
-          style={{
-            borderBottom: "1px solid black",
-          }}
-        >
-          about
-        </LinkElement>
+        <LinkElement>about</LinkElement>
+        {token && <LinkElement onClick={onLogoutClicked}>logout</LinkElement>}
       </Links>
     </Container>
   )

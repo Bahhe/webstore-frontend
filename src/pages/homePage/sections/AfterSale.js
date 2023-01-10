@@ -29,6 +29,7 @@ const Left = styled.div`
   }
   ${mobile({
     width: "100%",
+    justifyContent: "left",
   })}
 `
 const Middle = styled.div`
@@ -44,6 +45,7 @@ const Middle = styled.div`
   }
   ${mobile({
     width: "100%",
+    justifyContent: "left",
   })}
 `
 const Right = styled.div`
@@ -59,6 +61,7 @@ const Right = styled.div`
   }
   ${mobile({
     width: "100%",
+    justifyContent: "left",
   })}
 `
 

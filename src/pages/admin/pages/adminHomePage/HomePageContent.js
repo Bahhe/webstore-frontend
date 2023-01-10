@@ -39,7 +39,10 @@ const Title = styled.h1`
   text-transform: capitalize;
   font-weight: 500;
 `
-const UsersList = styled.div``
+const UsersList = styled.div`
+  height: 33em;
+  overflow-y: scroll;
+`
 
 const User = styled.div`
   display: flex;
@@ -74,17 +77,19 @@ const Display = styled.button`
 `
 const Right = styled.section`
   margin: 1em;
-  padding: 1em;
   box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
   border-radius: 1em;
 `
 const Table = styled.section`
   padding: 0.5em;
+  overflow-y: scroll;
+  height: 31em;
+  padding: 1em;
 `
 const TableTitle = styled.header`
   display: flex;
   align-items: center;
-  margin: 1em 0;
+  margin: 1em 1em 0 1em;
 `
 const SmallTitle = styled.div`
   text-align: start;
@@ -276,14 +281,14 @@ const HomePageContent = () => {
           </UsersList>
         </Left>
         <Right>
-          <Title style={{ color: "blue" }}>orders</Title>
+          <Title style={{ color: "blue", margin: "1em 1em" }}>orders</Title>
+          <TableTitle>
+            <SmallTitle style={{ width: "12em" }}>Customer</SmallTitle>
+            <SmallTitle style={{ width: "12em" }}>Date</SmallTitle>
+            <SmallTitle style={{ width: "6em" }}>NoP</SmallTitle>
+            <SmallTitle>Status</SmallTitle>
+          </TableTitle>
           <Table>
-            <TableTitle>
-              <SmallTitle style={{ width: "11em" }}>Customer</SmallTitle>
-              <SmallTitle style={{ width: "13em" }}>Date</SmallTitle>
-              <SmallTitle style={{ width: "5em" }}>NoP</SmallTitle>
-              <SmallTitle>Status</SmallTitle>
-            </TableTitle>
             {!orders ? (
               <PulseLoader />
             ) : (

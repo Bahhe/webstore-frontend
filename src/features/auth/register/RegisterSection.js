@@ -34,6 +34,9 @@ const Title = styled.h2`
   font-weight: 400;
   text-transform: capitalize;
   padding: 0.5em 0;
+  ${mobile({
+    display: "none",
+  })}
 `
 const Left = styled.section`
   flex: 1;
@@ -316,7 +319,7 @@ const RegisterSection = () => {
           opacity: ".7",
           fontSize: ".8em",
           position: "absolute",
-          bottom: "2em",
+          bottom: "2.5em",
           left: "50%",
           transform: "translate(-50%, 50%)",
         }}

@@ -28,6 +28,9 @@ const VideoSide = styled.div`
 const InfoSide = styled.div`
   flex: 1;
   margin: 2rem;
+  ${mobile({
+    margin: "1em",
+  })}
 `
 const Title = styled.div`
   font-size: 2em;

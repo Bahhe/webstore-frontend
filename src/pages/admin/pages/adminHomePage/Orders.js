@@ -48,6 +48,7 @@ const Name = styled.h2`
   text-transform: capitalize;
   font-size: 0.9em;
   font-weight: 500;
+  margin-right: 1em;
 `
 const Button = styled.button`
   background-color: green;

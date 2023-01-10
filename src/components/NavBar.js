@@ -25,7 +25,7 @@ const Container = styled.div`
   z-index: 5;
   top: 0;
   left: 0;
-  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.2);
 `
 const Wrapper = styled.div`
   display: flex;

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
 import PersonIcon from "@mui/icons-material/Person"
-import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar"
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid"
 import MailIcon from "@mui/icons-material/Mail"
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching"
@@ -9,10 +8,11 @@ import { useState } from "react"
 import { useUpdateUserMutation } from "../../../features/users/usersApiSlice"
 import { useNavigate } from "react-router-dom"
 import PulseLoader from "react-spinners/PulseLoader"
+import LocationCityIcon from "@mui/icons-material/LocationCity"
 
 const Container = styled.div`
   margin: 10em 10em 0 15%;
-  width: 100%;
+  width: 80%;
 `
 const Header = styled.div`
   display: flex;
@@ -39,7 +39,7 @@ const Info = styled.div`
   border-radius: 1em;
   margin: 1em;
   padding: 1em;
-  flex: 1;
+  flex: 0.5;
 `
 const UserInfo = styled.div`
   display: flex;
@@ -63,11 +63,12 @@ const LastName = styled.div`
   opacity: 0.6;
 `
 const Edit = styled.div`
-  flex: 3;
+  flex: 1;
   margin: 1em;
   border-radius: 1em;
   box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
   padding: 1em;
+  margin: 1em;
 `
 
 const Content = styled.div`
@@ -136,12 +137,15 @@ const Input = styled.input`
 `
 
 const EditUserForm = ({ user }) => {
-  const [updateUser, { isSuccess }] = useUpdateUserMutation()
+  const [updateUser, { isSuccess, isLoading }] = useUpdateUserMutation()
   const navigate = useNavigate()
 
-  const [firstName, setFirstName] = useState(user && user.firstName)
-  const [lastName, setLastName] = useState(user && user.lastName)
-  const [email, setEmail] = useState(user && user.email)
+  const [firstName, setFirstName] = useState((user && user.firstName) || "")
+  const [lastName, setLastName] = useState((user && user.lastName) || "")
+  const [email, setEmail] = useState((user && user.email) || "")
+  const [address, setAddress] = useState((user && user.address) || "")
+  const [number, setNumber] = useState((user && user.number) || "")
+  const [city, setCity] = useState((user && user.city) || "")
 
   useEffect(() => {
     if (isSuccess) {
@@ -168,6 +172,9 @@ const EditUserForm = ({ user }) => {
       firstName: firstName,
       lastName: lastName,
       email: email,
+      address: address,
+      number: number,
+      city: city,
     })
   }
   if (!user) {
@@ -198,27 +205,26 @@ const EditUserForm = ({ user }) => {
               {`${user.firstName} ${user.lastName}`}
             </ListItem>
             <ListItem>
-              <PermContactCalendarIcon
-                style={{ marginRight: "1em", fontSize: ".9em" }}
-              />
-              09.08.1999
+              <MailIcon style={{ marginRight: "1em", fontSize: ".9em" }} />
+              {user.email}
             </ListItem>
-            <ListTitle>contact details</ListTitle>
             <ListItem>
               <PhoneAndroidIcon
                 style={{ marginRight: "1em", fontSize: ".9em" }}
               />
-              +213 666 103 710
-            </ListItem>
-            <ListItem>
-              <MailIcon style={{ marginRight: "1em", fontSize: ".9em" }} />
-              {user.email}
+              {user.number || "Not Provided"}
             </ListItem>
             <ListItem>
               <LocationSearchingIcon
                 style={{ marginRight: "1em", fontSize: ".9em" }}
               />
-              algeria | batna
+              {user.address || "Not Provided"}
+            </ListItem>
+            <ListItem>
+              <LocationCityIcon
+                style={{ marginRight: "1em", fontSize: ".9em" }}
+              />
+              {user.city || "Not Provided"}
             </ListItem>
           </Details>
         </Info>
@@ -246,11 +252,27 @@ const EditUserForm = ({ user }) => {
                   placeholder="marchelldteach@gmail.com"
                 />
                 <Label>phone number</Label>
-                <Input placeholder="+213 666 103 710" />
+                <Input
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
+                  placeholder="+213 666 103 710"
+                />
                 <Label>address</Label>
-                <Input placeholder="batna" />
+                <Input
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="123 main street"
+                />
+                <Label>city</Label>
+                <Input
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="batna"
+                />
                 <ButtonSection>
-                  <Button>update</Button>
+                  <Button>
+                    {isLoading ? <PulseLoader color="white" /> : "udpate"}
+                  </Button>
                 </ButtonSection>
               </Form>
             </Left>

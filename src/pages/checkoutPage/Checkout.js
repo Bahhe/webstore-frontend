@@ -150,6 +150,9 @@ const Checkout = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      alert(
+        "Thanks for purchasing from us we we'll call you to confirm your order"
+      )
       emailjs
         .sendForm(
           "service_7ifymxp",
