@@ -14,6 +14,7 @@ const Container = styled.div`
   margin: 4em 0;
   ${mobile({
     flexDirection: "column",
+    width: "80%",
   })}
 `
 const Left = styled.div`

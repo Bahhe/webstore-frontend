@@ -53,6 +53,9 @@ const MainContainer = styled.div`
     visibility: ${(props) =>
       props.direction === "left" ? "visible" : "visible"};
   }
+  ${mobile({
+    width: "80%",
+  })}
 `
 
 const ProductSlider = () => {

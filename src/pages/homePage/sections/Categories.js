@@ -17,6 +17,7 @@ const Container = styled.div`
   ${mobile({
     display: "flex",
     flexDirection: "column",
+    width: "80%",
   })}
 `
 const AllInOne = styled.div`
@@ -34,6 +35,8 @@ const AllInOne = styled.div`
   font-weight: 600;
   transition: 0.5s ease;
   border-radius: 0.5em;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   &:hover {
     color: black;
     background: none;
@@ -58,6 +61,8 @@ const PcTablet = styled.div`
   font-weight: 600;
   transition: 0.5s ease;
   border-radius: 0.5em;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   &:hover {
     color: black;
     background: none;
@@ -82,6 +87,8 @@ const Gaming = styled.div`
   font-weight: 600;
   transition: 0.5s ease;
   border-radius: 0.5em;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   &:hover {
     color: black;
     background: none;
@@ -106,6 +113,8 @@ const ChromeBook = styled.div`
   font-weight: 600;
   transition: 0.5s ease;
   border-radius: 0.5em;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   &:hover {
     color: black;
     background: none;
@@ -130,6 +139,8 @@ const Macs = styled.div`
   font-weight: 600;
   transition: 0.5s ease;
   border-radius: 0.5em;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   &:hover {
     color: black;
     background: none;

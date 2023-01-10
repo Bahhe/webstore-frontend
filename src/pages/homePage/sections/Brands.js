@@ -15,6 +15,9 @@ const Container = styled.div`
   height: 20em;
   position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  ${mobile({
+    width: "80%",
+  })}
 `
 const BrandsContainer = styled.div`
   display: flex;

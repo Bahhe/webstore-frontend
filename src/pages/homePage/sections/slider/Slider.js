@@ -48,6 +48,9 @@ const Container = styled.div`
   &:hover ${Arrow} {
     opacity: 1;
   }
+  ${mobile({
+    width: "80%",
+  })}
 `
 
 const Slide = styled.div`

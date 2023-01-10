@@ -12,6 +12,9 @@ const Container = styled.div`
   margin: 5em 0 0 0;
   display: flex;
   gap: 2em;
+  ${mobile({
+    flexDirection: "column",
+  })}
 `
 const FilterSection = styled.div`
   flex: 1;
@@ -155,6 +158,7 @@ const ProductsContainer = styled.div`
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    width: "90%",
   })}
 `
 

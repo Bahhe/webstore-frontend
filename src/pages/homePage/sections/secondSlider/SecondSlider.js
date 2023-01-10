@@ -51,6 +51,9 @@ const Container = styled.div`
   &:hover ${Arrow} {
     visibility: visible;
   }
+  ${mobile({
+    width: "80%",
+  })}
 `
 
 const SlideContainer = styled.div`
