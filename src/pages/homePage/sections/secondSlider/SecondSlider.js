@@ -32,7 +32,7 @@ const Arrow = styled.div`
     opacity: 1;
   }
   ${mobile({
-    opacity: "1",
+    opacity: (props) => (props.direction === "left" ? "0" : "1"),
     visibility: (props) => (props.direction === "left" ? "hidden" : "visible"),
     right: (props) => props.direction === "right" && "-2em",
   })}

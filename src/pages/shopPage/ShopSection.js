@@ -196,6 +196,7 @@ const ShopSection = () => {
   const [category, setCategory] = useState("all")
   const [sort, setSort] = useState("newest")
   const [search, setSearch] = useState("")
+  const [limit, setLimit] = useState(6)
 
   const {
     data: products,
@@ -206,7 +207,7 @@ const ShopSection = () => {
     page,
     sort,
     search,
-    limit: 6,
+    limit,
   })
 
   const handleFilters = (e) => {
@@ -216,7 +217,7 @@ const ShopSection = () => {
     document.documentElement.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant", // Optional if you want to skip the scrolling animation
+      behavior: "instant",
     })
   }
 
@@ -226,6 +227,10 @@ const ShopSection = () => {
 
   const handleSearch = (e) => {
     setCategory("all")
+    setPage("")
+    setSort("")
+    setLimit("")
+    setPage("")
     setSearch(e.target.value)
     refetch()
   }
@@ -236,7 +241,7 @@ const ShopSection = () => {
     document.documentElement.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant", // Optional if you want to skip the scrolling animation
+      behavior: "instant",
     })
   }
   const handlePageForward = () => {
@@ -245,7 +250,7 @@ const ShopSection = () => {
     document.documentElement.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant", // Optional if you want to skip the scrolling animation
+      behavior: "instant",
     })
   }
   const handlePageNumber = (number) => {
@@ -254,7 +259,7 @@ const ShopSection = () => {
     document.documentElement.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant", // Optional if you want to skip the scrolling animation
+      behavior: "instant",
     })
   }
 
