@@ -185,7 +185,7 @@ const RegisterSection = () => {
             <span
               style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
             >
-              * First Name length 3 to 8 characters and only letters
+              * First Name length 3 to 8 characters and only English letters
             </span>
           )}
           <Input
@@ -202,7 +202,7 @@ const RegisterSection = () => {
             <span
               style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
             >
-              * Last Name length 3 to 8 characters and only letters
+              * First Name length 3 to 8 characters and only English letters
             </span>
           )}
           <Input
@@ -287,6 +287,9 @@ const RegisterSection = () => {
                 <br />
                 <span style={{ margin: "0 0 0 1em" }}>
                   * 1 number or special character
+                </span>
+                <span style={{ margin: "0 0 0 1em" }}>
+                  * only English Letters
                 </span>
               </>
             )}
