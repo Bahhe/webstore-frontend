@@ -14,6 +14,7 @@ import useAuth from "../../../hooks/useAuth"
 import { useGetUsersQuery } from "../../../features/users/usersApiSlice"
 import { useSendLogoutMutation } from "../../../features/auth/authApiSlice"
 import PulseLoader from "react-spinners/PulseLoader"
+import { laptop } from "../../../assests/globalStyles/responsive"
 
 const Container = styled.ul`
   padding: 2em;
@@ -24,6 +25,9 @@ const Container = styled.ul`
   border-radius: 50px;
   border: 1px solid lightgrey;
   margin: 1em;
+  ${laptop({
+    width: "auto",
+  })}
 `
 const Title = styled.h1`
   margin: 1.5em 0 0 0;

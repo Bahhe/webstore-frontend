@@ -21,12 +21,16 @@ import {
 } from "recharts"
 import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
 import { PulseLoader } from "react-spinners"
+import { laptop } from "../../../../assests/globalStyles/responsive"
 
 const Container = styled.main`
   display: flex;
   flex-direction: column;
   border-left: 1px solid lightgrey;
   padding: 0 5em;
+  ${laptop({
+    padding: "0",
+  })}
 `
 const Left = styled.section`
   margin: 1em;
@@ -105,6 +109,10 @@ const Statistics = styled.section`
   width: 100%;
   align-items: center;
   justify-content: space-between;
+  ${laptop({
+    width: "auto",
+    justifyContent: "space-evenly",
+  })}
 `
 const Item = styled.div`
   color: white;
