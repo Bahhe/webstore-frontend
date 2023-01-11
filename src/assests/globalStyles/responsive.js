@@ -23,3 +23,11 @@ export const tablet = (props) => {
     }
   `
 }
+
+export const mobileCart = (props) => {
+  return css`
+    @media only screen and (min-width: 480px) {
+      ${props}
+    }
+  `
+}

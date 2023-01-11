@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Products from "./Products"
 import { useListProductsQuery } from "../../features/products/productsApiSlice"
 import { useLocation } from "react-router-dom"
-import { laptop, mobile } from "../../assests/globalStyles/responsive"
+import { mobile, mobileCart } from "../../assests/globalStyles/responsive"
 import useTitle from "../../hooks/useTitle"
 import Loader from "../../components/Loader"
 
@@ -173,7 +173,7 @@ const MobileSearch = styled.input`
   padding: 0.5em;
   border-radius: 50px;
   border: 1px solid black;
-  ${laptop({
+  ${mobileCart({
     display: "none",
   })}
 `

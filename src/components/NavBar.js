@@ -10,7 +10,7 @@ import { useSendLogoutMutation } from "../features/auth/authApiSlice"
 import { useSelector } from "react-redux"
 import { useState } from "react"
 import { selectCurrentToken } from "../features/auth/authSlice"
-import { laptop, mobile } from "../assests/globalStyles/responsive"
+import { mobile, mobileCart } from "../assests/globalStyles/responsive"
 import useAuth from "../hooks/useAuth"
 import ToggleMenu from "./ToggleMenu"
 import PulseLoader from "react-spinners/PulseLoader"
@@ -128,7 +128,7 @@ const MobileCart = styled.div`
   &:hover {
     opacity: 0.5;
   }
-  ${laptop({
+  ${mobileCart({
     display: "none",
   })}
 `
@@ -146,7 +146,7 @@ const AdminDashBoard = styled.button`
 `
 const MenuButton = styled.div`
   cursor: pointer;
-  ${laptop({
+  ${mobileCart({
     display: "none",
   })}
 `
