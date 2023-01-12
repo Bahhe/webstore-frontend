@@ -6,12 +6,22 @@ import UserForm from "./UserForm"
 
 const UserPage = () => {
   const { id } = useParams()
-  const { data: user } = useGetUserByIdQuery(id, {
+  const {
+    data: user,
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+  } = useGetUserByIdQuery(id, {
     refetchOnMountOrArgChange: true,
   })
 
-  if (!user) return <Loader />
-  return <UserForm user={user} />
+  let content
+  if (isLoading) content = <Loader />
+  if (isError) content = <p>{error?.data?.message}</p>
+  if (isSuccess) content = <UserForm user={user} />
+
+  return content
 }
 
 export default UserPage

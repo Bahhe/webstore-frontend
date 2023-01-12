@@ -8,12 +8,12 @@ import { Badge } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useSendLogoutMutation } from "../features/auth/authApiSlice"
 import { useSelector } from "react-redux"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { selectCurrentToken } from "../features/auth/authSlice"
 import { mobile, mobileCart } from "../assests/globalStyles/responsive"
 import useAuth from "../hooks/useAuth"
 import ToggleMenu from "./ToggleMenu"
-import PulseLoader from "react-spinners/PulseLoader"
+import Loader from "../components/Loader"
 
 const Container = styled.div`
   display: flex;
@@ -179,15 +179,21 @@ const NavBar = () => {
     navigate("/shop")
   }
 
-  const [sendLogout, { isLoading, isError, error }] = useSendLogoutMutation()
+  const [sendLogout, { isSuccess, isLoading, isError, error }] =
+    useSendLogoutMutation()
 
   const onLogoutClicked = async () => {
     await sendLogout()
-    navigate(`/`)
   }
 
-  if (isLoading) return <PulseLoader />
-  if (isError) return <p>{error.message}</p>
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(`/`)
+    }
+  }, [isSuccess, navigate])
+
+  if (isLoading) return <Loader />
+  if (isError) return <p>{error?.data?.message}</p>
 
   return (
     <Container>

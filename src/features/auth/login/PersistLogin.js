@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react"
 import { useRefreshMutation } from "../authApiSlice"
 import { useSelector } from "react-redux"
 import { selectCurrentToken } from "../authSlice"
-import Loader from "../../../components/Loader"
 
 const PersistLogin = () => {
   const token = useSelector(selectCurrentToken)
@@ -35,7 +34,6 @@ const PersistLogin = () => {
   let content
   if (isLoading) {
     console.log("loading")
-    content = <Loader />
   } else if (isSuccess && trueSuccess) {
     console.log("success")
     content = <Outlet />

@@ -6,7 +6,7 @@ import { useListProductsQuery } from "../../features/products/productsApiSlice"
 import { useLocation } from "react-router-dom"
 import { mobile, mobileCart } from "../../assests/globalStyles/responsive"
 import useTitle from "../../hooks/useTitle"
-import Loader from "../../components/Loader"
+import Spinner from "../../components/Spinner"
 
 const Container = styled.div`
   margin: 5em 0 0 0;
@@ -264,15 +264,15 @@ const ShopSection = () => {
   }
 
   let shopProducts
-  if (isLoading) return (shopProducts = <Loader />)
-  if (!products) return <p>something went wrong</p>
-  shopProducts = !products.products?.length ? (
-    <p>no product found</p>
-  ) : (
-    products.products.map((product) => (
-      <Products key={product.id} product={product} />
-    ))
-  )
+  if (isLoading) return (shopProducts = <Spinner />)
+  shopProducts =
+    products && !products?.products?.length ? (
+      <p>no product found</p>
+    ) : (
+      products?.products.map((product) => (
+        <Products key={product.id} product={product} />
+      ))
+    )
 
   return (
     <Container>

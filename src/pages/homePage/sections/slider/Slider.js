@@ -5,7 +5,7 @@ import { useGetProductsQuery } from "../../../../features/products/productsApiSl
 import Product from "./Product"
 import styled from "styled-components"
 import { mobile } from "../../../../assests/globalStyles/responsive"
-import Loader from "../../../../components/Loader"
+import Spinner from "../../../../components/Spinner"
 
 const Arrow = styled.div`
   display: flex;
@@ -64,40 +64,60 @@ const Slider = () => {
 
   const [slideIndex, setSlideIndex] = useState(0)
 
-  const { products, isLoading } = useGetProductsQuery("products", {
-    selectFromResult: ({ data, isLoading }) => ({
-      products: data,
-      isLoading,
-    }),
-  })
-  if (isLoading) return <Loader />
-  if (!products) return <p>no product found</p>
-  const { ids, entities } = products
-  const filteredIds =
-    ids?.length &&
-    ids.filter((productId) => entities[productId].section.includes("slider"))
-  const dataLength = filteredIds?.length && filteredIds.length - 1
+  const { products, isLoading, isSuccess, isError, error } =
+    useGetProductsQuery("products", {
+      selectFromResult: ({ data, isLoading, isSuccess, isError, error }) => ({
+        products: data,
+        isLoading,
+        isSuccess,
+        isError,
+        error,
+      }),
+    })
 
-  const handleClick = (direction) => {
-    if (direction === "left") {
-      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : dataLength)
-    } else {
-      setSlideIndex(slideIndex < dataLength ? slideIndex + 1 : 0)
-    }
+  let filteredIds
+  let sliderContent
+  let dataLength
+  let handleClick
+  if (isLoading) {
+    sliderContent = <Spinner />
+  }
+  if (isError) {
+    sliderContent = <p>{error?.data?.message}</p>
   }
 
-  const sliderContent =
-    ids?.length &&
-    filteredIds.map((productId) => (
-      <Product key={productId} productId={productId} slideIndex={slideIndex} />
-    ))
+  if (isSuccess) {
+    const { ids, entities } = products
+    filteredIds =
+      ids?.length &&
+      ids.filter((productId) => entities[productId].section.includes("slider"))
+    dataLength = filteredIds?.length && filteredIds.length - 1
+
+    handleClick = (direction) => {
+      if (direction === "left") {
+        setSlideIndex(slideIndex > 0 ? slideIndex - 1 : dataLength)
+      } else {
+        setSlideIndex(slideIndex < dataLength ? slideIndex + 1 : 0)
+      }
+    }
+
+    sliderContent =
+      ids?.length &&
+      filteredIds.map((productId) => (
+        <Product
+          key={productId}
+          productId={productId}
+          slideIndex={slideIndex}
+        />
+      ))
+  }
 
   return (
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowBackIosIcon style={{ fontSize: "1em" }} />
       </Arrow>
-      <Slide>{sliderContent && sliderContent}</Slide>
+      <Slide>{sliderContent}</Slide>
       <Arrow ref={ref} direction="right" onClick={() => handleClick("right")}>
         <ArrowForwardIosIcon style={{ fontSize: "1em" }} />
       </Arrow>

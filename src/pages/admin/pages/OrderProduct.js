@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useGetProductsQuery } from "../../../features/products/productsApiSlice"
-import Loader from "../../../components/Loader"
+import Spinner from "../../../components/Spinner"
 
 const ProductContainer = styled.div`
   padding: 1em;
@@ -38,7 +38,7 @@ const OrderProduct = ({ productId }) => {
     }),
   })
   if (isLoading) {
-    return <Loader />
+    return <Spinner />
   }
   if (!product) {
     return <p>no product found</p>

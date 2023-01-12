@@ -8,6 +8,7 @@ import { useSendLogoutMutation } from "../features/auth/authApiSlice"
 import { selectCurrentToken } from "../features/auth/authSlice"
 import { useGetUserByIdQuery } from "../features/users/usersApiSlice"
 import useAuth from "../hooks/useAuth"
+import Loader from "./Loader"
 
 const Container = styled.div`
   position: fixed;
@@ -60,9 +61,11 @@ const ToggleMenu = () => {
   const { id } = useAuth()
   const { data: user, isLoading: isLoadingUser } = useGetUserByIdQuery(id)
   const [sendLogout, { isLoading, isError, error }] = useSendLogoutMutation()
-  const onLogoutClicked = () => sendLogout()
-  if (isLoading) return <PulseLoader />
-  if (isError) return <p>{error.message}</p>
+  const onLogoutClicked = async () => await sendLogout()
+
+  if (isLoading) return <Loader />
+  if (isError) return <p>{error?.data?.message}</p>
+
   return (
     <Container>
       <Links>

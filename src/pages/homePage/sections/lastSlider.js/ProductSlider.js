@@ -8,8 +8,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
 import Product from "./Product"
-import PulseLoader from "react-spinners/PulseLoader"
 import { mobile } from "../../../../assests/globalStyles/responsive"
+import Spinner from "../../../../components/Spinner"
 
 const Arrow = styled.div`
   display: flex;
@@ -59,20 +59,23 @@ const MainContainer = styled.div`
 `
 
 const ProductSlider = () => {
-  const {
-    data: products,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetProductsQuery("products")
+  const { products, isLoading, isSuccess, isError, error } =
+    useGetProductsQuery("products", {
+      selectFromResult: ({ data, isError, isSuccess, isLoading, error }) => ({
+        products: data,
+        isError,
+        isSuccess,
+        isLoading,
+        error,
+      }),
+    })
 
   let product
   if (isError) {
-    return <p>{error}</p>
+    product = <p>{error?.data?.message}</p>
   }
   if (isLoading) {
-    return <PulseLoader />
+    product = <Spinner />
   }
   if (isSuccess) {
     const { ids } = products

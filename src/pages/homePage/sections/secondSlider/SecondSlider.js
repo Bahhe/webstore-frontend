@@ -4,10 +4,10 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import { useState } from "react"
 import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
 import Products from "./Products"
-import PulseLoader from "react-spinners/PulseLoader"
 
 import styled from "styled-components"
 import { mobile } from "../../../../assests/globalStyles/responsive"
+import Spinner from "../../../../components/Spinner"
 
 const Arrow = styled.div`
   display: flex;
@@ -64,25 +64,45 @@ const SlideContainer = styled.div`
 const SecondSlider = () => {
   const [slideIndex, setSlideIndex] = useState(0)
 
+  const { products, isSuccess, isLoading, isError, error } =
+    useGetProductsQuery("products", {
+      selectFromResult: ({ data, isLoading, isSuccess, isError, error }) => ({
+        products: data,
+        isLoading,
+        isSuccess,
+        isError,
+        error,
+      }),
+    })
+  let sliderContent
   let filteredIds
   let dataLength
-  const { products, isSuccess, isLoading } = useGetProductsQuery("products", {
-    selectFromResult: ({ data, isLoading, isSuccess }) => ({
-      products: data,
-      isLoading,
-      isSuccess,
-    }),
-  })
 
   if (isLoading) {
-    return <PulseLoader />
+    sliderContent = <Spinner />
+  }
+  if (isError) {
+    sliderContent = <p>{error?.data?.message}</p>
   }
   if (isSuccess) {
     const { ids, entities } = products
-    filteredIds = ids.filter((productId) =>
-      entities[productId].section.includes("secondSlider")
-    )
-    dataLength = filteredIds.length - 1
+
+    filteredIds =
+      ids?.length &&
+      ids.filter((productId) =>
+        entities[productId].section.includes("secondSlider")
+      )
+    dataLength = filteredIds?.length && filteredIds.length - 1
+
+    sliderContent =
+      filteredIds?.length &&
+      filteredIds.map((productId) => (
+        <Products
+          key={productId}
+          productId={productId}
+          slideIndex={slideIndex}
+        />
+      ))
   }
 
   const handleClick = (direction) => {
@@ -98,16 +118,7 @@ const SecondSlider = () => {
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowBackIcon style={{ fontSize: "1.5em" }} />
       </Arrow>
-      <SlideContainer>
-        {filteredIds?.length &&
-          filteredIds.map((productId) => (
-            <Products
-              key={productId}
-              productId={productId}
-              slideIndex={slideIndex}
-            />
-          ))}
-      </SlideContainer>
+      <SlideContainer>{sliderContent}</SlideContainer>
       <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowForwardIcon style={{ fontSize: "1.5em" }} />
       </Arrow>

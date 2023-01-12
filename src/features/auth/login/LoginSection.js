@@ -6,8 +6,8 @@ import { setCredentials } from "../authSlice"
 import { useLoginMutation } from "../authApiSlice"
 import jwtDecode from "jwt-decode"
 import { mobile } from "../../../assests/globalStyles/responsive"
-import PulseLoader from "react-spinners/PulseLoader"
 import { Link } from "react-router-dom"
+import Loader from "../../../components/Loader"
 
 const Container = styled.main`
   width: 80%;
@@ -170,7 +170,7 @@ const LoginSection = () => {
 
   const [login, { isLoading }] = useLoginMutation()
 
-  if (isLoading) return <PulseLoader />
+  if (isLoading) return <Loader />
 
   return (
     <Container>

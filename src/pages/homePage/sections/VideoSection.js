@@ -16,7 +16,7 @@ const VideoSide = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("https://images.unsplash.com/photo-1593642634367-d91a135587b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80");
+  background-color: #333;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

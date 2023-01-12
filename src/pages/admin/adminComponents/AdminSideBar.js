@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components"
 import {
   Dashboard,
@@ -13,8 +13,8 @@ import { useNavigate } from "react-router-dom"
 import useAuth from "../../../hooks/useAuth"
 import { useGetUsersQuery } from "../../../features/users/usersApiSlice"
 import { useSendLogoutMutation } from "../../../features/auth/authApiSlice"
-import PulseLoader from "react-spinners/PulseLoader"
 import { laptop } from "../../../assests/globalStyles/responsive"
+import Loader from "../../../components/Loader"
 
 const Container = styled.ul`
   padding: 2em;
@@ -87,12 +87,17 @@ const AdminSideBar = () => {
 
   const onLogoutClicked = async () => {
     await sendLogout()
-    navigate(`/`)
   }
-  const [sendLogout, { isLoading, isError, error }] = useSendLogoutMutation()
+  const [sendLogout, { isSuccess, isLoading, isError, error }] =
+    useSendLogoutMutation()
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(`/`)
+    }
+  }, [isSuccess, navigate])
 
-  if (isLoading) return <PulseLoader />
-  if (isError) return <p>{error.message}</p>
+  if (isLoading) return <Loader />
+  if (isError) return <p>{error?.data?.message}</p>
 
   return (
     <Wrapper>
