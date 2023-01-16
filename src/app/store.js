@@ -35,7 +35,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(apiSlice.middleware),
-  devTools: process.env.NODE_ENV === "development" ? true : false,
+  devTools: true,
 })
 
 setupListeners(store.dispatch)
