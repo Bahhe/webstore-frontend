@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux"
 import { addToCart } from "../../../../features/carts/cartSlice"
 import { useNavigate } from "react-router-dom"
 import { StarBorder } from "@mui/icons-material"
+import Spinner from "../../../../components/Spinner"
 
 const LinksWrapper = styled.div`
   display: flex;
@@ -54,7 +55,11 @@ const ImgContainer = styled.div`
   width: 100%;
   height: 60%;
   /* background-color: rgba(0, 0, 0, 0.05); */
-  background-image: radial-gradient( circle 879px at 10.4% 22.3%,  rgba(255,235,238,1) 0%, rgba(186,190,245,1) 93.6% );
+  background-image: radial-gradient(
+    circle 879px at 10.4% 22.3%,
+    rgba(255, 235, 238, 1) 0%,
+    rgba(186, 190, 245, 1) 93.6%
+  );
   position: relative;
   display: flex;
   align-items: center;
@@ -115,7 +120,7 @@ const Product = ({ productId }) => {
 
   let content
   if (isLoading) {
-    content = <p>loading...</p>
+    content = <Spinner color="black" />
   }
   if (isSuccess) {
     content = (

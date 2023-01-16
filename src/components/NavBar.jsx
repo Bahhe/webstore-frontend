@@ -183,13 +183,11 @@ const Avatar = styled.img`
   cursor: pointer;
 `
 
-const MenuWrapper = styled.div``
-
 const NavBar = () => {
   const location = useLocation().pathname
   const [showSearchedItems, setShowSearchedItems] = useState(false)
   const [search, setSearch] = useState("")
-  const [showButton, setShowButton] = useState(false)
+  const [translate, setTranslate] = useState(false)
   const { cart } = useSelector((state) => state.cart)
 
   const getTotalQuantity = () => {
@@ -240,14 +238,10 @@ const NavBar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <MenuButton onClick={() => setShowButton((prev) => !prev)}>
+          <MenuButton onClick={() => setTranslate(prev => !prev)}>
             <MenuIcon style={{ color: "black", fontSize: "2em" }} />
           </MenuButton>
-          {showButton && (
-            <MenuWrapper onClick={() => setShowButton((prev) => !prev)}>
-              <ToggleMenu />
-            </MenuWrapper>
-          )}
+          <ToggleMenu translate={translate} toggle={setTranslate}/>
           <Logo onClick={() => navigate("/")}>
             <img src={logo} width="50%" height="100%" alt="logo" />
           </Logo>

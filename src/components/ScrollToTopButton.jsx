@@ -17,6 +17,7 @@ const Button = styled.button`
   color: white;
   font-size: 3em;
   cursor: pointer;
+  z-index: 99;
 `
 
 const ScrollToTopButton = () => {

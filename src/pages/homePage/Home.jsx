@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <>
       <Slider />
-      <SectionTitle sectionTitle={"choose your laptop wisely"} />
+      <SectionTitle sectionTitle={"choose your laptop wisely"} display="none" />
       <VideoSection />
       <SectionTitle sectionTitle={"categories"} />
       <Categories />

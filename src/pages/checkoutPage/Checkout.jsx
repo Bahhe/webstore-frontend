@@ -18,6 +18,9 @@ import emailjs from "@emailjs/browser"
 
 const Container = styled.div`
   margin: 1em 0 0 0;
+  ${mobile({
+    width: '90%'
+  })}
 `
 const PageTitle = styled.div`
   font-size: 2.5em;

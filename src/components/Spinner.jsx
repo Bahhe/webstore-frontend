@@ -11,10 +11,10 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const Spinner = () => {
+const Spinner = ({ color }) => {
   return (
     <Container>
-      <RotateLoader color="white" />
+      <RotateLoader color={color} />
     </Container>
   )
 }

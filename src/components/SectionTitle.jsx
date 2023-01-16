@@ -17,20 +17,21 @@ const Title = styled.div`
   ${mobile({
     width: "80%",
     fontSize: "1.3em",
+    display: (props) => props.display,
   })}
   ::before {
     content: "TIMGAD";
     position: absolute;
     color: slategrey;
-    opacity: .1;
+    opacity: 0.1;
     font-size: 3em;
     font-weight: 900;
-    letter-spacing: .01em;
+    letter-spacing: 0.01em;
   }
 `
 
-const SectionTitle = ({ sectionTitle }) => {
-  return <Title>{sectionTitle}</Title>
+const SectionTitle = ({ sectionTitle, display }) => {
+  return <Title display={display}>{sectionTitle}</Title>
 }
 
 export default SectionTitle

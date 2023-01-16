@@ -6,6 +6,7 @@ import { useGetProductsQuery } from "../../../../features/products/productsApiSl
 import { useDispatch } from "react-redux"
 import { addToCart } from "../../../../features/carts/cartSlice"
 import { mobile } from "../../../../assests/globalStyles/responsive"
+import Spinner from "../../../../components/Spinner"
 
 const Slide = styled.div`
   min-width: 100%;
@@ -45,7 +46,7 @@ const InfoContainer = styled.div`
   flex-direction: column;
   margin-left: 5em;
   ${mobile({
-    width: "100%",
+    width: "85%",
     margin: "0",
   })}
 `
@@ -54,7 +55,7 @@ const Title = styled.div`
   text-transform: capitalize;
   margin: 0 0 1em 0;
   cursor: pointer;
-  color: #F4FFFD;
+  color: #f4fffd;
 `
 const Points = styled.div`
   display: flex;
@@ -67,7 +68,7 @@ const Points = styled.div`
 const Price = styled.div`
   font-size: 1.7em;
   margin: 1em 0 1em 0;
-  color: #F7F7FF;
+  color: #f7f7ff;
 `
 const BtnsContainer = styled.div`
   display: flex;
@@ -79,12 +80,12 @@ const AddToCart = styled.div`
   height: 3em;
   padding: 1em;
   margin: 0 0.3em 0 0;
-  background-color: #2E282A;
+  background-color: #2e282a;
   color: white;
   border-radius: 0.5em;
   &:hover {
     background-color: white;
-    color: #2E282A;
+    color: #2e282a;
   }
   cursor: pointer;
   transition: 0.3s ease-in-out;
@@ -98,7 +99,7 @@ const ShopNow = styled.div`
   background-color: white;
   border-radius: 0.5em;
   &:hover {
-    background-color: #2E282A;
+    background-color: #2e282a;
     color: white;
   }
   cursor: pointer;
@@ -142,7 +143,7 @@ const Products = ({ productId, slideIndex }) => {
 
   let content
   if (isLoading) {
-    content = <p>loading...</p>
+    content = <Spinner color="white" />
   }
   if (isSuccess) {
     content = (
@@ -176,7 +177,7 @@ const Products = ({ productId, slideIndex }) => {
               <span
                 style={{
                   textTransform: "capitalize",
-                  margin: "0 0 0 2em",
+                  margin: "0 0 0 1em",
                   fontWeight: "400",
                 }}
               >
@@ -204,7 +205,7 @@ const Products = ({ productId, slideIndex }) => {
               <span
                 style={{
                   textTransform: "capitalize",
-                  margin: "0 0 0 2em",
+                  margin: "0 0 0 1em",
                   fontWeight: "400",
                 }}
               >
@@ -232,7 +233,7 @@ const Products = ({ productId, slideIndex }) => {
               <span
                 style={{
                   textTransform: "capitalize",
-                  margin: "0 0 0 2em",
+                  margin: "0 0 0 1em",
                   fontWeight: "400",
                 }}
               >
@@ -260,7 +261,7 @@ const Products = ({ productId, slideIndex }) => {
               <span
                 style={{
                   textTransform: "capitalize",
-                  margin: "0 0 0 2em",
+                  margin: "0 0 0 1em",
                   fontWeight: "400",
                 }}
               >
@@ -288,7 +289,7 @@ const Products = ({ productId, slideIndex }) => {
               <span
                 style={{
                   textTransform: "capitalize",
-                  margin: "0 0 0 2em",
+                  margin: "0 0 0 1em",
                   fontWeight: "400",
                 }}
               >

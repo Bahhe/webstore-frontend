@@ -75,7 +75,7 @@ const ProductSlider = () => {
     product = <p>{error?.data?.message}</p>
   }
   if (isLoading) {
-    product = <Spinner />
+    product = <Spinner color='white' />
   }
   if (isSuccess) {
     const { ids } = products

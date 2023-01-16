@@ -24,6 +24,7 @@ import NotFound from "./pages/notFound/NotFound"
 import useTitle from "./hooks/useTitle"
 import UserPage from "./features/auth/user/UserPage"
 import AdminPrefetch from "./features/auth/AdminPrefetch"
+import UserAuth from "./features/auth/UserAuth"
 
 function App() {
   useTitle("TIMGAD.")
@@ -42,7 +43,9 @@ function App() {
           <Route element={<Prefetch />}>
             <Route element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path="user/:id" element={<UserPage />} />
+              <Route element={<UserAuth />}>
+                <Route path="user/:id" element={<UserPage />} />
+              </Route>
               <Route path="shop">
                 <Route index element={<Shop />} />
                 <Route path="product/:userId" element={<ProductView />} />

@@ -55,17 +55,18 @@ const Title = styled.h1`
   cursor: pointer;
   margin: 1em 0;
   ${mobile({
-    fontSize: "1em",
+    fontSize: "1.6em",
   })}
 `
 const Desc = styled.p`
-width: 40ch;
+  width: 40ch;
   font-weight: 200;
-  font-size: 1.2em;
+  font-size: 1.4em;
   text-transform: capitalize;
-  color: #F4FFFD;
+  color: #f4fffd;
   ${mobile({
-    fontSize: ".8em",
+    width: "30ch",
+    fontSize: ".9em",
   })}
 `
 
@@ -160,42 +161,45 @@ const Product = ({ productId, slideIndex }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { product, isLoading } = useGetProductsQuery("products", {
-    selectFromResult: ({ data, isLoading }) => ({
+  const { product } = useGetProductsQuery("products", {
+    selectFromResult: ({ data }) => ({
       product: data?.entities[productId],
-      isLoading,
     }),
   })
 
   const onBuyClicked = () => {
-    dispatch(
-      addToCart({
-        id: product.id,
-        title: product.title,
-        image: product.img,
-        price: product.price,
-      })
-    )
-    navigate("/checkout")
+    if (product) {
+      dispatch(
+        addToCart({
+          id: product.id,
+          title: product.title,
+          image: product.img,
+          price: product.price,
+        })
+      )
+      navigate("/checkout")
+    }
   }
+
   let content
 
-  if (isLoading) {
-    content = <p>loading...</p>
-  }
   content = (
-    <Wrapper key={product.id} slideIndex={slideIndex}>
+    <Wrapper key={product && product.id} slideIndex={slideIndex}>
       <Left>
-        <ImageContainer onClick={() => navigate(`/shop/product/${product.id}`)}>
-          <Image src={product.img} />
+        <ImageContainer
+          onClick={() => navigate(`/shop/product/${product && product.id}`)}
+        >
+          <Image src={product && product.img} />
         </ImageContainer>
       </Left>
       <Right>
         <InfoContainer>
-          <Title onClick={() => navigate(`/shop/product/${product.id}`)}>
-            {product.title}
+          <Title
+            onClick={() => navigate(`/shop/product/${product && product.id}`)}
+          >
+            {product && product.title}
           </Title>
-          <Desc>{product.desc}</Desc>
+          <Desc>{product && product.desc}</Desc>
           <Button onClick={onBuyClicked}>buy now</Button>
         </InfoContainer>
       </Right>

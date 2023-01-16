@@ -8,6 +8,12 @@ import useTitle from "../../hooks/useTitle"
 
 const Container = styled.div`
   width: 100%;
+  ${mobile({
+    width: '90%',
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  })}
 `
 const TitleSection = styled.div``
 const MainContent = styled.div`

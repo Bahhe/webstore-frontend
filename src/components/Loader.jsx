@@ -15,10 +15,10 @@ const Container = styled.div`
   z-index: 999;
 `
 
-const Loader = () => {
+const Loader = ({ color }) => {
   return (
     <Container>
-      <PulseLoader />
+      <PulseLoader color={color} />
     </Container>
   )
 }

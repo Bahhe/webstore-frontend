@@ -4,6 +4,7 @@ import cpu from "../../../assests/images/cpu.webp"
 import ram from "../../../assests/images/ram.webp"
 import ssd from "../../../assests/images/ssd.webp"
 import gpu from "../../../assests/images/gpu.webp"
+import { mobile } from "../../../assests/globalStyles/responsive"
 
 const Container = styled.div`
   display: flex;
@@ -14,6 +15,9 @@ const Container = styled.div`
   @media only screen and (max-width: 1280px) {
     flex-direction: column;
   }
+  ${mobile({
+    display: "none",
+  })}
 `
 const Section = styled.section`
   margin: 1em;

@@ -83,7 +83,7 @@ const Slider = () => {
   let dataLength
   let handleClick
   if (isLoading) {
-    sliderContent = <Spinner />
+    sliderContent = <Spinner color="white" />
   }
   if (isError) {
     sliderContent = <p>{error?.data?.message}</p>

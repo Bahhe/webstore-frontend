@@ -3,7 +3,7 @@ import styled from "styled-components"
 import Products from "./Products"
 import { useListProductsQuery } from "../../features/products/productsApiSlice"
 import { useLocation } from "react-router-dom"
-import { mobile, mobileCart } from "../../assests/globalStyles/responsive"
+import { mobile } from "../../assests/globalStyles/responsive"
 import useTitle from "../../hooks/useTitle"
 import Spinner from "../../components/Spinner"
 import { SearchOutlined } from "@mui/icons-material"
@@ -170,16 +170,16 @@ const ProductsTitle = styled.div`
   text-transform: capitalize;
   padding: 0 0 1em 0;
 `
-const MobileSearch = styled.input`
-  margin-bottom: 1em;
-  width: 80%;
-  padding: 0.5em;
-  border-radius: 50px;
-  border: 1px solid black;
-  ${mobileCart({
-    display: "none",
-  })}
-`
+// const MobileSearch = styled.input`
+//   margin-bottom: 1em;
+//   width: 80%;
+//   padding: 0.5em;
+//   border-radius: 50px;
+//   border: 1px solid black;
+//   ${mobileCart({
+//     display: "none",
+//   })}
+// `
 
 const SearchContainer = styled.div`
   width: 100%;
@@ -206,9 +206,6 @@ const Search = styled.input`
   padding: 0.5em;
   border: none;
   outline: none;
-  ${mobile({
-    display: "none",
-  })}
 `
 const ShopSection = () => {
   useTitle("TIMGAD. | Shop")
@@ -286,7 +283,7 @@ const ShopSection = () => {
   }
 
   let shopProducts
-  if (isLoading) return (shopProducts = <Spinner />)
+  if (isLoading) return (shopProducts = <Spinner color="black" />)
   shopProducts =
     products && !products?.products?.length ? (
       <p>no product found</p>
@@ -412,7 +409,7 @@ const ShopSection = () => {
                 height="20px"
                 style={{ marginRight: ".4em" }}
                 src={hp}
-                alt=''
+                alt=""
               />
               <Text name="hp" onClick={handleFilters}>
                 hp
@@ -495,12 +492,6 @@ const ShopSection = () => {
       </FilterSection>
       <ProductsSection>
         <ProductsTitle>laptops</ProductsTitle>
-        <MobileSearch
-          placeholder="Search product ..."
-          value={search}
-          onChange={handleSearch}
-          autoFocus
-        />
         <NavigationBar>
           <Left>
             <NumberOfItems>

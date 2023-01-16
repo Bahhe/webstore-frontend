@@ -34,7 +34,9 @@ const Arrow = styled.div`
   ${mobile({
     opacity: (props) => (props.direction === "left" ? "0" : "1"),
     visibility: (props) => (props.direction === "left" ? "hidden" : "visible"),
-    right: (props) => props.direction === "right" && "-2em",
+    backgroundColor: "white",
+    width: "3em",
+    height: "3em",
   })}
 `
 
@@ -82,7 +84,7 @@ const SecondSlider = () => {
   let dataLength
 
   if (isLoading) {
-    sliderContent = <Spinner />
+    sliderContent = <Spinner color="black" />
   }
   if (isError) {
     sliderContent = <p>{error?.data?.message}</p>
