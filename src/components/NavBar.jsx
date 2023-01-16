@@ -249,7 +249,7 @@ const NavBar = () => {
             </MenuWrapper>
           )}
           <Logo onClick={() => navigate("/")}>
-            <img src={logo} width="50%" height="100%" />
+            <img src={logo} width="50%" height="100%" alt="logo" />
           </Logo>
           <MobileCart onClick={() => navigate("/cart")}>
             <Badge color="success" badgeContent={getTotalQuantity()} showZero>

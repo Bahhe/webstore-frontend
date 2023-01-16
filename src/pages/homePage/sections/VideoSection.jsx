@@ -1,5 +1,4 @@
 import React from "react"
-import { laptop, mobile } from "../../../assests/globalStyles/responsive"
 import styled from "styled-components"
 import cpu from "../../../assests/images/cpu.webp"
 import ram from "../../../assests/images/ram.webp"

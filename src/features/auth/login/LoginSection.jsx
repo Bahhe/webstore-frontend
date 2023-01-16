@@ -6,7 +6,6 @@ import { setCredentials } from "../authSlice"
 import { useLoginMutation } from "../authApiSlice"
 import jwtDecode from "jwt-decode"
 import { mobile } from "../../../assests/globalStyles/responsive"
-import { Link } from "react-router-dom"
 import Loader from "../../../components/Loader"
 
 const Container = styled.main`
@@ -15,14 +14,6 @@ const Container = styled.main`
   padding-top: 10em;
   padding-bottom: 10em;
 `
-const Logo = styled.h1`
-  position: absolute;
-  top: 1em;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  cursor: pointer;
-`
-
 const Section = styled.section`
   width: 100%;
   display: flex;

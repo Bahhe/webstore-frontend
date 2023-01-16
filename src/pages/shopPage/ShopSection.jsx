@@ -1,4 +1,3 @@
-import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined"
 import React, { useState } from "react"
 import styled from "styled-components"
 import Products from "./Products"
@@ -413,6 +412,7 @@ const ShopSection = () => {
                 height="20px"
                 style={{ marginRight: ".4em" }}
                 src={hp}
+                alt=''
               />
               <Text name="hp" onClick={handleFilters}>
                 hp
