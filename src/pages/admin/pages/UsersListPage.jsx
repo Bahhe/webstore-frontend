@@ -8,11 +8,12 @@ import {
 import { useNavigate } from "react-router-dom"
 import PulseLoader from "react-spinners/PulseLoader"
 import useTitle from "../../../hooks/useTitle"
+import { Tooltip } from "@mui/material"
 
 const Grid = styled.div``
 
 const Container = styled.div`
-  width: 100%;
+  width: 80%;
   height: 100vh;
   margin: 5em 0 0 0;
   display: flex;
@@ -26,7 +27,7 @@ const EditButton = styled.div`
   padding: 0.5em 2em;
   margin: 0 1em 0 0;
   text-transform: capitalize;
-  background-color: green;
+  background-color: #0ae;
   border: none;
   border-radius: 1em;
   color: white;
@@ -72,10 +73,14 @@ const UsersListPage = () => {
                 edit
               </EditButton>
               {!params.row.admin && (
-                <Delete
-                  onClick={async () => await deleteUser({ id: params.row.id })}
-                  style={{ color: "red", cursor: "pointer" }}
-                />
+                <Tooltip title="delete">
+                  <Delete
+                    onClick={async () =>
+                      await deleteUser({ id: params.row.id })
+                    }
+                    style={{ color: "red", cursor: "pointer" }}
+                  />
+                </Tooltip>
               )}
             </CellContainer>
           )

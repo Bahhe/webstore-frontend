@@ -2,12 +2,6 @@ import React, { useEffect } from "react"
 import styled from "styled-components"
 import {
   Dashboard,
-  Home,
-  Inventory,
-  Inventory2Rounded,
-  LogoutOutlined,
-  Person,
-  ViewList,
 } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
 import useAuth from "../../../hooks/useAuth"
@@ -15,67 +9,57 @@ import { useGetUsersQuery } from "../../../features/users/usersApiSlice"
 import { useSendLogoutMutation } from "../../../features/auth/authApiSlice"
 import { laptop } from "../../../assests/globalStyles/responsive"
 import Loader from "../../../components/Loader"
+import { FaUserAlt } from "react-icons/fa"
+import { Fab, Tooltip } from "@mui/material"
+import AddIcon from "@mui/icons-material/Add"
+import WebIcon from '@mui/icons-material/Web';
+import GroupsIcon from '@mui/icons-material/Groups';
+import LaptopIcon from '@mui/icons-material/Laptop';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-const Container = styled.ul`
-  padding: 2em;
-  position: sticky;
-  top: 0;
-  width: 16em;
-  height: 20em;
-  border-radius: 50px;
-  border: 1px solid lightgrey;
-  margin: 1em;
-  ${laptop({
-    width: "auto",
-  })}
-`
-const Title = styled.h1`
-  margin: 1.5em 0 0 0;
-  font-size: 0.9em;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.3);
-  text-transform: capitalize;
-`
-const ListItem = styled.li`
-  margin: 0.5em;
-  text-transform: capitalize;
-  color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.5 ease-in-out;
-  &:hover {
-    color: red;
-  }
-`
 const Wrapper = styled.aside`
+  position: fixed;
+  background-image: linear-gradient(135deg, #6b73ff 10%, #000dff 100%);
+  box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.2);
+  width: 7em;
+  height: 90vh;
+  border-radius: 1em;
+  top: 1em;
+  left: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 1em 0 0 0;
 `
+
+const Container = styled.ul`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  ${laptop({
+    width: "auto",
+  })}
+`
+const ListItem = styled.li`
+  margin: 0.5em;
+  font-size: 4em;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.5 ease-in-out;
+`
 const Admin = styled.section`
   display: flex;
   align-items: center;
   font-size: 0.5em;
-`
-const Img = styled.img`
-  width: 4em;
-  height: 4em;
-  border-radius: 50%;
-`
-const Name = styled.h1`
-  cursor: pointer;
-  font-size: 2em;
-`
-
-const Logout = styled.button`
-  border: none;
-  background-color: transparent;
-  margin: 0 1em;
   cursor: pointer;
 `
-
 const AdminSideBar = () => {
   const { id } = useAuth()
   const { user } = useGetUsersQuery("users", {
@@ -101,43 +85,55 @@ const AdminSideBar = () => {
 
   return (
     <Wrapper>
-      <Admin>
-        <Img src="https://firebasestorage.googleapis.com/v0/b/webstore-d48be.appspot.com/o/user(1).png?alt=media&token=477b5102-c1b2-4580-a74b-c3ce9907acae" />
-        <Name onClick={() => navigate(`/admin/user/edit/${user.id}`)}>
-          {user && user.firstName + " " + user.lastName}
-        </Name>
-        <Logout onClick={onLogoutClicked}>
-          <LogoutOutlined />
-        </Logout>
-      </Admin>
+      <Tooltip title="my account">
+        <Admin onClick={() => navigate(`/admin/user/edit/${user.id}`)}>
+          <FaUserAlt
+            style={{ color: "white", fontSize: "5em", margin: "1em 0 0 0" }}
+          />
+        </Admin>
+      </Tooltip>
+      <Tooltip title="logout">
+        <Admin onClick={onLogoutClicked}>
+          <LogoutIcon
+            style={{ color: "white", fontSize: "5em", margin: "1em 0 0 0" }}
+          />
+        </Admin>
+      </Tooltip>
       <Container>
-        <Title>quick menu</Title>
         <ListItem onClick={() => navigate("/admin")}>
-          <Dashboard style={{ marginRight: "0.2em" }} />
-          home
+          <Tooltip title="Dashboard">
+            <Dashboard style={{ marginRight: "0.2em", fontSize: ".5em" }} />
+          </Tooltip>
         </ListItem>
         <ListItem onClick={() => navigate("/")}>
-          <Home style={{ marginRight: "0.2em" }} />
-          website
+          <Tooltip title="website home page">
+            <WebIcon style={{ marginRight: "0.2em", fontSize: ".5em" }} />
+          </Tooltip>
         </ListItem>
         <ListItem onClick={() => navigate("/admin/users")}>
-          <Person style={{ marginRight: "0.2em" }} />
-          users
+          <Tooltip title="users list">
+            <GroupsIcon style={{ marginRight: "0.2em", fontSize: ".5em" }} />
+          </Tooltip>
         </ListItem>
         <ListItem onClick={() => navigate("/admin/products")}>
-          <Inventory style={{ marginRight: "0.2em" }} />
-          products
+          <Tooltip title="products list">
+            <LaptopIcon style={{ marginRight: "0.2em", fontSize: ".5em" }} />
+          </Tooltip>
         </ListItem>
         <ListItem onClick={() => navigate("/admin/orders")}>
-          <ViewList style={{ marginRight: "0.2em" }} />
-          orders
+          <Tooltip title="orders list">
+            <EmojiPeopleIcon style={{ marginRight: "0.2em", fontSize: ".5em" }} />
+          </Tooltip>
         </ListItem>
         <ListItem
-          style={{ color: "blue", marginTop: "1em" }}
+          style={{ color: "red", marginTop: "1em" }}
           onClick={() => navigate("/admin/product/create")}
         >
-          <Inventory2Rounded style={{ marginRight: "0.2em" }} />
-          add products
+          <Tooltip title="add product">
+            <Fab color="white" aria-label="add">
+              <AddIcon />
+            </Fab>
+          </Tooltip>
         </ListItem>
       </Container>
     </Wrapper>

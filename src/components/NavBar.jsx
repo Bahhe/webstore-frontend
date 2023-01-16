@@ -269,7 +269,7 @@ const NavBar = () => {
         <Right>
           {isAdmin && (
             <AdminDashBoard onClick={() => navigate("/admin")}>
-              <Dashboard />
+              <Dashboard style={{color: '#5a5fe5'}} />
             </AdminDashBoard>
           )}
           {!token && (

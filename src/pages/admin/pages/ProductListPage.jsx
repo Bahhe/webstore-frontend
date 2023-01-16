@@ -8,11 +8,12 @@ import {
 import { useNavigate } from "react-router-dom"
 import PulseLoader from "react-spinners/PulseLoader"
 import useTitle from "../../../hooks/useTitle"
+import { Tooltip } from "@mui/material"
 
 const Grid = styled.div``
 
 const Container = styled.div`
-  width: 100%;
+  width: 90%;
   height: 100vh;
   margin: 5em 0 0 0;
   display: flex;
@@ -26,7 +27,7 @@ const EditButton = styled.div`
   padding: 0.5em 2em;
   margin: 0 1em 0 0;
   text-transform: capitalize;
-  background-color: green;
+  background-color: #0ae;
   border: none;
   border-radius: 1em;
   color: white;
@@ -37,7 +38,7 @@ const Image = styled.img`
   height: 5em;
 `
 const DeleteButton = styled.button`
-  background-color: white;
+  background-color: transparent;
   border: none;
 `
 
@@ -75,7 +76,7 @@ const ProductListPage = () => {
           )
         },
       },
-      { field: "title", headerName: "Title", width: 130 },
+      { field: "title", headerName: "Title", width: 300 },
       { field: "description", headerName: "Description", width: 190 },
       {
         field: "stock",
@@ -99,11 +100,15 @@ const ProductListPage = () => {
               >
                 edit
               </EditButton>
-              <DeleteButton
-                onClick={async () => await deleteProduct({ id: params.row.id })}
-              >
-                <Delete style={{ color: "red", cursor: "pointer" }} />
-              </DeleteButton>
+              <Tooltip title="delete">
+                <DeleteButton
+                  onClick={async () =>
+                    await deleteProduct({ id: params.row.id })
+                  }
+                >
+                  <Delete style={{ color: "red", cursor: "pointer" }} />
+                </DeleteButton>
+              </Tooltip>
             </CellContainer>
           )
         },

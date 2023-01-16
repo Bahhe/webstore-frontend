@@ -9,13 +9,14 @@ import {
 import OrderProduct from "./OrderProduct"
 import PulseLoader from "react-spinners/PulseLoader"
 import useTitle from "../../../hooks/useTitle"
+import FeedIcon from "@mui/icons-material/Feed"
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 5em;
-  border-radius: 1em;
-  box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 3em;
+  box-shadow: 0 0 20px #ccc;
 `
 const Wrapper = styled.div`
   display: flex;
@@ -27,36 +28,61 @@ const Info = styled.div`
   flex: 1;
 `
 const Title = styled.div`
-  font-size: 1.5em;
+  font-size: 1.1em;
+  font-weight: 500;
   text-transform: capitalize;
-  color: rgba(0, 0, 0, 0.7);
+  opacity: 0.5;
 `
 const MainTitle = styled.div`
   font-size: 2em;
-  text-transform: capitalize;
+  text-transform: uppercase;
   margin: 1em 1em;
 `
 const Content = styled.div`
   color: black;
-  margin: 0 0 1em 0;
-  font-size: 1.4em;
+  font-size: 1.2em;
 `
 const Products = styled.div`
   margin: 1em 5em 1em 1em;
   flex: 1;
 `
 
-const Status = styled.div``
+const Status = styled.div`
+  margin: 2em 0 0 1em;
+`
 
 const Button = styled.button`
   border: none;
   padding: 1em 1.5em;
   color: white;
-  background-color: green;
+  background-color: #0ae;
   margin: 0 1em 0 0;
   border-radius: 1em;
   text-transform: capitalize;
   cursor: pointer;
+  box-shadow: 0 0 30px #ccc;
+`
+
+const InfoWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: #d3d3d323;
+  box-shadow: 0 0 20px #ccc;
+  padding: 1em;
+  padding-left: 5em;
+  margin: 0.5em;
+  border-radius: 1em;
+`
+const Icon = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  left: 1em;
+  display: flex;
+  align-items: center;
 `
 
 const OrderPage = () => {
@@ -113,20 +139,47 @@ const OrderPage = () => {
         <MainTitle>order</MainTitle>
         <Wrapper>
           <Info>
-            <Title>name:</Title>
-            <Content>{order.firstName + " " + order.lastName}</Content>
-            <Title>email:</Title>
-            <Content>{order.email}</Content>
-            <Title>city:</Title>
-            <Content>{order.city}</Content>
-            <Title>phone number:</Title>
-            <Content>{order.number}</Content>
-            <Title>shipping method:</Title>
-            <Content>{order.shipping}</Content>
+            <InfoWrapper>
+              <Icon>
+                <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
+              </Icon>
+              <Title>name:</Title>
+              <Content>{order.firstName + " " + order.lastName}</Content>
+            </InfoWrapper>
+            <InfoWrapper>
+              <Icon>
+                <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
+              </Icon>
+              <Title>email:</Title>
+              <Content>{order.email}</Content>
+            </InfoWrapper>
+            <InfoWrapper>
+              <Icon>
+                <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
+              </Icon>
+              <Title>city:</Title>
+              <Content>{order.city}</Content>
+            </InfoWrapper>
+            <InfoWrapper>
+              <Icon>
+                <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
+              </Icon>
+              <Title>phone number:</Title>
+              <Content>{order.number}</Content>
+            </InfoWrapper>
+            <InfoWrapper>
+              <Icon>
+                <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
+              </Icon>
+              <Title>shipping method:</Title>
+              <Content>{order.shipping}</Content>
+            </InfoWrapper>
             <Status>
               <Button onClick={hanldePending}>pending</Button>
-              <Button onClick={handleApproved}>approved</Button>
-              <Button onClick={handleDelete}>delete</Button>
+              <Button onClick={handleApproved}>approve</Button>
+              <Button style={{ backgroundColor: "red" }} onClick={handleDelete}>
+                delete
+              </Button>
             </Status>
           </Info>
           <Products>

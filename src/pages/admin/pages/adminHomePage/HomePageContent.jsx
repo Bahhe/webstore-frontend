@@ -1,18 +1,18 @@
 import {
+  GroupOutlined,
   Inventory,
   ListAltOutlined,
-  Person,
   Visibility,
 } from "@mui/icons-material"
-import React from "react"
+import React, { useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { useGetOrdersQuery } from "../../../../features/orders/ordersApiSlice"
 import { useGetUsersQuery } from "../../../../features/users/usersApiSlice"
 import Orders from "./Orders"
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -26,7 +26,6 @@ import { laptop } from "../../../../assests/globalStyles/responsive"
 const Container = styled.main`
   display: flex;
   flex-direction: column;
-  border-left: 1px solid lightgrey;
   padding: 0 5em;
   ${laptop({
     padding: "0",
@@ -35,8 +34,8 @@ const Container = styled.main`
 const Left = styled.section`
   margin: 1em;
   padding: 1em;
-  box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
-  border-radius: 1em;
+  box-shadow: 0 0 20px #ccc;
+  border-radius: 3em;
 `
 const Title = styled.h1`
   font-size: 1.5em;
@@ -44,8 +43,9 @@ const Title = styled.h1`
   font-weight: 500;
 `
 const UsersList = styled.div`
-  height: 33em;
-  overflow-y: scroll;
+  height: 70vh;
+  overflow-y: auto;
+  padding: 0 1em;
 `
 
 const User = styled.div`
@@ -81,23 +81,13 @@ const Display = styled.button`
 `
 const Right = styled.section`
   margin: 1em;
-  box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
-  border-radius: 1em;
+  box-shadow: 0 0 20px #ccc;
+  border-radius: 3em;
 `
 const Table = styled.section`
-  padding: 0.5em;
-  overflow-y: scroll;
-  height: 31em;
-  padding: 1em;
-`
-const TableTitle = styled.header`
-  display: flex;
-  align-items: center;
-  margin: 1em 1em 0 1em;
-`
-const SmallTitle = styled.div`
-  text-align: start;
-  font-weight: 500;
+  overflow-y: auto;
+  height: 18em;
+  padding: 2em;
 `
 const Wrapper = styled.div`
   display: flex;
@@ -115,76 +105,102 @@ const Statistics = styled.section`
   })}
 `
 const Item = styled.div`
-  color: white;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
-  padding: 1em 5em 1em 1em;
-  border-radius: 1em;
-  box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
+  padding: 3em;
+  width: 17em;
+  height: 18vh;
+  border-radius: 3em;
+  box-shadow: 0 0 20px #ccc;
   cursor: pointer;
 `
 const ItemName = styled.h3`
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 1.5em;
   opacity: 0.9;
   text-transform: capitalize;
+  color: #363670;
 `
 const ItemQuantity = styled.p`
   display: flex;
   align-items: center;
-  font-size: 1.5em;
-  font-weight: 300;
-  margin: 1em 0 0 0;
+  font-size: 2em;
+  font-weight: 400;
+  margin: 0.5em;
+  color: #363670;
 `
+const DashboardWrapper = styled.div``
 
 const Chart = styled.section``
 
+const data = [
+  {
+    name: "Page A",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: "Page C",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    name: "Page D",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Page E",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "Page F",
+    uv: 2390,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Page G",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+]
 const HomePageContent = () => {
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
+  const [opacity, setOpacity] = useState({
+    uv: 1,
+    pv: 1,
+  })
+
+  const handleMouseEnter = useCallback(
+    (o) => {
+      const { dataKey } = o
+
+      setOpacity({ ...opacity, [dataKey]: 0.5 })
     },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
+    [opacity, setOpacity]
+  )
+
+  const handleMouseLeave = useCallback(
+    (o) => {
+      const { dataKey } = o
+      setOpacity({ ...opacity, [dataKey]: 1 })
     },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ]
+    [opacity, setOpacity]
+  )
 
   const navigate = useNavigate()
 
@@ -207,62 +223,29 @@ const HomePageContent = () => {
   return (
     <Container>
       <Statistics>
-        <Item
-          onClick={() => navigate("/admin/products")}
-          style={{ backgroundColor: "red" }}
-        >
-          <ItemName>total products</ItemName>
+        <Item onClick={() => navigate("/admin/products")}>
+          <Inventory style={{ fontSize: "3em", color: "#5757f3" }} />
           <ItemQuantity>
             {products && Object.values(products).length}
-            <Inventory style={{ fontSize: ".7em", marginLeft: ".4em" }} />
           </ItemQuantity>
+          <ItemName>total products</ItemName>
         </Item>
-        <Item
-          onClick={() => navigate("/admin/users")}
-          style={{ backgroundColor: "orange" }}
-        >
+        <Item onClick={() => navigate("/admin/users")}>
+          <GroupOutlined style={{ fontSize: "3em", color: "#5757f3" }} />
+          <ItemQuantity>{users && Object.values(users).length}</ItemQuantity>
           <ItemName>total members</ItemName>
-          <ItemQuantity>
-            {users && Object.values(users).length}
-            <Person style={{ fontSize: ".7em", marginLeft: ".4em" }} />
-          </ItemQuantity>
         </Item>
-        <Item
-          onClick={() => navigate("/admin/orders")}
-          style={{ backgroundColor: "blue" }}
-        >
+        <Item onClick={() => navigate("/admin/orders")}>
+          <ListAltOutlined style={{ fontSize: "3em", color: "#5757f3" }} />
+          <ItemQuantity>{orders && Object.values(orders).length}</ItemQuantity>
           <ItemName>total orders</ItemName>
-          <ItemQuantity>
-            {orders && Object.values(orders).length}
-            <ListAltOutlined style={{ fontSize: ".7em", marginLeft: ".4em" }} />
-          </ItemQuantity>
         </Item>
       </Statistics>
-      <Chart>
-        <BarChart
-          width={1000}
-          height={300}
-          data={data}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-          <Bar dataKey="amt" stackId="a" fill="#82ca9d" />
-          <Bar dataKey="uv" fill="#ffc658" />
-        </BarChart>
-      </Chart>
       <Wrapper style={{ alignItems: "flex-start" }}>
         <Left>
-          <Title style={{ color: "orange" }}>members</Title>
+          <Title style={{ color: "#0ae", width: "100%", textAlign: "center" }}>
+            members
+          </Title>
           <UsersList>
             {!users ? (
               <PulseLoader />
@@ -288,24 +271,77 @@ const HomePageContent = () => {
             )}
           </UsersList>
         </Left>
-        <Right>
-          <Title style={{ color: "blue", margin: "1em 1em" }}>orders</Title>
-          <TableTitle>
-            <SmallTitle style={{ width: "12em" }}>Customer</SmallTitle>
-            <SmallTitle style={{ width: "12em" }}>Date</SmallTitle>
-            <SmallTitle style={{ width: "6em" }}>NoP</SmallTitle>
-            <SmallTitle>Status</SmallTitle>
-          </TableTitle>
-          <Table>
-            {!orders ? (
-              <PulseLoader />
-            ) : (
-              Object.values(orders).map((order) => (
-                <Orders key={order.id} order={order} />
-              ))
-            )}
-          </Table>
-        </Right>
+        <DashboardWrapper>
+          <Chart
+            style={{
+              boxShadow: "0 0 20px #ccc",
+              borderRadius: "3em",
+              padding: "1em",
+            }}
+          >
+            <LineChart
+              width={900}
+              height={300}
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+              <Line
+                type="monotone"
+                dataKey="pv"
+                strokeOpacity={opacity.pv}
+                stroke="#8884d8"
+                activeDot={{ r: 8 }}
+              />
+              <Line
+                type="monotone"
+                dataKey="uv"
+                strokeOpacity={opacity.uv}
+                stroke="#82ca9d"
+              />
+            </LineChart>
+          </Chart>
+          <Right>
+            <Title
+              style={{
+                color: "#0ae",
+                width: "100%",
+                textAlign: "center",
+                margin: "1em 0",
+                padding: ".5em 0",
+              }}
+            >
+              orders
+            </Title>
+            {/* <TableTitle>
+              <SmallTitle style={{ width: "29%" }}>Customer</SmallTitle>
+              <SmallTitle style={{ width: "28%" }}>Date</SmallTitle>
+              <SmallTitle style={{ width: "10%" }}>NoP</SmallTitle>
+              <SmallTitle style={{ width: "10%" }}>Status</SmallTitle>
+            </TableTitle> */}
+            <Table>
+              {!orders ? (
+                <PulseLoader />
+              ) : (
+                Object.values(orders).map((order) => (
+                  <Orders key={order.id} order={order} />
+                ))
+              )}
+            </Table>
+          </Right>
+        </DashboardWrapper>
       </Wrapper>
     </Container>
   )

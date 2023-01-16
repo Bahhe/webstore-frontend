@@ -19,13 +19,10 @@ const Container = styled.main`
   align-items: center;
   justify-content: center;
   width: 100%;
-`
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
+  margin-top: 4em;
 `
 const Title = styled.h1`
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-size: 2em;
   font-weight: 500;
 `
@@ -66,11 +63,11 @@ const Button = styled.button`
   font-size: 1.2em;
   padding: 0.5em 2em;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: uppercase;
   border: none;
   background-color: blue;
   color: white;
-  border-radius: 1em;
+  border-radius: 0.5em;
   cursor: pointer;
 `
 
@@ -94,6 +91,7 @@ const Input = styled.input`
   padding: 0.5em 0 0.5em 0.5em;
   outline: none;
   opacity: 0.8;
+  background-color: transparent;
 `
 const InStock = styled.input`
   margin: 1em 0;
@@ -122,8 +120,9 @@ const Select = styled.select`
   margin: 1em 0 2em 0;
   border: none;
   padding: 1em;
-  border-radius: 50px;
+  border-radius: 0.5em;
   font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.067);
 `
 const Option = styled.option``
 
@@ -224,9 +223,6 @@ const CreateProductPage = () => {
 
   return (
     <Container>
-      <Header>
-        <Title>create product</Title>
-      </Header>
       <Edit>
         <Title>create</Title>
         <Content>
@@ -247,6 +243,7 @@ const CreateProductPage = () => {
                 />
                 <Label>price</Label>
                 <Input
+                  type="number"
                   placeholder="$200"
                   value={price.replace(/\D/g, "")}
                   onChange={(e) => setPrice(e.target.value.replace(/\D/g, ""))}

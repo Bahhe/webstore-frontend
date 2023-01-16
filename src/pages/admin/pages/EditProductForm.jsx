@@ -23,7 +23,7 @@ const Header = styled.header`
   justify-content: space-between;
 `
 const Title = styled.h1`
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-size: 2em;
   font-weight: 500;
 `
@@ -69,11 +69,11 @@ const Button = styled.button`
   font-size: 1.2em;
   padding: 0.5em 2em;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: uppercase;
   border: none;
   background-color: blue;
   color: white;
-  border-radius: 1em;
+  border-radius: .5em;
   cursor: pointer;
 `
 
@@ -124,8 +124,9 @@ const SectionInput = styled.input`
 const Select = styled.select`
   margin: 1em 0 2em 0;
   border: none;
-  border-radius: 50px;
+  border-radius: .5em;
   padding: 1em;
+  background-color: rgba(0, 0, 0, 0.05)
 `
 const Option = styled.option``
 

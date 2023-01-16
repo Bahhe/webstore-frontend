@@ -10,6 +10,7 @@ import {
 import { useNavigate } from "react-router-dom"
 import PulseLoader from "react-spinners/PulseLoader"
 import useTitle from "../../../hooks/useTitle"
+import { Tooltip } from "@mui/material"
 
 const Grid = styled.div``
 
@@ -25,12 +26,12 @@ const CellContainer = styled.div`
   align-items: center;
 `
 const DeleteButton = styled.button`
-  background-color: white;
+  background-color: transparent;
   border: none;
 `
 const CheckButton = styled.button`
   border: none;
-  background-color: green;
+  background-color: #0ae;
   color: white;
   padding: 0.8em 1.5em;
   border-radius: 1em;
@@ -90,11 +91,13 @@ const OrdersListPage = () => {
         renderCell: (params) => {
           return (
             <CellContainer>
-              <DeleteButton
-                onClick={async () => await deleteOrder({ id: params.row.id })}
-              >
-                <Delete style={{ color: "red", cursor: "pointer" }} />
-              </DeleteButton>
+              <Tooltip title="delete">
+                <DeleteButton
+                  onClick={async () => await deleteOrder({ id: params.row.id })}
+                >
+                  <Delete style={{ color: "red", cursor: "pointer" }} />
+                </DeleteButton>
+              </Tooltip>
             </CellContainer>
           )
         },

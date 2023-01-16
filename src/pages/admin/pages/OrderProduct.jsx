@@ -8,8 +8,10 @@ const ProductContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.055);
   margin: 1em 0;
+  box-shadow: 0 0 30px #ccc;
+  border-radius: 1em;
 `
 const ProductInfo = styled.div`
   display: flex;

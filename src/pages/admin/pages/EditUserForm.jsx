@@ -12,7 +12,7 @@ import LocationCityIcon from "@mui/icons-material/LocationCity"
 
 const Container = styled.div`
   margin: 10em 10em 0 15%;
-  width: 80%;
+  width: 70%;
 `
 const Header = styled.div`
   display: flex;
@@ -20,13 +20,13 @@ const Header = styled.div`
   justify-content: space-between;
 `
 const Title = styled.div`
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-size: 2em;
   font-weight: 500;
 `
 const CreateButton = styled.button`
-  text-transform: capitalize;
-  background-color: green;
+  text-transform: uppercase;
+  background-color: #0ae;
   border: none;
   border-radius: 0.2em;
   padding: 0.5em 1em;
@@ -72,6 +72,7 @@ const Edit = styled.div`
 `
 
 const Content = styled.div`
+  width: 80%;
   display: flex;
 `
 const Details = styled.div`
@@ -84,7 +85,6 @@ const ListTitle = styled.div`
   margin-bottom: 1em;
 `
 const ListItem = styled.div`
-  text-transform: capitalize;
   margin-left: 1em;
   margin-bottom: 1em;
   display: flex;
@@ -106,11 +106,11 @@ const Button = styled.button`
   font-size: 1.2em;
   padding: 0.5em 2em;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: uppercase;
   border: none;
   background-color: blue;
   color: white;
-  border-radius: 1em;
+  border-radius: .5em;
   cursor: pointer;
 `
 
@@ -184,7 +184,6 @@ const EditUserForm = ({ user }) => {
   return (
     <Container>
       <Header>
-        <Title>edit user</Title>
         <CreateButton onClick={() => navigate(`/admin/user/create`)}>
           create
         </CreateButton>

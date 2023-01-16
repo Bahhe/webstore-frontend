@@ -2,33 +2,26 @@ import React from "react"
 import AdminSideBar from "./AdminSideBar"
 import styled from "styled-components"
 import { Outlet } from "react-router-dom"
-import Footer from "../../../components/Footer"
-import { laptop } from "../../../assests/globalStyles/responsive"
 
 const Container = styled.main`
   width: 100%;
+  height: 100%;
 `
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   width: 80%;
   margin: auto;
-  ${laptop({
-    width: "100%",
-  })}
-`
-const Pages = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 const AdminLayout = () => {
   return (
     <Container>
+      <AdminSideBar />
       <Wrapper>
-        <Pages>
-          <AdminSideBar />
-          <Outlet />
-        </Pages>
+        <Outlet />
       </Wrapper>
-      <Footer />
     </Container>
   )
 }

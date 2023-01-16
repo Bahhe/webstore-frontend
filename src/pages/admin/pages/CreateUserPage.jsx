@@ -4,15 +4,10 @@ import useTitle from "../../../hooks/useTitle"
 
 const Container = styled.main`
   margin: 10em 10em 0 15%;
-  width: 100%;
-`
-const Header = styled.header`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
+  width: 50%;
 `
 const Title = styled.h1`
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-size: 2em;
   font-weight: 500;
 `
@@ -70,11 +65,11 @@ const Button = styled.button`
   font-size: 1.2em;
   padding: 0.5em 2em;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: uppercase;
   border: none;
   background-color: blue;
   color: white;
-  border-radius: 1em;
+  border-radius: 0.5em;
   cursor: pointer;
 `
 
@@ -104,11 +99,8 @@ const CreateUserPage = () => {
   useTitle("TIMGAD. | Create User")
   return (
     <Container>
-      <Header>
-        <Title>create user</Title>
-      </Header>
       <Edit>
-        <Title>create</Title>
+        <Title>create a user</Title>
         <Content>
           <Left>
             <Form>
@@ -140,6 +132,7 @@ const CreateUserPage = () => {
           </Right>
         </Content>
       </Edit>
+      <p style={{ opacity: ".5", color: "red" }}>STILL NOT DEVELOPED YET</p>
     </Container>
   )
 }
