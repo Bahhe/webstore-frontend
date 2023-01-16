@@ -1,10 +1,10 @@
 import React from "react"
 import { laptop, mobile } from "../../../assests/globalStyles/responsive"
 import styled from "styled-components"
-import cpu from "../../../assests/images/cpu.jpg"
-import ram from "../../../assests/images/ram.jpg"
-import ssd from "../../../assests/images/ssd.jpg"
-import gpu from "../../../assests/images/gpu.jpg"
+import cpu from "../../../assests/images/cpu.webp"
+import ram from "../../../assests/images/ram.webp"
+import ssd from "../../../assests/images/ssd.webp"
+import gpu from "../../../assests/images/gpu.webp"
 
 const Container = styled.div`
   display: flex;
