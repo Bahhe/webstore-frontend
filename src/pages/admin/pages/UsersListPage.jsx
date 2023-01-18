@@ -32,6 +32,7 @@ const EditButton = styled.div`
   border-radius: 1em;
   color: white;
   cursor: pointer;
+  box-shadow: 0 0 5px #4a4a4a;
 `
 
 const UsersListPage = () => {

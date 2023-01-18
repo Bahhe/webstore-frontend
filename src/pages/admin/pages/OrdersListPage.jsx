@@ -35,6 +35,7 @@ const CheckButton = styled.button`
   color: white;
   padding: 0.8em 1.5em;
   border-radius: 1em;
+  box-shadow: 0 0 5px #4a4a4a;
   cursor: pointer;
 `
 

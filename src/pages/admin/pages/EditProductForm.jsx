@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { useNavigate } from "react-router-dom"
 import { useUpdateProductMutation } from "../../../features/products/productsApiSlice"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   getStorage,
   ref,
@@ -30,8 +30,9 @@ const Title = styled.h1`
 const Edit = styled.div`
   margin: 1em;
   border-radius: 1em;
-  box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px #ccc;
   padding: 1em;
+  width: 45em;
 `
 
 const Content = styled.div`
@@ -59,10 +60,12 @@ const ImageSection = styled.section`
   align-items: center;
   justify-content: flex-end;
   flex-direction: column;
+  width: 15em;
 `
 
 const ImageInput = styled.input`
   margin: 1em 0;
+  width: 15em;
 `
 
 const Button = styled.button`
@@ -73,8 +76,12 @@ const Button = styled.button`
   border: none;
   background-color: blue;
   color: white;
-  border-radius: .5em;
+  border-radius: 0.5em;
   cursor: pointer;
+  box-shadow: 0 0 5px #4a4a4a;
+  &:disabled {
+    opacity: 0.5;
+  }
 `
 
 const Form = styled.form`
@@ -85,17 +92,19 @@ const Label = styled.label`
   text-transform: capitalize;
   opacity: 0.6;
   font-weight: 500;
+  margin: 0 0 0.5em 0;
 `
 
 const Input = styled.input`
   margin-bottom: 1em;
-  border: none;
-  border-bottom: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5em;
   width: 20em;
   font-size: 1em;
   padding: 0.5em 0 0.5em 0.5em;
   outline: none;
   opacity: 0.8;
+  box-shadow: 0 0 5px #ccc;
 `
 const InputWrapper = styled.div`
   display: flex;
@@ -122,11 +131,12 @@ const SectionInput = styled.input`
   margin-right: 2em;
 `
 const Select = styled.select`
-  margin: 1em 0 2em 0;
-  border: none;
-  border-radius: .5em;
+  margin: 0 0 2em 0;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5em;
   padding: 1em;
-  background-color: rgba(0, 0, 0, 0.05)
+  background-color: transparent;
+  box-shadow: 0 0 5px #ccc;
 `
 const Option = styled.option``
 
@@ -139,7 +149,7 @@ const ProductImage = styled.img`
 
 const EditProductForm = ({ product }) => {
   const navigate = useNavigate()
-  const [updateProduct] = useUpdateProductMutation()
+  const [updateProduct, { isSuccess }] = useUpdateProductMutation()
 
   const [file, setFile] = useState("")
   const [progress, setProgress] = useState(0)
@@ -167,9 +177,7 @@ const EditProductForm = ({ product }) => {
       ? "chromebook"
       : product.categories.includes("touchScreen")
       ? "touchScreen"
-      : product.categories.includes("all")
-      ? "all"
-      : "all"
+      : "other"
   )
   const [cpu, setCpu] = useState(product.cpu)
   const [ram, setRam] = useState(product.ram)
@@ -181,32 +189,31 @@ const EditProductForm = ({ product }) => {
       ? "dell"
       : product.categories.includes("acer")
       ? "acer"
-      : product.categories.includes("toshiba")
-      ? "toshiba"
       : product.categories.includes("apple")
       ? "apple"
       : product.categories.includes("hp")
       ? "hp"
       : product.categories.includes("lenovo")
       ? "lenovo"
-      : product.categories.includes("samsung")
-      ? "samsung"
-      : product.categories.includes("lg")
-      ? "lg"
-      : product.categories.includes("honor")
-      ? "honor"
-      : product.categories.includes("msi")
-      ? "msi"
-      : product.categories.includes("condor")
-      ? "condor"
-      : product.categories.includes("fujitsu")
-      ? "fujitsu"
       : product.categories.includes("asus")
       ? "asus"
-      : product.categories.includes("wiseTech")
-      ? "wiseTech"
-      : "all"
+      : "other"
   )
+
+  const [valid, setValid] = useState(false)
+
+  const canSave = [description, cpu, ram, disk, vga, price].every(Boolean)
+
+  useEffect(() => {
+    if (canSave) {
+      setValid(true)
+    } else setValid(false)
+  }, [cpu, description, disk, price, ram, vga, canSave])
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/admin/products")
+    }
+  }, [isSuccess, navigate])
 
   const onImageChanged = (e) => {
     setFile(e.target.files[0])
@@ -252,7 +259,6 @@ const EditProductForm = ({ product }) => {
   }
 
   const onSubmitClicked = async (e) => {
-    alert("please wait for image to upload...")
     e.preventDefault()
     if (file) {
       const fileName = new Date().getTime() + file.name
@@ -263,7 +269,7 @@ const EditProductForm = ({ product }) => {
         "state_changed",
         (snapshot) => {
           setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-          console.log("Upload is " + progress + "% done")
+          console.log("Upload is " + (snapshot.bytesTransferred / snapshot.totalBytes) * 100 + "% done")
           switch (snapshot.state) {
             case "paused":
               console.log("Upload is paused")
@@ -272,51 +278,34 @@ const EditProductForm = ({ product }) => {
               console.log("Upload is running")
               break
             default:
+              break
           }
         },
         (error) => {
           console.log(error)
         },
         () => {
-          getDownloadURL(uploadTask.snapshot.ref)
-            .then((downloadURL) => {
-              const productObject = {
-                id: product.id,
-                title: title,
-                desc: description,
-                img: downloadURL,
-                categories: [categories, brand],
-                price: price,
-                section: [
-                  slider ? "slider" : "",
-                  secondSlider ? "secondSlider" : "",
-                ],
-                inStock: stock,
-                cpu: cpu,
-                ram: ram,
-                storage: disk,
-                display: display,
-                vga: vga,
-              }
-              updateProduct(productObject)
-            })
-            .then(() => {
-              setFile("")
-              setTitle("")
-              setDescription("")
-              setPrice("")
-              setSlider((prev) => !prev)
-              setSecondSlider((prev) => !prev)
-              setStock((prev) => !prev)
-              setCpu("")
-              setRam("")
-              setDisk("")
-              setDisplay("")
-              setVga("")
-            })
-            .then(() => {
-              navigate("/admin/products")
-            })
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            const productObject = {
+              id: product.id,
+              title: title,
+              desc: description,
+              img: downloadURL,
+              categories: [categories, brand],
+              price: price,
+              section: [
+                slider ? "slider" : "",
+                secondSlider ? "secondSlider" : "",
+              ],
+              inStock: stock,
+              cpu: cpu,
+              ram: ram,
+              storage: disk,
+              display: display,
+              vga: vga,
+            }
+            updateProduct(productObject)
+          })
         }
       )
     } else {
@@ -335,22 +324,21 @@ const EditProductForm = ({ product }) => {
         display: display,
         vga: vga,
       }
-
       await updateProduct(productObject)
-      setFile("")
-      setTitle("")
-      setDescription("")
-      setPrice("")
-      setSlider((prev) => !prev)
-      setSecondSlider((prev) => !prev)
-      setStock((prev) => !prev)
-      setCpu("")
-      setRam("")
-      setDisk("")
-      setDisplay("")
-      setVga("")
-      navigate("/admin/products")
     }
+    setFile("")
+    setTitle("")
+    setDescription("")
+    setPrice("")
+    setSlider(false)
+    setSecondSlider(false)
+    setStock(true)
+    setCpu("")
+    setRam("")
+    setDisk("")
+    setDisplay("")
+    setVga("")
+    navigate("/admin/products")
   }
 
   const content = (
@@ -366,49 +354,50 @@ const EditProductForm = ({ product }) => {
           <ContentWrapper>
             <Form onSubmit={onSubmitClicked}>
               <FormOne>
-                <Label>title</Label>
+                <Label>title:</Label>
                 <Input
                   placeholder="title"
                   value={title}
                   onChange={onTitleChanged}
                 />
-                <Label>description</Label>
+                <Label>description:</Label>
                 <Input
                   placeholder="desc"
                   value={description}
                   onChange={onDescriptionChanged}
                 />
-                <Label>price</Label>
+                <Label>price:</Label>
                 <Input
+                  type="number"
                   placeholder="$200"
                   value={price}
                   onChange={onPriceChanged}
                 />
-                <Label>cpu</Label>
+                <Label>cpu:</Label>
                 <Input
                   placeholder="ryzen 5 5000"
                   value={cpu}
                   onChange={onCpuChanged}
                 />
-                <Label>ram</Label>
+                <Label>ram:</Label>
                 <Input
                   placeholder="$16GB 2666hz"
                   value={ram}
                   onChange={onRamChanged}
                 />
-                <Label>storage</Label>
+                <Label>storage:</Label>
                 <Input
                   placeholder="1TB SSD"
                   value={disk}
                   onChange={onDiskChanged}
                 />
-                <Label>dispaly</Label>
+                <Label>dispaly:</Label>
                 <Input
                   placeholder="1920 x 1080 IPS"
                   value={display}
                   onChange={onDisplayChanged}
                 />
-                <Label>vga</Label>
+                <Label>vga:</Label>
                 <Input
                   placeholder="Nvidea RTX 4090ti"
                   value={vga}
@@ -416,23 +405,23 @@ const EditProductForm = ({ product }) => {
                 />
               </FormOne>
               <FormTwo>
-                <Label>image</Label>
+                <Label>image:</Label>
                 <ImageSection>
                   <ProductImage src={product.img} />
                 </ImageSection>
-                <Label>new image</Label>
+                <Label>new image:</Label>
                 <ImageInput type="file" id="file" onChange={onImageChanged} />
-                <Label>category</Label>
+                <Label>category:</Label>
                 <Select value={categories} onChange={onCategoriesChanged}>
-                  <Option value="all">all</Option>
                   <Option value="allInOne">all In One</Option>
                   <Option value="gaming">gaming pc</Option>
                   <Option value="tablet">tablet</Option>
                   <Option value="apple">apple</Option>
                   <Option value="chromebook">chromebook</Option>
                   <Option value="touchScreen">touchScreen</Option>
+                  <Option value="other">other</Option>
                 </Select>
-                <Label htmlFor="brand">brand</Label>
+                <Label htmlFor="brand">brand:</Label>
                 <Select
                   id="brand"
                   name="brand"
@@ -443,17 +432,10 @@ const EditProductForm = ({ product }) => {
                   <Option value="dell">dell</Option>
                   <Option value="lenovo">lenovo</Option>
                   <Option value="apple">apple</Option>
-                  <Option value="toshiba">toshiba</Option>
-                  <Option value="fujitsu">fujitsu</Option>
                   <Option value="asus">asus</Option>
-                  <Option value="msi">msi</Option>
-                  <Option value="samsung">samsung</Option>
-                  <Option value="lg">lg</Option>
-                  <Option value="honor">honor</Option>
-                  <Option value="condor">condor</Option>
-                  <Option value="wiseTech">wiseTech</Option>
+                  <Option value="other">other</Option>
                 </Select>
-                <Label htmlFor="stock">stock</Label>
+                <Label htmlFor="stock">stock:</Label>
                 <InputWrapper>
                   <InStock
                     id="stock"
@@ -464,7 +446,7 @@ const EditProductForm = ({ product }) => {
                     onChange={onStockChanged}
                   />
                 </InputWrapper>
-                <Label htmlFor="sections">sections</Label>
+                <Label htmlFor="sections">sections:</Label>
                 <Sections id="sections" name="sections">
                   <InputWrapper>
                     <SectionName htmlFor="secondSlider">
@@ -487,17 +469,11 @@ const EditProductForm = ({ product }) => {
                     />
                   </InputWrapper>
                 </Sections>
-                <Button>
-                  {progress ? (
-                    <CircularProgress
-                      style={{ color: "white" }}
-                      variant="determinate"
-                      value={progress}
-                    />
-                  ) : (
-                    "update"
-                  )}
-                </Button>
+                {progress ? (
+                  <CircularProgress style={{ margin: "0 auto" }} />
+                ) : (
+                  <Button disabled={!valid}>update</Button>
+                )}
               </FormTwo>
             </Form>
           </ContentWrapper>

@@ -60,7 +60,7 @@ const Button = styled.button`
   border-radius: 1em;
   text-transform: capitalize;
   cursor: pointer;
-  box-shadow: 0 0 30px #ccc;
+  box-shadow: 0 0 5px #4a4a4a;
 `
 
 const InfoWrapper = styled.div`

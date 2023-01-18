@@ -3,10 +3,11 @@ import FacebookIcon from "@mui/icons-material/Facebook"
 import InstagramIcon from "@mui/icons-material/Instagram"
 import styled from "styled-components"
 import { mobile } from "../assests/globalStyles/responsive"
+import logo from "../assests/images/logo.png"
 import { useNavigate } from "react-router-dom"
 
 const Container = styled.footer`
-  background-color: #222;
+  background-color: #db504a;
   display: flex;
   flex-direction: column;
   color: #fff;
@@ -32,15 +33,16 @@ const Left = styled.section`
 `
 const Title = styled.h1`
   text-transform: uppercase;
-  color: orange;
+  color: white;
   margin: 0 0 1em 0;
   font-size: 3em;
+  cursor: pointer;
 `
 const Desc = styled.p`
   font-size: 1em;
   font-weight: 300;
   line-height: 1.3em;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
   margin: 0 0 1em 0;
 `
 
@@ -55,8 +57,9 @@ const Address = styled.address`
   font-size: 1em;
   font-weight: 300;
   line-height: 1.3em;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
   margin: 3em 0 0.8em 0;
+  cursor: pointer;
 `
 const PhoneNumber = styled.address`
   font-size: 2em;
@@ -66,7 +69,7 @@ const Email = styled.address`
   font-size: 1em;
   font-weight: 300;
   line-height: 1.3em;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
   margin: 0 0 0.8em 0;
 `
 const SocialMedia = styled.div`
@@ -77,7 +80,7 @@ const SocialMedia = styled.div`
 const Right = styled.section`
   flex: 1;
   display: flex;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
 `
 
 const SectionOne = styled.ul`
@@ -96,7 +99,7 @@ const SectionOneLinks = styled.li`
   font-size: 0.8em;
   cursor: pointer;
   &:hover {
-    color: orange;
+    color: white;
   }
 `
 
@@ -117,12 +120,12 @@ const SectionTwoLinks = styled.li`
   font-size: 0.8em;
   cursor: pointer;
   &:hover {
-    color: orange;
+    color: white;
   }
 `
 
 const BottomSection = styled.footer`
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   height: 20%;
   display: flex;
   flex-direction: column;
@@ -132,10 +135,10 @@ const BottomSection = styled.footer`
 
 const FooterDesc = styled.p`
   margin: 3em;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.8);
 `
 const Span = styled.span`
-  color: orange;
+  color: white;
   cursor: pointer;
 `
 const IconWrapper = styled.div``
@@ -146,48 +149,62 @@ const Footer = () => {
     <Container>
       <UpperSection>
         <Left>
-          <Title>timgad.</Title>
+          <Title onClick={() => navigate('/')}>
+            <img src={logo} width="50%" height="100%" alt="logo" />
+          </Title>
           <Desc>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam
-            perferendis impedit, reiciendis iste pariatur aliquid esse ratione?
-            Aliquid, odio magnam.
+            With over 20 years of experience in selling and repairing laptops,
+            TIMGAD INFORMATIQUE is a well-known business in Algeria's Batna. Our
+            customers are always happy ♥.️
           </Desc>
         </Left>
         <Middle>
           <Address>
-            Avant supérette "mini-prix, Les, Alleés, Alles Salah Nezzar, Batna
-            05000
+            <a
+              style={{
+                textDecoration: "none",
+                color: "rgba(255, 255, 255, 0.8)",
+              }}
+              href="https://goo.gl/maps/9q4QC5Yyod1oBcKc7"
+            >
+              Avant supérette "mini-prix, Les, Alleés, Alles Salah Nezzar, Batna
+              05000
+            </a>
           </Address>
           <PhoneNumber>+213 - 0561292009</PhoneNumber>
           <Email>timgadinformatique@gmail.com</Email>
           <SocialMedia>
-            <IconWrapper
-              onClick={() =>
-                navigate(`https://www.instagram.com/timgad_informatique`)
-              }
-            >
-              <FacebookIcon
-                style={{
-                  color: "orange",
-                  margin: ".4em",
-                  fontSize: "2em",
-                  cursor: "pointer",
-                }}
-              />
+            <IconWrapper>
+              <a
+                href="https://www.instagram.com/timgad_informatique"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <InstagramIcon
+                  style={{
+                    color: "white",
+                    margin: ".4em",
+                    fontSize: "2em",
+                    cursor: "pointer",
+                  }}
+                />
+              </a>
             </IconWrapper>
-            <IconWrapper
-              onClick={() =>
-                navigate(`https://www.facebook.com/TIMGAD.INFORMATIQUE`)
-              }
-            >
-              <InstagramIcon
-                style={{
-                  color: "orange",
-                  margin: ".4em",
-                  fontSize: "2em",
-                  cursor: "pointer",
-                }}
-              />
+            <IconWrapper>
+              <a
+                href="https://www.facebook.com/TIMGAD.INFORMATIQUE"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <FacebookIcon
+                  style={{
+                    color: "white",
+                    margin: ".4em",
+                    fontSize: "2em",
+                    cursor: "pointer",
+                  }}
+                />
+              </a>
             </IconWrapper>
           </SocialMedia>
         </Middle>
@@ -195,23 +212,32 @@ const Footer = () => {
           <SectionOne>
             <SectionOneTitle>about market</SectionOneTitle>
             <SectionOneLinks>About Us</SectionOneLinks>
-            <SectionOneLinks>Market Reviews</SectionOneLinks>
-            <SectionOneLinks>Terms of Use</SectionOneLinks>
+            <SectionOneLinks>Contact Us</SectionOneLinks>
             <SectionOneLinks>Privacy Policy</SectionOneLinks>
           </SectionOne>
           <SectionTwo>
             <SectionTwoTitle>customer service</SectionTwoTitle>
             <SectionTwoLinks>Shipping Policy</SectionTwoLinks>
-            <SectionTwoLinks>Compensation First</SectionTwoLinks>
-            <SectionTwoLinks>My Account</SectionTwoLinks>
             <SectionTwoLinks>Return Policy</SectionTwoLinks>
+            <SectionTwoLinks>My Account</SectionTwoLinks>
           </SectionTwo>
         </Right>
       </UpperSection>
       <BottomSection>
         <FooterDesc>
-          TIMGAD INFORMATIQUE © 2023 Store. All Rights Reserved. Designed by
-          <Span> BahaEddine.com</Span>
+          TIMGAD INFORMATIQUE © 2023 Store. Made in 🇩🇿, All Rights Reserved.
+          Designed by
+          <Span>
+            <a
+              style={{ textDecoration: "none", color: "white" }}
+              href="https://www.instagram.com/therealbahaa/"
+              rel="noreferrer"
+              target="_blank"
+            >
+              {" "}
+              Baha Eddine
+            </a>
+          </Span>
         </FooterDesc>
       </BottomSection>
     </Container>

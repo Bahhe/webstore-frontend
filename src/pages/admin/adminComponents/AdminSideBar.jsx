@@ -1,8 +1,6 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
-import {
-  Dashboard,
-} from "@mui/icons-material"
+import { Dashboard } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
 import useAuth from "../../../hooks/useAuth"
 import { useGetUsersQuery } from "../../../features/users/usersApiSlice"
@@ -10,13 +8,14 @@ import { useSendLogoutMutation } from "../../../features/auth/authApiSlice"
 import { laptop } from "../../../assests/globalStyles/responsive"
 import Loader from "../../../components/Loader"
 import { FaUserAlt } from "react-icons/fa"
-import { Fab, Tooltip } from "@mui/material"
+import { Badge, Fab, Tooltip } from "@mui/material"
 import AddIcon from "@mui/icons-material/Add"
-import WebIcon from '@mui/icons-material/Web';
-import GroupsIcon from '@mui/icons-material/Groups';
-import LaptopIcon from '@mui/icons-material/Laptop';
-import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
-import LogoutIcon from '@mui/icons-material/Logout';
+import WebIcon from "@mui/icons-material/Web"
+import GroupsIcon from "@mui/icons-material/Groups"
+import LaptopIcon from "@mui/icons-material/Laptop"
+import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople"
+import LogoutIcon from "@mui/icons-material/Logout"
+import { useGetOrdersQuery } from "../../../features/orders/ordersApiSlice"
 
 const Wrapper = styled.aside`
   position: fixed;
@@ -61,6 +60,15 @@ const Admin = styled.section`
   cursor: pointer;
 `
 const AdminSideBar = () => {
+  const { orders } = useGetOrdersQuery("orders", {
+    selectFromResult: ({ data }) => ({
+      orders: data?.entities,
+    }),
+  })
+  const numberOfOrders =
+    orders &&
+    Object.values(orders).filter((order) => order.status === "waiting").length
+
   const { id } = useAuth()
   const { user } = useGetUsersQuery("users", {
     selectFromResult: ({ data }) => ({
@@ -122,7 +130,14 @@ const AdminSideBar = () => {
         </ListItem>
         <ListItem onClick={() => navigate("/admin/orders")}>
           <Tooltip title="orders list">
-            <EmojiPeopleIcon style={{ marginRight: "0.2em", fontSize: ".5em" }} />
+            <Badge
+              badgeContent={numberOfOrders && numberOfOrders}
+              color="success"
+            >
+              <EmojiPeopleIcon
+                style={{ marginRight: "0.2em", fontSize: ".5em" }}
+              />
+            </Badge>
           </Tooltip>
         </ListItem>
         <ListItem

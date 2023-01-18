@@ -42,11 +42,6 @@ const Container = styled.div`
   border-radius: 1em;
   box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.2);
   background: linear-gradient(to right, #f857a6, #ff5858);
-  /* background-image: radial-gradient(
-    circle farthest-corner at 10% 20%,
-    rgba(90, 92, 106, 1) 0%,
-    rgba(32, 45, 58, 1) 81.3%
-  ); */
   margin: 9em 0;
   &:hover ${Arrow} {
     opacity: 1;

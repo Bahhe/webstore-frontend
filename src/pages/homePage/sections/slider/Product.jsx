@@ -63,7 +63,8 @@ const Desc = styled.p`
   font-weight: 200;
   font-size: 1.4em;
   text-transform: capitalize;
-  color: #f4fffd;
+  opacity: .8;
+  color: #ffffff;
   ${mobile({
     width: "30ch",
     fontSize: ".9em",

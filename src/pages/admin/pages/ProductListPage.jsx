@@ -32,6 +32,7 @@ const EditButton = styled.div`
   border-radius: 1em;
   color: white;
   cursor: pointer;
+  box-shadow: 0 0 5px #4a4a4a;
 `
 const Image = styled.img`
   width: 5em;
@@ -106,7 +107,7 @@ const ProductListPage = () => {
                     await deleteProduct({ id: params.row.id })
                   }
                 >
-                  <Delete style={{ color: "red", cursor: "pointer" }} />
+                  <Delete style={{ color: "red", cursor: "pointer"}} />
                 </DeleteButton>
               </Tooltip>
             </CellContainer>

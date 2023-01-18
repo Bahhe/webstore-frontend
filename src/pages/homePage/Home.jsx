@@ -18,7 +18,7 @@ const Home = () => {
       <Categories />
       <SecondSlider />
       <DoubleProduct />
-      <SectionTitle sectionTitle={"top on this week"} />
+      <SectionTitle sectionTitle={"pick what's best for you"} />
       <ProductSlider />
       <AfterSale />
       <Brands />

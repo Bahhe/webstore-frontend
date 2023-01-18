@@ -203,7 +203,7 @@ const NavBar = () => {
 
   const onSearchBarClicked = () => {
     if (location === "/shop") {
-      return alert("you can search down there")
+      return alert("there's already a search bar above the products")
     }
     setShowSearchedItems((prev) => !prev)
   }

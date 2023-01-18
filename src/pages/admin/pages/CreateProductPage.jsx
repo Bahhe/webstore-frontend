@@ -29,8 +29,10 @@ const Title = styled.h1`
 const Edit = styled.section`
   margin: 1em;
   border-radius: 1em;
-  box-shadow: 2px 6px 5px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px #ccc;
   padding: 1em;
+  width: 45em;
+  overflow: hidden;
 `
 
 const Content = styled.section`
@@ -46,6 +48,7 @@ const ImageSection = styled.section`
   align-items: center;
   justify-content: flex-end;
   margin: 2em 0;
+  width: 15em;
 `
 
 const ImageInput = styled.input``
@@ -69,6 +72,10 @@ const Button = styled.button`
   color: white;
   border-radius: 0.5em;
   cursor: pointer;
+  box-shadow: 0 0 5px #4a4a4a;
+  &:disabled {
+    opacity: 0.5;
+  }
 `
 
 const Form = styled.form`
@@ -80,18 +87,23 @@ const Label = styled.label`
   text-transform: capitalize;
   opacity: 0.6;
   font-weight: 500;
+  margin: 0 0 0.5em 0;
 `
 
 const Input = styled.input`
   margin-bottom: 1em;
-  border: none;
-  border-bottom: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5em;
   width: 20em;
   font-size: 1em;
   padding: 0.5em 0 0.5em 0.5em;
   outline: none;
   opacity: 0.8;
   background-color: transparent;
+  box-shadow: 0 0 5px #ccc;
+  &::placeholder {
+    opacity: 0.2;
+  }
 `
 const InStock = styled.input`
   margin: 1em 0;
@@ -117,12 +129,13 @@ const SectionInput = styled.input`
   margin-right: 2em;
 `
 const Select = styled.select`
-  margin: 1em 0 2em 0;
-  border: none;
+  margin: 0 0 2em 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 1em;
   border-radius: 0.5em;
   font-weight: 500;
-  background-color: rgba(0, 0, 0, 0.067);
+  background-color: transparent;
+  box-shadow: 0 0 5px #ccc;
 `
 const Option = styled.option``
 
@@ -141,13 +154,22 @@ const CreateProductPage = () => {
   const [stock, setStock] = useState(true)
   const [slider, setSlider] = useState(false)
   const [secondSlider, setSecondSlider] = useState(false)
-  const [categories, setCategories] = useState("allInOne")
+  const [categories, setCategories] = useState("other")
   const [cpu, setCpu] = useState("")
   const [ram, setRam] = useState("")
   const [disk, setDisk] = useState("")
   const [display, setDisplay] = useState("")
   const [vga, setVga] = useState("")
   const [brand, setBrand] = useState("acer")
+  const [valid, setValid] = useState(false)
+
+  const canSave = [file, description, cpu, ram, disk, vga, price].every(Boolean)
+
+  useEffect(() => {
+    if (canSave) {
+      setValid(true)
+    } else setValid(false)
+  }, [cpu, description, disk, file, price, ram, vga, canSave])
 
   useEffect(() => {
     if (isSuccess) {
@@ -166,7 +188,11 @@ const CreateProductPage = () => {
       "state_changed",
       (snapshot) => {
         setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-        console.log("Upload is " + progress + "% done")
+        console.log(
+          "Upload is " +
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100 +
+            "% done"
+        )
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused")
@@ -175,7 +201,7 @@ const CreateProductPage = () => {
             console.log("Upload is running")
             break
           default:
-          // do nothing
+            break
         }
       },
       (error) => {
@@ -210,7 +236,7 @@ const CreateProductPage = () => {
             setPrice("")
             setSlider((prev) => !prev)
             setSecondSlider((prev) => !prev)
-            setStock((prev) => !prev)
+            setStock(true)
             setCpu("")
             setRam("")
             setDisk("")
@@ -229,50 +255,50 @@ const CreateProductPage = () => {
           <Left>
             <Form onSubmit={onSubmitClicked}>
               <FormOne>
-                <Label>title</Label>
+                <Label>title:</Label>
                 <Input
                   placeholder="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-                <Label>description</Label>
+                <Label>description:</Label>
                 <Input
                   placeholder="desc"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-                <Label>price</Label>
+                <Label>price:</Label>
                 <Input
                   type="number"
                   placeholder="$200"
                   value={price.replace(/\D/g, "")}
                   onChange={(e) => setPrice(e.target.value.replace(/\D/g, ""))}
                 />
-                <Label>cpu</Label>
+                <Label>cpu:</Label>
                 <Input
                   placeholder="ryzen 5 5000"
                   value={cpu}
                   onChange={(e) => setCpu(e.target.value)}
                 />
-                <Label>ram</Label>
+                <Label>ram:</Label>
                 <Input
                   placeholder="$16GB 2666hz"
                   value={ram}
                   onChange={(e) => setRam(e.target.value)}
                 />
-                <Label>storage</Label>
+                <Label>storage:</Label>
                 <Input
                   placeholder="1TB SSD"
                   value={disk}
                   onChange={(e) => setDisk(e.target.value)}
                 />
-                <Label>dispaly</Label>
+                <Label>dispaly:</Label>
                 <Input
                   placeholder="1920 x 1080 IPS"
                   value={display}
                   onChange={(e) => setDisplay(e.target.value)}
                 />
-                <Label>vga</Label>
+                <Label>vga:</Label>
                 <Input
                   placeholder="Nvidea RTX 4090ti"
                   value={vga}
@@ -280,7 +306,7 @@ const CreateProductPage = () => {
                 />
               </FormOne>
               <FormTwo>
-                <Label>image</Label>
+                <Label htmlFor="file">image:</Label>
                 <ImageSection>
                   <ImageInput
                     type="file"
@@ -288,7 +314,7 @@ const CreateProductPage = () => {
                     onChange={(e) => setFile(e.target.files[0])}
                   />
                 </ImageSection>
-                <Label>categories</Label>
+                <Label>categories:</Label>
                 <Select
                   value={categories}
                   onChange={(e) => setCategories(e.target.value)}
@@ -299,28 +325,23 @@ const CreateProductPage = () => {
                   <Option value="apple">apple</Option>
                   <Option value="tablet">tablet</Option>
                   <Option value="touchScreen">touchScreen</Option>
+                  <Option value="other">other</Option>
                 </Select>
-                <Label>brand</Label>
+                <Label>brand:</Label>
                 <Select
                   value={brand}
                   onChange={(e) => setBrand(e.target.value)}
                 >
                   <Option value="apple">apple</Option>
                   <Option value="acer">acer</Option>
-                  <Option value="toshiba">toshiba</Option>
                   <Option value="dell">dell</Option>
                   <Option value="hp">hp</Option>
                   <Option value="lenovo">lenovo</Option>
-                  <Option value="samsung">samsung</Option>
-                  <Option value="lg">lg</Option>
-                  <Option value="condor">condor</Option>
-                  <Option value="wiseTech">wiseTech</Option>
-                  <Option value="honor">honor</Option>
                   <Option value="asus">asus</Option>
-                  <Option value="fujitsu">fujitsu</Option>
+                  <Option value="other">other</Option>
                 </Select>
                 <Wrapper>
-                  <Label>stock</Label>
+                  <Label>stock:</Label>
                   <InStock
                     type="checkbox"
                     value={stock}
@@ -328,7 +349,7 @@ const CreateProductPage = () => {
                     onChange={() => setStock((prev) => !prev)}
                   />
                 </Wrapper>
-                <Label>sections</Label>
+                <Label>sections:</Label>
                 <Sections>
                   <Wrapper
                     style={{ flexDirection: "row", alignItems: "center" }}
@@ -355,17 +376,11 @@ const CreateProductPage = () => {
                     />
                   </Wrapper>
                 </Sections>
-                <Button>
-                  {progress ? (
-                    <CircularProgress
-                      style={{ color: "white" }}
-                      variant="determinate"
-                      value={progress}
-                    />
-                  ) : (
-                    "create"
-                  )}
-                </Button>
+                {progress ? (
+                  <CircularProgress style={{ margin: "0 auto" }} />
+                ) : (
+                  <Button disabled={!valid}>create</Button>
+                )}
               </FormTwo>
             </Form>
           </Left>

@@ -212,10 +212,10 @@ const ShopSection = () => {
   const location = useLocation()
   const [cat, setCat] = useState(location?.search.split("=")[1])
   const [page, setPage] = useState(1)
-  const [category, setCategory] = useState(cat ? cat : "all")
+  const [category, setCategory] = useState("all")
   const [sort, setSort] = useState("newest")
-  const [search, setSearch] = useState("")
-  const [limit, setLimit] = useState(6)
+  const [search, setSearch] = useState(cat ? cat : "")
+  const [limit, setLimit] = useState(9)
 
   const {
     data: products,
@@ -246,10 +246,9 @@ const ShopSection = () => {
 
   const handleSearch = (e) => {
     setCategory("all")
-    setPage("")
-    setSort("")
-    setLimit("")
-    setPage("")
+    setPage(1)
+    setSort("newest")
+    setLimit(9)
     setSearch(e.target.value)
     refetch()
   }
@@ -483,7 +482,7 @@ const ShopSection = () => {
           </Category>
           <Category>
             <TextWrapper>
-              <Text name="all" onClick={handleFilters}>
+              <Text name="other" onClick={handleFilters}>
                 other
               </Text>
             </TextWrapper>

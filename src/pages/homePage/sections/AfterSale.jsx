@@ -78,15 +78,15 @@ const AfterSale = () => {
     <Container>
       <Left>
         <LocalShippingIcon style={{ margin: ".5em", color: "orange" }} />
-        FREE shipping on orders over $50
+        Get Your Order Shipped To You In Any Place In Algeria
       </Left>
       <Middle>
         <AttachMoneyIcon style={{ margin: ".5em", color: "orange" }} />
-        30 DAYs money back guarantee
+        Our Products Are Guaranteed
       </Middle>
       <Right>
         <QuestionMarkIcon style={{ margin: ".5em", color: "orange" }} />
-        Service ONLINE support 24 hours on day
+        After Sale Services
       </Right>
     </Container>
   )
