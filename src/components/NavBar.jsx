@@ -208,7 +208,7 @@ const NavBar = () => {
     setShowSearchedItems((prev) => !prev)
   }
 
-  const [sendLogout, { isSuccess, isLoading, isError, error }] =
+  const [sendLogout, { isLoading, isError, error }] =
     useSendLogoutMutation()
 
   const onLogoutClicked = async () => {
@@ -224,12 +224,6 @@ const NavBar = () => {
       setShowSearchedItems(false)
     }
   }
-
-  useEffect(() => {
-    if (isSuccess) {
-      navigate(`/`)
-    }
-  }, [isSuccess, navigate])
 
   if (isLoading) return <Loader />
   if (isError) return <p>{error?.data?.message}</p>
