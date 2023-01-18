@@ -147,7 +147,7 @@ const ViewProduct = () => {
       </ImageSection>
       <InfoSection>
         <Title>{product.title}</Title>
-        <Price>${product.price}</Price>
+        <Price>{product.price} DA</Price>
         <Desc>{product.desc}</Desc>
         <InStock>{product.inStock ? "in stock." : "not in stock"}</InStock>
         <ButtonContainer>

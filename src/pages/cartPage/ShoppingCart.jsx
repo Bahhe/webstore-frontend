@@ -147,7 +147,7 @@ const ShoppingCart = () => {
     return { totalPrice, totalQuantity }
   }
 
-  let shippingPrice = 10
+  let shippingPrice = 500 
   let subtotal = getTotal().totalPrice
   let orderTotal = getTotal().totalPrice + shippingPrice
 
@@ -188,16 +188,16 @@ const ShoppingCart = () => {
           <MainTitle>summary</MainTitle>
           <Pricing style={{ borderTop: "none" }}>
             <PricingTitle>subtotal</PricingTitle>
-            <Amount>${subtotal}</Amount>
+            <Amount>{subtotal} DA</Amount>
           </Pricing>
           <Pricing>
             <PricingTitle>shipping</PricingTitle>
-            <Amount>${shippingPrice}</Amount>
+            <Amount>{shippingPrice} DA</Amount>
           </Pricing>
           <OrderTotal style={{ padding: "2em 0" }}>
             <PricingTitle>order total</PricingTitle>
             <Amount style={{ fontWeight: "600" }}>
-              ${subtotal && orderTotal}
+              {subtotal && orderTotal} DA
             </Amount>
           </OrderTotal>
           <ButtonContainer>

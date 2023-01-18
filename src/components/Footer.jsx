@@ -7,7 +7,7 @@ import logo from "../assests/images/logo.png"
 import { useNavigate } from "react-router-dom"
 
 const Container = styled.footer`
-  background-color: #db504a;
+  background-color: #2E2E2E;
   display: flex;
   flex-direction: column;
   color: #fff;
@@ -42,7 +42,7 @@ const Desc = styled.p`
   font-size: 1em;
   font-weight: 300;
   line-height: 1.3em;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.5);
   margin: 0 0 1em 0;
 `
 
@@ -57,7 +57,7 @@ const Address = styled.address`
   font-size: 1em;
   font-weight: 300;
   line-height: 1.3em;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.5);
   margin: 3em 0 0.8em 0;
   cursor: pointer;
 `
@@ -69,7 +69,7 @@ const Email = styled.address`
   font-size: 1em;
   font-weight: 300;
   line-height: 1.3em;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.5);
   margin: 0 0 0.8em 0;
 `
 const SocialMedia = styled.div`
@@ -80,7 +80,7 @@ const SocialMedia = styled.div`
 const Right = styled.section`
   flex: 1;
   display: flex;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.5);
 `
 
 const SectionOne = styled.ul`
@@ -135,7 +135,7 @@ const BottomSection = styled.footer`
 
 const FooterDesc = styled.p`
   margin: 3em;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.5);
 `
 const Span = styled.span`
   color: white;
@@ -163,7 +163,7 @@ const Footer = () => {
             <a
               style={{
                 textDecoration: "none",
-                color: "rgba(255, 255, 255, 0.8)",
+                color: "rgba(255, 255, 255, 0.5)",
               }}
               href="https://goo.gl/maps/9q4QC5Yyod1oBcKc7"
             >
@@ -182,7 +182,7 @@ const Footer = () => {
               >
                 <InstagramIcon
                   style={{
-                    color: "white",
+                    color: "#007bff",
                     margin: ".4em",
                     fontSize: "2em",
                     cursor: "pointer",
@@ -198,7 +198,7 @@ const Footer = () => {
               >
                 <FacebookIcon
                   style={{
-                    color: "white",
+                    color: "#007bff",
                     margin: ".4em",
                     fontSize: "2em",
                     cursor: "pointer",

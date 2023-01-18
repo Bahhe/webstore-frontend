@@ -296,7 +296,7 @@ const Products = ({ productId, slideIndex }) => {
                 {product.vga}
               </span>
             </Points>
-            <Price>${product.price}</Price>
+            <Price>{product.price} DA</Price>
             <BtnsContainer>
               <AddToCart onClick={onAddToCartClicked}>add to cart</AddToCart>
               <ShopNow onClick={onShopNowClicked}>shop now</ShopNow>

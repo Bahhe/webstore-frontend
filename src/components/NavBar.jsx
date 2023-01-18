@@ -79,9 +79,9 @@ const Links = styled.ul`
 const LinkElement = styled.li`
   flex: 1;
   list-style: none;
-  font-weight: 400;
+  font-weight: 300;
   &:hover {
-    color: orange;
+    opacity: 0.5;
   }
 `
 const RegisterContainer = styled.div`
@@ -238,10 +238,10 @@ const NavBar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <MenuButton onClick={() => setTranslate(prev => !prev)}>
+          <MenuButton onClick={() => setTranslate((prev) => !prev)}>
             <MenuIcon style={{ color: "black", fontSize: "2em" }} />
           </MenuButton>
-          <ToggleMenu translate={translate} toggle={setTranslate}/>
+          <ToggleMenu translate={translate} toggle={setTranslate} />
           <Logo onClick={() => navigate("/")}>
             <img src={logo} width="50%" height="100%" alt="logo" />
           </Logo>
@@ -263,13 +263,22 @@ const NavBar = () => {
             >
               contact us
             </LinkElement>
-            <LinkElement>about</LinkElement>
+            <LinkElement
+              onClick={() =>
+                window.scrollBy({
+                  top: document.documentElement.scrollHeight,
+                  behavior: "smooth",
+                })
+              }
+            >
+              about
+            </LinkElement>
           </Links>
         </Left>
         <Right>
           {isAdmin && (
             <AdminDashBoard onClick={() => navigate("/admin")}>
-              <Dashboard style={{color: '#5a5fe5'}} />
+              <Dashboard style={{ color: "#5a5fe5" }} />
             </AdminDashBoard>
           )}
           {!token && (

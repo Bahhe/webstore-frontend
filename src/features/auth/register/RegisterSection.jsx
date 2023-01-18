@@ -170,7 +170,7 @@ const RegisterSection = () => {
           <span style={{ color: "red" }}>
             {isError && error?.status !== 409 && error?.data?.message}
           </span>
-          <SmallTitle htmlFor="firstName">first name</SmallTitle>
+          <SmallTitle htmlFor="firstName"><span style={{color: 'red', fontWeight: '300'}} >*</span>first name</SmallTitle>
           <br />
           {firstName && !validFirstName && (
             <span
@@ -187,7 +187,7 @@ const RegisterSection = () => {
             value={firstName}
             onChange={onFirstNameChanged}
           />
-          <SmallTitle htmlFor="lastName">last name</SmallTitle>
+          <SmallTitle htmlFor="lastName"><span style={{color: 'red', fontWeight: '300'}} >*</span>last name</SmallTitle>
           <br />
           {lastName && !validLastName && (
             <span
@@ -232,7 +232,7 @@ const RegisterSection = () => {
         </Left>
         <Right>
           <SectionTitle>sign-in information</SectionTitle>
-          <SmallTitle htmlFor="email">email</SmallTitle>
+          <SmallTitle htmlFor="email"><span style={{color: 'red', fontWeight: '300'}} >*</span>email</SmallTitle>
           <br />
           {email && !validEmail && (
             <span
@@ -255,7 +255,7 @@ const RegisterSection = () => {
             value={email}
             onChange={onEmailChanged}
           />
-          <SmallTitle htmlFor="password">password</SmallTitle>
+          <SmallTitle htmlFor="password"><span style={{color: 'red', fontWeight: '300'}} >*</span>password</SmallTitle>
           <br />
           <span
             style={{

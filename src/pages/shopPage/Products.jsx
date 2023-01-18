@@ -156,7 +156,7 @@ const Products = ({ product }) => {
               <StarBorder style={{ fontSize: "1em", color: "orange" }} />
             </Stars>
           </StarsSection>
-          <Price>${product.price}</Price>
+          <Price>{product.price} DA</Price>
         </InfoSection>
       </ProductContainer>
     </Container>

@@ -40,7 +40,7 @@ const Product = ({ title, price, image, id }) => {
         <Image src={image} />
         <ProductTitle>{title}</ProductTitle>
       </ProductInfo>
-      <ProductPrice>${price}</ProductPrice>
+      <ProductPrice>{price} DA</ProductPrice>
     </ProductContainer>
   )
 

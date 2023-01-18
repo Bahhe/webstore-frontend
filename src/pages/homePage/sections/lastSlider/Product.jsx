@@ -148,7 +148,7 @@ const Product = ({ productId }) => {
           <StarBorder style={{ fontSize: "1em", color: "orange" }} />
           <StarBorder style={{ fontSize: "1em", color: "orange" }} />
         </StarsContainer>
-        <Price>${product.price}</Price>
+        <Price>{product.price} DA</Price>
       </Container>
     )
   }

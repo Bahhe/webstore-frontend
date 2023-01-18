@@ -29,7 +29,7 @@ const Left = styled.div`
   cursor: pointer;
   border-radius: 1em;
   &:hover {
-    color: orange;
+    color: rgba(0, 0, 0, 0.2);
   }
   ${mobile({
     width: "100%",
@@ -47,7 +47,7 @@ const Middle = styled.div`
   justify-content: center;
   cursor: pointer;
   &:hover {
-    color: orange;
+    color: rgba(0, 0, 0, 0.2);
   }
   ${mobile({
     width: "100%",
@@ -65,7 +65,7 @@ const Right = styled.div`
   border-radius: 1em;
   cursor: pointer;
   &:hover {
-    color: orange;
+    color: rgba(0, 0, 0, 0.2);
   }
   ${mobile({
     width: "100%",
@@ -77,15 +77,15 @@ const AfterSale = () => {
   return (
     <Container>
       <Left>
-        <LocalShippingIcon style={{ margin: ".5em", color: "orange" }} />
+        <LocalShippingIcon style={{ margin: ".5em", color: "rgba(0, 0, 0, 0.5)" }} />
         Get Your Order Shipped To You In Any Place In Algeria
       </Left>
       <Middle>
-        <AttachMoneyIcon style={{ margin: ".5em", color: "orange" }} />
+        <AttachMoneyIcon style={{ margin: ".5em", color: "rgba(0, 0, 0, 0.5)" }} />
         Our Products Are Guaranteed
       </Middle>
       <Right>
-        <QuestionMarkIcon style={{ margin: ".5em", color: "orange" }} />
+        <QuestionMarkIcon style={{ margin: ".5em", color: "rgba(0, 0, 0, 0.5)" }} />
         After Sale Services
       </Right>
     </Container>

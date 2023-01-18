@@ -83,7 +83,7 @@ const CartProduct = ({ id, image, title, price, quantity = 0 }) => {
         </Product>
         <Numbers>
           <NumbersWrapper>
-            <Price>${price}</Price>
+            <Price>{price} DA</Price>
           </NumbersWrapper>
         </Numbers>
       </ProductsSection>
