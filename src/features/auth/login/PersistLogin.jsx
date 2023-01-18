@@ -13,7 +13,8 @@ const PersistLogin = () => {
       await refresh()
     }
     if (!token) verifyRefreshToken()
-  }, [refresh, token])
+    // eslint-disable-next-line
+  }, [])
 
   let content = <Outlet />
   if (isLoading) {
