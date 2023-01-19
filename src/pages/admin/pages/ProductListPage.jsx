@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom"
 import PulseLoader from "react-spinners/PulseLoader"
 import useTitle from "../../../hooks/useTitle"
 import { Tooltip } from "@mui/material"
+import { toast, Toaster } from "react-hot-toast"
+import { useEffect } from "react"
 
 const Grid = styled.div``
 
@@ -47,17 +49,21 @@ const ProductListPage = () => {
   useTitle("TIMGAD. | Products")
   const navigate = useNavigate()
 
-  const [deleteProduct] = useDeleteProductMutation()
+  const [deleteProduct, {isSuccess: isSuccessDeleted}] = useDeleteProductMutation()
 
-  const { products, isLoading, isSuccess } = useGetProductsQuery("products", {
-    selectFromResult: ({ data, isLoading, isSuccess }) => ({
-      products: data?.entities,
-      isLoading,
-      isSuccess,
-    }),
-    refetchOnMountOrArgChange: true,
+  const { data: products, isLoading, isSuccess } = useGetProductsQuery("products", {
+    refetchOnMountOrArgChange: true
   })
 
+  useEffect(() => {
+    if(isSuccessDeleted) {
+      toast.success("Success!, product Deleted", {
+        duration: 3000,
+        icon: '🎉'
+      })
+    }
+  }, [isSuccessDeleted])
+  
   if (isLoading) {
     return <PulseLoader />
   }
@@ -127,6 +133,7 @@ const ProductListPage = () => {
 
     return (
       <Container>
+        <Toaster toastOptions={{position: 'top-center'}} />
         <Grid style={{ height: 800, width: "95%" }}>
           <DataGrid
             rows={rows}

@@ -15,6 +15,7 @@ import {
 } from "../../features/users/usersApiSlice"
 import PulseLoader from "react-spinners/PulseLoader"
 import emailjs from "@emailjs/browser"
+import { toast, Toaster } from "react-hot-toast"
 
 const Container = styled.div`
   margin: 1em 0 0 0;
@@ -156,9 +157,10 @@ const Checkout = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      alert(
-        "Thanks for purchasing from us we we'll call you to confirm your order"
-      )
+      toast.success("!Success, Wait for us to call you", {
+        duration: 3000,
+        icons: "🎉",
+      })
       emailjs
         .sendForm(
           "service_7ifymxp",
@@ -266,6 +268,7 @@ const Checkout = () => {
 
   return (
     <Container>
+      <Toaster toastOptions={{ position: "top-center" }} />
       <PageTitle>checkout</PageTitle>
       <SmallTitle>shipping address</SmallTitle>
       {user && (
@@ -279,7 +282,10 @@ const Checkout = () => {
           {!user && (
             <>
               <InputContainer>
-                <Label><span style={{color: 'red', fontWeight: '300'}} >*</span>email address:</Label>
+                <Label>
+                  <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                  email address:
+                </Label>
                 <InputField
                   type="email"
                   id="email"
@@ -289,7 +295,10 @@ const Checkout = () => {
               </InputContainer>
 
               <InputContainer>
-                <Label><span style={{color: 'red', fontWeight: '300'}} >*</span>first name:</Label>
+                <Label>
+                  <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                  first name:
+                </Label>
                 <InputField
                   type="text"
                   id="firstName"
@@ -299,7 +308,10 @@ const Checkout = () => {
                 />
               </InputContainer>
               <InputContainer>
-                <Label><span style={{color: 'red', fontWeight: '300'}} >*</span>last name</Label>
+                <Label>
+                  <span style={{ color: "red", fontWeight: "300" }}>*</span>last
+                  name
+                </Label>
                 <InputField
                   type="text"
                   id="lastName"
@@ -313,7 +325,10 @@ const Checkout = () => {
           {user ? (
             user.address ? null : (
               <InputContainer>
-                <Label><span style={{color: 'red', fontWeight: '300'}} >*</span>address:</Label>
+                <Label>
+                  <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                  address:
+                </Label>
                 <InputField
                   type="text"
                   id="address"
@@ -325,7 +340,10 @@ const Checkout = () => {
             )
           ) : (
             <InputContainer>
-              <Label><span style={{color: 'red', fontWeight: '300'}} >*</span>address:</Label>
+              <Label>
+                <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                address:
+              </Label>
               <InputField
                 type="text"
                 id="address"
@@ -338,7 +356,10 @@ const Checkout = () => {
           {user ? (
             user.city ? null : (
               <InputContainer>
-                <Label><span style={{color: 'red', fontWeight: '300'}} >*</span>city:</Label>
+                <Label>
+                  <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                  city:
+                </Label>
                 <InputField
                   type="text"
                   id="city"
@@ -350,7 +371,9 @@ const Checkout = () => {
             )
           ) : (
             <InputContainer>
-              <Label><span style={{color: 'red', fontWeight: '300'}} >*</span>city:</Label>
+              <Label>
+                <span style={{ color: "red", fontWeight: "300" }}>*</span>city:
+              </Label>
               <InputField
                 type="text"
                 id="city"
@@ -363,7 +386,10 @@ const Checkout = () => {
           {user ? (
             user.number ? null : (
               <InputContainer>
-                <Label><span style={{color: 'red', fontWeight: '300'}} >*</span>phone number:</Label>
+                <Label>
+                  <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                  phone number:
+                </Label>
                 <InputField
                   type="text"
                   id="phoneNumber"
@@ -375,7 +401,10 @@ const Checkout = () => {
             )
           ) : (
             <InputContainer>
-              <Label><span style={{color: 'red', fontWeight: '300'}} >*</span>phone number:</Label>
+              <Label>
+                <span style={{ color: "red", fontWeight: "300" }}>*</span>phone
+                number:
+              </Label>
               <InputField
                 type="text"
                 id="phoneNumber"
@@ -402,7 +431,11 @@ const Checkout = () => {
           </Shipping>
           <ButtonContainer>
             <Button disabled={user ? false : !valid}>
-              {isLoading || isLoadingUpdate ? <PulseLoader /> : "next"}
+              {isLoading || isLoadingUpdate ? (
+                <PulseLoader color="white" />
+              ) : (
+                "next"
+              )}
             </Button>
           </ButtonContainer>
         </LeftSection>

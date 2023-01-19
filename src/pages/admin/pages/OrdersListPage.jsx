@@ -1,5 +1,4 @@
-import React from "react"
-
+import React, { useEffect } from "react"
 import styled from "styled-components"
 import { DataGrid } from "@mui/x-data-grid"
 import { Delete } from "@mui/icons-material"
@@ -11,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 import PulseLoader from "react-spinners/PulseLoader"
 import useTitle from "../../../hooks/useTitle"
 import { Tooltip } from "@mui/material"
+import { toast, Toaster } from "react-hot-toast"
 
 const Grid = styled.div``
 
@@ -42,14 +42,17 @@ const CheckButton = styled.button`
 const OrdersListPage = () => {
   useTitle("TIMGAD. | Orders")
   const navigate = useNavigate()
-  const [deleteOrder] = useDeleteOrderMutation()
-  const { orders, isLoading, isSuccess } = useGetOrdersQuery("orders", {
-    selectFromResult: ({ data, isLoading, isSuccess }) => ({
-      orders: data?.entities,
-      isLoading,
-      isSuccess,
-    }),
-  })
+  const [deleteOrder, { isSuccess: isSuccessDeleted }] =
+    useDeleteOrderMutation()
+  const { data: orders, isLoading, isSuccess } = useGetOrdersQuery("orders")
+  useEffect(() => {
+    if (isSuccessDeleted) {
+      toast.success("Success!, order deleted", {
+        duration: 3000,
+        icon: "🎉",
+      })
+    }
+  }, [isSuccessDeleted])
 
   if (isLoading) {
     return <PulseLoader />
@@ -134,6 +137,7 @@ const OrdersListPage = () => {
 
     return (
       <Container>
+        <Toaster toastOptions={{ postion: "top-center" }} />
         <Grid style={{ height: 800, width: "95%" }}>
           <DataGrid
             rows={rows}

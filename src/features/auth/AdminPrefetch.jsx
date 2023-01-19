@@ -18,9 +18,6 @@ const Prefetch = () => {
     store.dispatch(
       ordersApiSlice.util.prefetch("getOrders", "orders", { force: true })
     )
-    store.dispatch(
-      usersApiSlice.util.prefetch("listProducts", "list", { force: true })
-    )
   }, [])
   return <Outlet />
 }

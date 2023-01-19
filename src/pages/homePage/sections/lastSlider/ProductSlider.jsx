@@ -59,23 +59,20 @@ const MainContainer = styled.div`
 `
 
 const ProductSlider = () => {
-  const { products, isLoading, isSuccess, isError, error } =
-    useGetProductsQuery("products", {
-      selectFromResult: ({ data, isError, isSuccess, isLoading, error }) => ({
-        products: data,
-        isError,
-        isSuccess,
-        isLoading,
-        error,
-      }),
-    })
+  const {
+    data: products,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetProductsQuery("products")
 
   let product
   if (isError) {
     product = <p>{error?.data?.message}</p>
   }
   if (isLoading) {
-    product = <Spinner color='white' />
+    product = <Spinner color="white" />
   }
   if (isSuccess) {
     const { ids } = products

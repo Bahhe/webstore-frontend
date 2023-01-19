@@ -69,16 +69,13 @@ const SlideContainer = styled.div`
 const SecondSlider = () => {
   const [slideIndex, setSlideIndex] = useState(0)
 
-  const { products, isSuccess, isLoading, isError, error } =
-    useGetProductsQuery("products", {
-      selectFromResult: ({ data, isLoading, isSuccess, isError, error }) => ({
-        products: data,
-        isLoading,
-        isSuccess,
-        isError,
-        error,
-      }),
-    })
+  const {
+    data: products,
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+  } = useGetProductsQuery("products")
   let sliderContent
   let filteredIds
   let dataLength

@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   transform: translateX(${(props) => props.slideIndex * -80}vw);
-  transition: 1s ease;
+  transition: .5s ease-in-out;
   ${mobile({
     flexDirection: "column",
   })}

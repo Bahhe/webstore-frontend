@@ -62,16 +62,13 @@ const Slider = () => {
 
   const [slideIndex, setSlideIndex] = useState(0)
 
-  const { products, isLoading, isSuccess, isError, error } =
-    useGetProductsQuery("products", {
-      selectFromResult: ({ data, isLoading, isSuccess, isError, error }) => ({
-        products: data,
-        isLoading,
-        isSuccess,
-        isError,
-        error,
-      }),
-    })
+  const {
+    data: products,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetProductsQuery("products")
 
   let filteredIds
   let sliderContent
