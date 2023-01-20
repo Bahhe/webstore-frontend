@@ -231,6 +231,10 @@ const ShopSection = () => {
 
   const handleFilters = (e) => {
     setCat("")
+    setPage(1)
+    setSort("newest")
+    setLimit(9)
+    setSearch('')
     setCategory(e.target.getAttribute("name"))
     refetch()
     document.documentElement.scrollTo({
