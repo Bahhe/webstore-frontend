@@ -122,7 +122,7 @@ const ProductListPage = () => {
       },
     ]
 
-    const rows = Object.values(products).map((product) => ({
+    const rows = Object.values(products?.entities).map((product) => ({
       id: product.id,
       image: product.img,
       title: product.title,

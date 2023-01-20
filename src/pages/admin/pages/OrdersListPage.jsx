@@ -124,7 +124,7 @@ const OrdersListPage = () => {
       },
     ]
 
-    const rows = Object.values(orders).map((order) => ({
+    const rows = Object.values(orders?.entities).map((order) => ({
       id: order.id,
       firstName: order.firstName,
       lastName: order.lastName,

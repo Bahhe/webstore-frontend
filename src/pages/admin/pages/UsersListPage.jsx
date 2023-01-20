@@ -96,7 +96,7 @@ const UsersListPage = () => {
       },
     ]
 
-    const rows = Object.values(users).map((user) => ({
+    const rows = Object.values(users?.entities).map((user) => ({
       id: user.id,
       lastName: user.lastName,
       firstName: user.firstName,
