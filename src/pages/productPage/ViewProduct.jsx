@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import "swiper/css"
 import "swiper/css/pagination"
@@ -11,8 +11,10 @@ import { useDispatch } from "react-redux"
 import { addToCart } from "../../features/carts/cartSlice"
 import { mobile } from "../../assests/globalStyles/responsive"
 import Loader from "../../components/Loader"
+import CloseIcon from "@mui/icons-material/Close"
 
 const Container = styled.div`
+  position: relative;
   width: 100%;
   display: flex;
   gap: 2em;
@@ -34,12 +36,14 @@ const ImageSection = styled.div`
   background-color: rgba(0, 0, 0, 0.02);
   border: 1px solid lightgrey;
   border-radius: 50px;
+  cursor: pointer;
 `
 
 const Image = styled.img`
   width: 90%;
   height: 90%;
   object-fit: contain;
+  cursor: pointer;
 `
 const Title = styled.div`
   font-size: 1.5em;
@@ -101,8 +105,36 @@ const InStock = styled.div`
 const Wrapper = styled.div`
   display: flex;
 `
+const PopUpImageContainer = styled.div`
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.7);
+`
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+const Img = styled.img`
+  max-height: 80%;
+  max-width: 80%;
+`
 
 const ViewProduct = () => {
+  const [showImage, setShowImage] = useState(false)
   const { userId } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -142,8 +174,27 @@ const ViewProduct = () => {
 
   return (
     <Container>
-      <ImageSection>
-        <Image src={product.img} />
+      {showImage && (
+        <PopUpImageContainer onClick={() => setShowImage((prev) => !prev)}>
+          <CloseIcon
+            style={{
+              position: "absolute",
+              top: "100px",
+              right: "200px",
+              color: "white",
+              backgroundColor: "black",
+              zIndex: "100",
+              fontSize: "3em",
+              cursor: "pointer",
+            }}
+          />
+          <ImageWrapper>
+            <Img src={product.img} alt={product.title} />
+          </ImageWrapper>
+        </PopUpImageContainer>
+      )}
+      <ImageSection onClick={() => setShowImage((prev) => !prev)}>
+        <Image src={product.img} alt={product.title} />
       </ImageSection>
       <InfoSection>
         <Title>{product.title}</Title>

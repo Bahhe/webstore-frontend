@@ -50,7 +50,7 @@ const Right = styled.div`
 const Title = styled.h1`
   font-weight: 300;
   font-size: 3em;
-  text-transform: capitalize;
+  text-transform: uppercase;
   color: white;
   cursor: pointer;
   margin: 1em 0;

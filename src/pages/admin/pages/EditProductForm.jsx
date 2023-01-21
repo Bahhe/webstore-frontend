@@ -149,7 +149,7 @@ const ProductImage = styled.img`
 
 const EditProductForm = ({ product }) => {
   const navigate = useNavigate()
-  const [updateProduct, { isSuccess }] = useUpdateProductMutation()
+  const [updateProduct, { isSuccess, isLoading }] = useUpdateProductMutation()
 
   const [file, setFile] = useState("")
   const [progress, setProgress] = useState(0)
@@ -202,7 +202,7 @@ const EditProductForm = ({ product }) => {
 
   const [valid, setValid] = useState(false)
 
-  const canSave = [description, cpu, ram, disk, vga, price].every(Boolean)
+  const canSave = [description, cpu, ram, disk, vga, price].every(Boolean) && !isLoading
 
   useEffect(() => {
     if (canSave) {
@@ -470,7 +470,10 @@ const EditProductForm = ({ product }) => {
                   </InputWrapper>
                 </Sections>
                 {progress ? (
-                  <CircularProgress style={{ margin: "0 auto" }} />
+                  <>
+                    <CircularProgress style={{ margin: "0 auto" }} />
+                    <p style={{ margin: ".5em auto", fontSize: '.8em' }} >{Math.round(progress)}%</p>
+                  </>
                 ) : (
                   <Button disabled={!valid}>update</Button>
                 )}

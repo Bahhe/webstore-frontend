@@ -261,27 +261,26 @@ const ShopSection = () => {
     setPage((prev) => prev - 1)
     refetch()
     document.documentElement.scrollTo({
-      top: 0,
+      top: 300,
       left: 0,
-      behavior: "instant",
+      behavior: "smooth",
     })
   }
   const handlePageForward = () => {
     setPage((prev) => prev + 1)
     refetch()
     document.documentElement.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
+      top: 300,
+      behavior: "smooth",
     })
   }
   const handlePageNumber = (number) => {
     setPage(number)
     refetch()
     document.documentElement.scrollTo({
-      top: 0,
+      top: 300,
       left: 0,
-      behavior: "instant",
+      behavior: "smooth",
     })
   }
 

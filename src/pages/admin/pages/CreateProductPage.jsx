@@ -143,7 +143,7 @@ const CreateProductPage = () => {
   useTitle("TIMGAD. | Create Product")
   const navigate = useNavigate()
 
-  const [addNewProduct, { isSuccess }] = useAddNewProductMutation()
+  const [addNewProduct, { isSuccess, isLoading }] = useAddNewProductMutation()
 
   const [file, setFile] = useState(null)
   const [progress, setProgress] = useState(0)
@@ -163,7 +163,8 @@ const CreateProductPage = () => {
   const [brand, setBrand] = useState("acer")
   const [valid, setValid] = useState(false)
 
-  const canSave = [file, description, cpu, ram, disk, vga, price].every(Boolean)
+  const canSave =
+    [file, description, cpu, ram, disk, vga, price].every(Boolean) && !isLoading
 
   useEffect(() => {
     if (canSave) {
@@ -377,7 +378,10 @@ const CreateProductPage = () => {
                   </Wrapper>
                 </Sections>
                 {progress ? (
-                  <CircularProgress style={{ margin: "0 auto" }} />
+                  <>
+                    <CircularProgress style={{ margin: "0 auto" }} />
+                    <p style={{ margin: ".5em auto", fontSize: '.8em' }} >{Math.round(progress)}%</p>
+                  </>
                 ) : (
                   <Button disabled={!valid}>create</Button>
                 )}

@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useDispatch } from "react-redux"
 import { removeItem } from "../../features/carts/cartSlice"
+import { useNavigate } from "react-router-dom"
 
 const ProductContainer = styled.div``
 
@@ -30,10 +31,12 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
+  cursor: pointer;
 `
 const ProductTitle = styled.div`
   text-transform: capitalize;
   font-size: 0.9em;
+  cursor: pointer;
 `
 const Numbers = styled.div`
   height: 100%;
@@ -64,6 +67,7 @@ const Button = styled.button`
 `
 
 const CartProduct = ({ id, image, title, price, quantity = 0 }) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const onRemoveButtonClicked = async () => {
     dispatch(removeItem(id))
@@ -76,9 +80,9 @@ const CartProduct = ({ id, image, title, price, quantity = 0 }) => {
         <Product>
           <ProductWrapper>
             <ProductImage>
-              <Image src={image} />
+              <Image onClick={() => navigate(`/shop/product/${id}`)} src={image} />
             </ProductImage>
-            <ProductTitle>{title}</ProductTitle>
+            <ProductTitle onClick={() => navigate(`/shop/product/${id}`)}>{title}</ProductTitle>
           </ProductWrapper>
         </Product>
         <Numbers>
