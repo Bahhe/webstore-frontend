@@ -214,7 +214,7 @@ const ShopSection = () => {
   const [page, setPage] = useState(1)
   const [category, setCategory] = useState("all")
   const [sort, setSort] = useState("newest")
-  const [search, setSearch] = useState(cat ? cat : "")
+  const [search, setSearch] = useState(cat ? cat.replace(/%20/g, " ") : "")
   const [limit, setLimit] = useState(9)
 
   const {
