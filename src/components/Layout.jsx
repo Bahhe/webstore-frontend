@@ -6,8 +6,9 @@ import ScrollToTopButton from "./ScrollToTopButton"
 import { mobile } from "../assests/globalStyles/responsive"
 
 const Container = styled.div`
-  width: 80%;
+  width: 100%;
   margin: auto;
+  background-color: #f0f0f2 ;
   ${mobile({
     display: "flex",
     flexDirection: "column",

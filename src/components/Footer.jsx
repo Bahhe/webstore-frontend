@@ -7,11 +7,10 @@ import logo from "../assests/images/logo.png"
 import { useNavigate } from "react-router-dom"
 
 const Container = styled.footer`
-  background-color: #2E2E2E;
+  background-color: #2e2e2e;
   display: flex;
   flex-direction: column;
   color: #fff;
-  margin-top: 3em;
 `
 
 const UpperSection = styled.section`
@@ -143,14 +142,21 @@ const Span = styled.span`
 `
 const IconWrapper = styled.div``
 
+const LogoImage = styled.img`
+  width: 50%;
+  ${mobile({
+    width: "100%",
+  })}
+`
+
 const Footer = () => {
   const navigate = useNavigate()
   return (
     <Container>
       <UpperSection>
         <Left>
-          <Title onClick={() => navigate('/')}>
-            <img src={logo} width="50%" height="100%" alt="logo" />
+          <Title onClick={() => navigate("/")}>
+            <LogoImage src={logo} alt="logo" />
           </Title>
           <Desc>
             With over 20 years of experience in selling and repairing laptops,

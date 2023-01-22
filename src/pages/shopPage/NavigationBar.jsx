@@ -3,7 +3,8 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 
 const Container = styled.div`
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.03);

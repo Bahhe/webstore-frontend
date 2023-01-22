@@ -38,6 +38,9 @@ const ImgContainer = styled.div`
 const Img = styled.img`
   width: 70%;
   object-fit: contain;
+  ${mobile({
+    width: "100%",
+  })}
 `
 const InfoContainer = styled.div`
   width: 50%;
@@ -52,7 +55,8 @@ const InfoContainer = styled.div`
 `
 const Title = styled.div`
   font-size: 2em;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  font-weight: 500;
   margin: 0 0 1em 0;
   cursor: pointer;
   color: #f4fffd;

@@ -11,7 +11,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
   height: 20em;
   position: relative;
   ${mobile({

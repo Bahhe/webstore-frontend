@@ -10,10 +10,10 @@ import apple from '../../../assests/images/apple.webp'
 
 const Container = styled.div`
   justify-content: center;
-  width: 100%;
-  margin: 5em 0;
+  width: 80%;
+  margin: 5em auto;
   display: grid;
-  gap: 0.5em;
+  gap: 2em;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 20em);
   grid-template-areas:
@@ -23,6 +23,7 @@ const Container = styled.div`
     display: "flex",
     flexDirection: "column",
     width: "80%",
+    margin: '0 auto'
   })}
 `
 const AllInOne = styled.div`
@@ -40,8 +41,7 @@ const AllInOne = styled.div`
   font-weight: 600;
   transition: 0.5s ease;
   border-radius: 0.5em;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  box-shadow: 0 0 30px #ccc;
   &:hover {
     color: black;
     background: none;
@@ -66,8 +66,7 @@ const PcTablet = styled.div`
   font-weight: 600;
   transition: 0.5s ease;
   border-radius: 0.5em;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  box-shadow: 0 0 30px #ccc;
   &:hover {
     color: black;
     background: none;
@@ -92,8 +91,7 @@ const Gaming = styled.div`
   font-weight: 600;
   transition: 0.5s ease;
   border-radius: 0.5em;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  box-shadow: 0 0 30px #ccc;
   &:hover {
     color: black;
     background: none;
@@ -118,8 +116,7 @@ const ChromeBook = styled.div`
   font-weight: 600;
   transition: 0.5s ease;
   border-radius: 0.5em;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  box-shadow: 0 0 30px #ccc;
   &:hover {
     color: black;
     background: none;
@@ -144,8 +141,7 @@ const Macs = styled.div`
   font-weight: 600;
   transition: 0.5s ease;
   border-radius: 0.5em;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  box-shadow: 0 0 30px #ccc;
   &:hover {
     color: black;
     background: none;

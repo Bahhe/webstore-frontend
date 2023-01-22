@@ -7,12 +7,12 @@ import { mobile } from "../../../assests/globalStyles/responsive"
 
 const Container = styled.div`
 font-weight:300;
-  width: 100%;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5em;
-  margin: 4em 0;
+  gap: 2em;
+  margin: 4em auto;
   ${mobile({
     flexDirection: "column",
     width: "80%",

@@ -4,7 +4,9 @@ import { mobile } from "../../assests/globalStyles/responsive"
 import ShoppingCart from "./ShoppingCart"
 
 const Container = styled.div`
-  margin: 10em 0 0 0;
+  padding: 10em 0;
+  width: 80%;
+  margin: 0 auto;
   ${mobile({
     display: "flex",
     alignItems: "center",

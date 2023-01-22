@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   transform: translateX(${(props) => props.slideIndex * -80}vw);
-  transition: .5s ease-in-out;
+  transition: 0.5s ease-in-out;
   ${mobile({
     flexDirection: "column",
   })}
@@ -33,6 +33,9 @@ const ImageContainer = styled.div`
   justify-content: center;
   cursor: pointer;
   width: 70%;
+  ${mobile({
+    width: "90%",
+  })}
 `
 
 const Image = styled.img`
@@ -48,8 +51,8 @@ const Right = styled.div`
   justify-content: center;
 `
 const Title = styled.h1`
-  font-weight: 300;
-  font-size: 3em;
+  font-weight: 800;
+  font-size: 4em;
   text-transform: uppercase;
   color: white;
   cursor: pointer;
@@ -59,14 +62,14 @@ const Title = styled.h1`
   })}
 `
 const Desc = styled.p`
-  width: 40ch;
-  font-weight: 200;
+  width: 30ch;
+  font-weight: 400;
   font-size: 1.4em;
-  text-transform: capitalize;
-  opacity: .8;
-  color: #ffffff;
+  text-transform: uppercase;
+  word-spacing: 0.4em;
+  color: #ffffffbc;
   ${mobile({
-    width: "30ch",
+    width: "100%",
     fontSize: ".9em",
   })}
 `

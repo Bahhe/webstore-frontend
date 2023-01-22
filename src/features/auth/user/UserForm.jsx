@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { PulseLoader } from "react-spinners"
 
 const Container = styled.main`
-  margin: 10em 0 0 0;
+  padding: 10em 0 0 0;
   width: 100%;
   display: flex;
   align-items: center;

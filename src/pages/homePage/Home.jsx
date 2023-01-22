@@ -16,11 +16,12 @@ const Home = () => {
       <VideoSection />
       <SectionTitle sectionTitle={"categories"} />
       <Categories />
+      <SectionTitle sectionTitle={"select your perfect laptop"} />
       <SecondSlider />
-      <DoubleProduct />
       <SectionTitle sectionTitle={"pick what's best for you"} />
       <ProductSlider />
       <AfterSale />
+      <DoubleProduct />
       <Brands />
     </>
   )

@@ -24,9 +24,10 @@ const MainContent = styled.div`
   })}
 `
 
-const Title = styled.div`
-  font-size: 2.5em;
-  text-transform: capitalize;
+const Title = styled.h1`
+  font-size: 2em;
+  font-weight: 600;
+  text-transform: uppercase;
   margin: 1em;
 `
 const Left = styled.div`

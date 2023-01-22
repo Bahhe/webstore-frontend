@@ -45,8 +45,8 @@ const Arrow = styled.div`
 `
 
 const MainContainer = styled.div`
-  margin: 0 0 5em 0;
-  width: 100%;
+  margin: 0 auto;
+  width: 80%;
   height: 30em;
   position: relative;
   &:hover ${Arrow} {

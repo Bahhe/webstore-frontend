@@ -3,7 +3,8 @@ import styled from "styled-components"
 import { mobile } from "../../../assests/globalStyles/responsive"
 
 const Container = styled.div`
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
   height: 25em;
   display: flex;
   align-items: center;

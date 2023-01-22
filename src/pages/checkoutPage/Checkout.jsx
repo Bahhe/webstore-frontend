@@ -18,16 +18,15 @@ import emailjs from "@emailjs/browser"
 import { toast, Toaster } from "react-hot-toast"
 
 const Container = styled.div`
-  margin: 1em 0 0 0;
-  ${mobile({
-    width: "90%",
-  })}
+  padding: 1em 0;
+  width: 90%;
+  margin: 0 auto;
 `
 const PageTitle = styled.div`
-  font-size: 2.5em;
+  font-size: 2em;
   font-weight: 600;
   text-transform: uppercase;
-  margin: 4em 0 0 0;
+  margin: 4em 0 0 1em;
 `
 const SmallTitle = styled.div`
   margin: 2em 0 1em 0;

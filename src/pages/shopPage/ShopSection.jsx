@@ -12,11 +12,14 @@ import { SiDell, SiAcer, SiAsus, SiApple, SiLenovo } from "react-icons/si"
 import { FaLaptop } from "react-icons/fa"
 
 const Container = styled.div`
-  margin: 5em 0 0 0;
+  width: 80%;
+  margin: 0 auto;
+  padding: 5em 0;
   display: flex;
   gap: 2em;
   ${mobile({
     flexDirection: "column",
+    width: "100%",
   })}
 `
 const FilterSection = styled.div`
@@ -32,6 +35,25 @@ const TitleSection = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 1em;
+`
+const Num = styled.div`
+  margin: 0.5em 0.2em;
+  background-color: ${(props) =>
+    props.state === props.page ? "orange" : "white"};
+  color: ${(props) => (props.state === props.page ? "white" : "black")};
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &:hover {
+    background-color: orange;
+    color: white;
+  }
+  ${mobile({
+    display: "none",
+  })}
 `
 const Grid = styled.div`
   margin: 0.5em 0.2em;
@@ -72,6 +94,9 @@ const Category = styled.div`
   justify-content: space-between;
   text-transform: capitalize;
   margin: 1em 0 0.8em 1.6em;
+  &:hover {
+    color: orange;
+  }
 `
 
 const TextWrapper = styled.div`
@@ -165,21 +190,12 @@ const ProductsContainer = styled.div`
   })}
 `
 
-const ProductsTitle = styled.div`
-  font-size: 2.5em;
-  text-transform: capitalize;
+const ProductsTitle = styled.h1`
+  font-size: 2em;
+  font-weight: 600;
+  text-transform: uppercase;
   padding: 0 0 1em 0;
 `
-// const MobileSearch = styled.input`
-//   margin-bottom: 1em;
-//   width: 80%;
-//   padding: 0.5em;
-//   border-radius: 50px;
-//   border: 1px solid black;
-//   ${mobileCart({
-//     display: "none",
-//   })}
-// `
 
 const SearchContainer = styled.div`
   width: 100%;
@@ -198,6 +214,9 @@ const SearchWrapper = styled.div`
   border-radius: 1em;
   border: 1px solid lightgrey;
   background-color: white;
+  ${mobile({
+    width: "80%",
+  })}
 `
 
 const Search = styled.input`
@@ -234,7 +253,7 @@ const ShopSection = () => {
     setPage(1)
     setSort("newest")
     setLimit(9)
-    setSearch('')
+    setSearch("")
     setCategory(e.target.getAttribute("name"))
     refetch()
     document.documentElement.scrollTo({
@@ -245,7 +264,12 @@ const ShopSection = () => {
   }
 
   const handleSort = (e) => {
+    setCategory("all")
+    setPage(1)
+    setLimit(9)
+    setSearch("")
     setSort(e.target.value)
+    refetch()
   }
 
   const handleSearch = (e) => {
@@ -368,7 +392,7 @@ const ShopSection = () => {
                   opacity: ".6",
                 }}
               />
-              <Text name="chromebook" onClick={handleFilters}>
+              <Text name="touchScreen" onClick={handleFilters}>
                 touchScreen
               </Text>
             </TextWrapper>
@@ -397,7 +421,7 @@ const ShopSection = () => {
                 }}
               />
               <Text name="apple" onClick={handleFilters}>
-                macs
+                apple
               </Text>
             </TextWrapper>
           </Category>
@@ -518,42 +542,31 @@ const ShopSection = () => {
               placeholder="Search product ..."
               value={search}
               onChange={handleSearch}
-              autoFocus
             />
             <SearchOutlined />
           </SearchWrapper>
         </SearchContainer>
         <ProductsContainer>{shopProducts}</ProductsContainer>
-        <NavigationBar>
-          <Left>
-            <LayoutSection>
-              {page > 1 && <Grid onClick={handlePageBackward}>&#8592;</Grid>}
-              {[...Array(Math.ceil(products.total / products.limit))].map(
-                (val, index) => (
-                  <Grid
-                    onClick={() => handlePageNumber(index + 1)}
-                    key={index}
-                    style={{ fontSize: ".9em" }}
-                    state={index + 1}
-                    page={page}
-                  >
-                    {index + 1}
-                  </Grid>
-                )
-              )}
-              {page < Math.ceil(products.total / products.limit) && (
-                <Grid onClick={handlePageForward}>&#8594;</Grid>
-              )}
-            </LayoutSection>
-          </Left>
-          <Right>
-            <SortBySection style={{ alignItems: "flex-end" }}>
-              <NumberOfItems style={{ marginRight: ".5em" }}>
-                {products?.products?.length > 1 ? "items" : "item"}{" "}
-                {products?.products?.length} of {products.total}
-              </NumberOfItems>
-            </SortBySection>
-          </Right>
+        <NavigationBar style={{ justifyContent: "center" }}>
+          <LayoutSection>
+            {page > 1 && <Grid onClick={handlePageBackward}>&#8592;</Grid>}
+            {[...Array(Math.ceil(products.total / products.limit))].map(
+              (val, index) => (
+                <Num
+                  onClick={() => handlePageNumber(index + 1)}
+                  key={index}
+                  style={{ fontSize: ".9em" }}
+                  state={index + 1}
+                  page={page}
+                >
+                  {index + 1}
+                </Num>
+              )
+            )}
+            {page < Math.ceil(products.total / products.limit) && (
+              <Grid onClick={handlePageForward}>&#8594;</Grid>
+            )}
+          </LayoutSection>
         </NavigationBar>
       </ProductsSection>
     </Container>

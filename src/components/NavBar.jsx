@@ -8,7 +8,7 @@ import { Badge } from "@mui/material"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useSendLogoutMutation } from "../features/auth/authApiSlice"
 import { useSelector } from "react-redux"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { selectCurrentToken } from "../features/auth/authSlice"
 import { mobile, mobileCart } from "../assests/globalStyles/responsive"
 import useAuth from "../hooks/useAuth"
@@ -18,11 +18,10 @@ import logo from "../assests/images/logo.png"
 
 const Container = styled.div`
   display: flex;
-  border-radius: 1em;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  margin: 1em auto;
+  width: 100%;
+  margin: 0 auto;
   text-align: center;
   position: fixed;
   background-color: white;
@@ -30,7 +29,10 @@ const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px #ccc;
+  transition: 300ms ease-in-out;
+  transform: ${(props) =>
+    props.scrollDirection === "down" ? "translateY(-100%)" : "translateY(0)"};
 `
 const Wrapper = styled.div`
   display: flex;
@@ -56,6 +58,9 @@ const Left = styled.div`
   align-items: center;
   justify-content: space-around;
   text-align: center;
+  ${mobile({
+    display: "none",
+  })}
 `
 
 const Logo = styled.span`
@@ -63,8 +68,23 @@ const Logo = styled.span`
   font-weight: 900;
   font-size: 2em;
   cursor: pointer;
-  margin: 1em 0;
+  margin: 0.5em 0;
 `
+
+const LogoImage = styled.img`
+  width: 30%;
+  ${mobile({
+    width: "50%",
+    margin: "0 auto",
+  })}
+`
+const LogoWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 const Links = styled.ul`
   flex: 2;
   display: flex;
@@ -190,6 +210,28 @@ const NavBar = () => {
   const [translate, setTranslate] = useState(false)
   const { cart } = useSelector((state) => state.cart)
 
+  const [scrollDirection, setScrollDirection] = useState(null)
+
+  useEffect(() => {
+    let lastScrollY = window.pageYOffset
+
+    const updateScrollDirection = () => {
+      const scrollY = window.pageYOffset
+      const direction = scrollY > lastScrollY ? "down" : "up"
+      if (
+        direction !== scrollDirection &&
+        (scrollY - lastScrollY > 10 || scrollY - lastScrollY < -10)
+      ) {
+        setScrollDirection(direction)
+      }
+      lastScrollY = scrollY > 0 ? scrollY : 0
+    }
+    window.addEventListener("scroll", updateScrollDirection) // add event listener
+    return () => {
+      window.removeEventListener("scroll", updateScrollDirection) // clean up
+    }
+  }, [scrollDirection])
+
   const getTotalQuantity = () => {
     let total = 0
     cart.forEach((item) => {
@@ -208,8 +250,7 @@ const NavBar = () => {
     setShowSearchedItems((prev) => !prev)
   }
 
-  const [sendLogout, { isLoading, isError, error }] =
-    useSendLogoutMutation()
+  const [sendLogout, { isLoading, isError, error }] = useSendLogoutMutation()
 
   const onLogoutClicked = async () => {
     await sendLogout()
@@ -227,23 +268,24 @@ const NavBar = () => {
 
   if (isLoading) return <Loader />
   if (isError) return <p>{error?.data?.message}</p>
-
-  return (
-    <Container>
+  const content = (
+    <Container scrollDirection={scrollDirection}>
       <Wrapper>
-        <Left>
+        <LogoWrapper>
           <MenuButton onClick={() => setTranslate((prev) => !prev)}>
             <MenuIcon style={{ color: "black", fontSize: "2em" }} />
           </MenuButton>
-          <ToggleMenu translate={translate} toggle={setTranslate} />
           <Logo onClick={() => navigate("/")}>
-            <img src={logo} width="50%" height="100%" alt="logo" />
+            <LogoImage src={logo} alt="logo" />
           </Logo>
           <MobileCart onClick={() => navigate("/cart")}>
             <Badge color="success" badgeContent={getTotalQuantity()} showZero>
-              <ShoppingCartOutlinedIcon />
+              <ShoppingCartOutlinedIcon style={{ padding: "0" }} />
             </Badge>
           </MobileCart>
+        </LogoWrapper>
+        <ToggleMenu translate={translate} toggle={setTranslate} />
+        <Left>
           <Links>
             <LinkElement onClick={() => navigate(`/`)}>home</LinkElement>
             <LinkElement onClick={() => navigate(`/shop`)}>shop</LinkElement>
@@ -302,6 +344,7 @@ const NavBar = () => {
                   onChange={onSearch}
                   onKeyDown={onEnter}
                   autoFocus={showSearchedItems}
+                  placeholder="search laptops..."
                 />
                 <SearchIcon />
               </SearchItems>
@@ -329,6 +372,8 @@ const NavBar = () => {
       </Wrapper>
     </Container>
   )
+
+  return content
 }
 
 export default NavBar
