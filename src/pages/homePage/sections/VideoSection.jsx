@@ -53,7 +53,9 @@ const Image = styled.img`
 const Desc = styled.p`
   width: 30ch;
   text-align: center;
-  color: #ffffffc2;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: .1em;
+  text-transform: capitalize;
 `
 const Title = styled.h3`
   font-size: 2em;
