@@ -6,7 +6,7 @@ import { selectCurrentToken } from "../authSlice"
 
 const PersistLogin = () => {
   const token = useSelector(selectCurrentToken)
-  const [refresh, { isLoading, isSuccess }] = useRefreshMutation()
+  const [refresh, { isError, error }] = useRefreshMutation()
 
   useEffect(() => {
     const verifyRefreshToken = async () => {
@@ -17,11 +17,8 @@ const PersistLogin = () => {
   }, [])
 
   let content = <Outlet />
-  if (isLoading) {
-    console.log("loading")
-  }
-  if (isSuccess) {
-    console.log("success")
+  if (isError) {
+    console.log(error)
   }
   return content
 }
