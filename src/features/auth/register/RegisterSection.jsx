@@ -93,7 +93,6 @@ const LegalInformations = styled.footer`
   font-size: 0.8em;
   opacity: 0.8;
 `
-// /^[A-z0-9!@#$%]{4,12}$/
 const USER_REGEX = /^[A-z]{3,10}$/
 const PWD_REGEX = /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
 const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/

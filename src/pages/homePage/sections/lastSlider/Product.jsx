@@ -54,7 +54,6 @@ const Container = styled.div`
 const ImgContainer = styled.div`
   width: 100%;
   height: 60%;
-  /* background-color: rgba(0, 0, 0, 0.05); */
   background-image: radial-gradient(
     circle 879px at 10.4% 22.3%,
     rgba(255, 235, 238, 1) 0%,

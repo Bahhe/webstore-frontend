@@ -325,12 +325,6 @@ const HomePageContent = () => {
             >
               orders
             </Title>
-            {/* <TableTitle>
-              <SmallTitle style={{ width: "29%" }}>Customer</SmallTitle>
-              <SmallTitle style={{ width: "28%" }}>Date</SmallTitle>
-              <SmallTitle style={{ width: "10%" }}>NoP</SmallTitle>
-              <SmallTitle style={{ width: "10%" }}>Status</SmallTitle>
-            </TableTitle> */}
             <Table>
               {!orders ? (
                 <PulseLoader />
