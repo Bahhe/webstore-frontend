@@ -1,15 +1,15 @@
-import React, { useState } from "react"
-import styled from "styled-components"
-import Products from "./Products"
-import { useListProductsQuery } from "../../features/products/productsApiSlice"
-import { useLocation } from "react-router-dom"
-import { mobile } from "../../assests/globalStyles/responsive"
-import useTitle from "../../hooks/useTitle"
-import Spinner from "../../components/Spinner"
-import { SearchOutlined } from "@mui/icons-material"
-import hp from "../../assests/images/hp.png"
-import { SiDell, SiAcer, SiAsus, SiApple, SiLenovo } from "react-icons/si"
-import { FaLaptop } from "react-icons/fa"
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import Products from './Products'
+import { useListProductsQuery } from '../../features/products/productsApiSlice'
+import { useLocation } from 'react-router-dom'
+import { mobile } from '../../assests/globalStyles/responsive'
+import useTitle from '../../hooks/useTitle'
+import Spinner from '../../components/Spinner'
+import { SearchOutlined } from '@mui/icons-material'
+import hp from '../../assests/images/hp.png'
+import { SiDell, SiAcer, SiAsus, SiApple, SiLenovo } from 'react-icons/si'
+import { FaLaptop } from 'react-icons/fa'
 
 const Container = styled.div`
   width: 80%;
@@ -18,14 +18,14 @@ const Container = styled.div`
   display: flex;
   gap: 2em;
   ${mobile({
-    flexDirection: "column",
-    width: "100%",
+    flexDirection: 'column',
+    width: '100%',
   })}
 `
 const FilterSection = styled.div`
   flex: 1;
   ${mobile({
-    display: "none",
+    display: 'none',
   })}
 `
 const TitleSection = styled.div`
@@ -39,8 +39,8 @@ const TitleSection = styled.div`
 const Num = styled.div`
   margin: 0.5em 0.2em;
   background-color: ${(props) =>
-    props.state === props.page ? "orange" : "white"};
-  color: ${(props) => (props.state === props.page ? "white" : "black")};
+    props.state === props.page ? 'orange' : 'white'};
+  color: ${(props) => (props.state === props.page ? 'white' : 'black')};
   width: 2em;
   height: 2em;
   display: flex;
@@ -52,14 +52,14 @@ const Num = styled.div`
     color: white;
   }
   ${mobile({
-    display: "none",
+    display: 'none',
   })}
 `
 const Grid = styled.div`
   margin: 0.5em 0.2em;
   background-color: ${(props) =>
-    props.state === props.page ? "orange" : "white"};
-  color: ${(props) => (props.state === props.page ? "white" : "black")};
+    props.state === props.page ? 'orange' : 'white'};
+  color: ${(props) => (props.state === props.page ? 'white' : 'black')};
   width: 2em;
   height: 2em;
   display: flex;
@@ -116,10 +116,10 @@ const ManufacturerSection = styled.div`
 const ProductsSection = styled.div`
   flex: 4;
   ${mobile({
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   })}
 `
 const NavigationBar = styled.div`
@@ -131,7 +131,7 @@ const NavigationBar = styled.div`
   background-color: rgba(0, 0, 0, 0.03);
   border-radius: 1em;
   ${mobile({
-    width: "90%",
+    width: '90%',
   })}
 `
 const Left = styled.div`
@@ -174,7 +174,7 @@ const SortOptions = styled.select`
   padding: 0.5em 1em;
   border: none;
   ${mobile({
-    width: "8em",
+    width: '8em',
   })}
 `
 const Options = styled.option``
@@ -183,10 +183,10 @@ const ProductsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   ${mobile({
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "90%",
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '90%',
   })}
 `
 
@@ -215,7 +215,7 @@ const SearchWrapper = styled.div`
   border: 1px solid lightgrey;
   background-color: white;
   ${mobile({
-    width: "80%",
+    width: '80%',
   })}
 `
 
@@ -227,13 +227,17 @@ const Search = styled.input`
   outline: none;
 `
 const ShopSection = () => {
-  useTitle("TIMGAD. | Shop")
-  const location = useLocation()
-  const [cat, setCat] = useState(location?.search.split("=")[1])
+  useTitle('TIMGAD. | Shop')
+  const searchValue = new URLSearchParams(useLocation().search).get('search')
+  const categoryValue = new URLSearchParams(useLocation().search).get(
+    'category'
+  )
   const [page, setPage] = useState(1)
-  const [category, setCategory] = useState("all")
-  const [sort, setSort] = useState("newest")
-  const [search, setSearch] = useState(cat ? cat.replace(/%20/g, " ") : "")
+  const [category, setCategory] = useState(
+    categoryValue ? categoryValue : 'all'
+  )
+  const [sort, setSort] = useState('newest')
+  const [search, setSearch] = useState(searchValue ? searchValue : '')
   const [limit, setLimit] = useState(9)
 
   const {
@@ -249,33 +253,32 @@ const ShopSection = () => {
   })
 
   const handleFilters = (e) => {
-    setCat("")
     setPage(1)
-    setSort("newest")
+    setSort('newest')
     setLimit(9)
-    setSearch("")
-    setCategory(e.target.getAttribute("name"))
+    setSearch('')
+    setCategory(e.target.getAttribute('name'))
     refetch()
     document.documentElement.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant",
+      behavior: 'instant',
     })
   }
 
   const handleSort = (e) => {
-    setCategory("all")
+    setCategory('all')
     setPage(1)
     setLimit(9)
-    setSearch("")
+    setSearch('')
     setSort(e.target.value)
     refetch()
   }
 
   const handleSearch = (e) => {
-    setCategory("all")
+    setCategory('all')
     setPage(1)
-    setSort("newest")
+    setSort('newest')
     setLimit(9)
     setSearch(e.target.value)
     refetch()
@@ -287,7 +290,7 @@ const ShopSection = () => {
     document.documentElement.scrollTo({
       top: 300,
       left: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     })
   }
   const handlePageForward = () => {
@@ -295,7 +298,7 @@ const ShopSection = () => {
     refetch()
     document.documentElement.scrollTo({
       top: 300,
-      behavior: "smooth",
+      behavior: 'smooth',
     })
   }
   const handlePageNumber = (number) => {
@@ -304,12 +307,12 @@ const ShopSection = () => {
     document.documentElement.scrollTo({
       top: 300,
       left: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     })
   }
 
   let shopProducts
-  if (isLoading) return (shopProducts = <Spinner color="black" />)
+  if (isLoading) shopProducts = <Spinner color="black" />
   shopProducts =
     products && !products?.products?.length ? (
       <p>no product found</p>
@@ -331,9 +334,9 @@ const ShopSection = () => {
             <TextWrapper>
               <FaLaptop
                 style={{
-                  marginRight: ".2em",
-                  fontSize: "1.2em",
-                  opacity: ".6",
+                  marginRight: '.2em',
+                  fontSize: '1.2em',
+                  opacity: '.6',
                 }}
               />
               <Text name="all" onClick={handleFilters}>
@@ -345,9 +348,9 @@ const ShopSection = () => {
             <TextWrapper>
               <FaLaptop
                 style={{
-                  marginRight: ".2em",
-                  fontSize: "1.2em",
-                  opacity: ".6",
+                  marginRight: '.2em',
+                  fontSize: '1.2em',
+                  opacity: '.6',
                 }}
               />
               <Text name="gaming" onClick={handleFilters}>
@@ -359,9 +362,9 @@ const ShopSection = () => {
             <TextWrapper>
               <FaLaptop
                 style={{
-                  marginRight: ".2em",
-                  fontSize: "1.2em",
-                  opacity: ".6",
+                  marginRight: '.2em',
+                  fontSize: '1.2em',
+                  opacity: '.6',
                 }}
               />
               <Text name="allInOne" onClick={handleFilters}>
@@ -373,9 +376,9 @@ const ShopSection = () => {
             <TextWrapper>
               <FaLaptop
                 style={{
-                  marginRight: ".2em",
-                  fontSize: "1.2em",
-                  opacity: ".6",
+                  marginRight: '.2em',
+                  fontSize: '1.2em',
+                  opacity: '.6',
                 }}
               />
               <Text name="tablet" onClick={handleFilters}>
@@ -387,9 +390,9 @@ const ShopSection = () => {
             <TextWrapper>
               <FaLaptop
                 style={{
-                  marginRight: ".2em",
-                  fontSize: "1.2em",
-                  opacity: ".6",
+                  marginRight: '.2em',
+                  fontSize: '1.2em',
+                  opacity: '.6',
                 }}
               />
               <Text name="touchScreen" onClick={handleFilters}>
@@ -401,9 +404,9 @@ const ShopSection = () => {
             <TextWrapper>
               <FaLaptop
                 style={{
-                  marginRight: ".2em",
-                  fontSize: "1.2em",
-                  opacity: ".6",
+                  marginRight: '.2em',
+                  fontSize: '1.2em',
+                  opacity: '.6',
                 }}
               />
               <Text name="chromebook" onClick={handleFilters}>
@@ -415,9 +418,9 @@ const ShopSection = () => {
             <TextWrapper>
               <FaLaptop
                 style={{
-                  marginRight: ".2em",
-                  fontSize: "1.2em",
-                  opacity: ".6",
+                  marginRight: '.2em',
+                  fontSize: '1.2em',
+                  opacity: '.6',
                 }}
               />
               <Text name="apple" onClick={handleFilters}>
@@ -433,7 +436,7 @@ const ShopSection = () => {
               <img
                 width="20px"
                 height="20px"
-                style={{ marginRight: ".4em" }}
+                style={{ marginRight: '.4em' }}
                 src={hp}
                 alt=""
               />
@@ -446,8 +449,8 @@ const ShopSection = () => {
             <TextWrapper>
               <SiDell
                 style={{
-                  marginRight: ".4em",
-                  fontSize: "1.2em",
+                  marginRight: '.4em',
+                  fontSize: '1.2em',
                 }}
               />
               <Text name="dell" onClick={handleFilters}>
@@ -459,8 +462,8 @@ const ShopSection = () => {
             <TextWrapper>
               <SiAcer
                 style={{
-                  marginRight: ".4em",
-                  fontSize: "1.2em",
+                  marginRight: '.4em',
+                  fontSize: '1.2em',
                 }}
               />
               <Text name="acer" onClick={handleFilters}>
@@ -472,8 +475,8 @@ const ShopSection = () => {
             <TextWrapper>
               <SiAsus
                 style={{
-                  marginRight: ".4em",
-                  fontSize: "1.2em",
+                  marginRight: '.4em',
+                  fontSize: '1.2em',
                 }}
               />
               <Text name="asus" onClick={handleFilters}>
@@ -485,8 +488,8 @@ const ShopSection = () => {
             <TextWrapper>
               <SiLenovo
                 style={{
-                  marginRight: ".4em",
-                  fontSize: "1.2em",
+                  marginRight: '.4em',
+                  fontSize: '1.2em',
                 }}
               />
               <Text name="lenovo" onClick={handleFilters}>
@@ -498,8 +501,8 @@ const ShopSection = () => {
             <TextWrapper>
               <SiApple
                 style={{
-                  marginRight: ".4em",
-                  fontSize: "1.2em",
+                  marginRight: '.4em',
+                  fontSize: '1.2em',
                 }}
               />
               <Text name="apple" onClick={handleFilters}>
@@ -521,8 +524,8 @@ const ShopSection = () => {
         <NavigationBar>
           <Left>
             <NumberOfItems>
-              {products?.products?.length > 1 ? "items" : "item"}{" "}
-              {products?.products?.length} of {products.total}
+              {products && products?.products?.length > 1 ? 'items' : 'item'}{' '}
+              {products && products?.products?.length} of {products && products?.total}
             </NumberOfItems>
           </Left>
           <Right>
@@ -547,15 +550,15 @@ const ShopSection = () => {
           </SearchWrapper>
         </SearchContainer>
         <ProductsContainer>{shopProducts}</ProductsContainer>
-        <NavigationBar style={{ justifyContent: "center" }}>
+        <NavigationBar style={{ justifyContent: 'center' }}>
           <LayoutSection>
-            {page > 1 && <Grid onClick={handlePageBackward}>&#8592;</Grid>}
-            {[...Array(Math.ceil(products.total / products.limit))].map(
+            {products && page > 1 && <Grid onClick={handlePageBackward}>&#8592;</Grid>}
+            {products && [...Array(Math.ceil(products?.total / products?.limit))].map(
               (val, index) => (
                 <Num
                   onClick={() => handlePageNumber(index + 1)}
                   key={index}
-                  style={{ fontSize: ".9em" }}
+                  style={{ fontSize: '.9em' }}
                   state={index + 1}
                   page={page}
                 >
@@ -563,7 +566,7 @@ const ShopSection = () => {
                 </Num>
               )
             )}
-            {page < Math.ceil(products.total / products.limit) && (
+            {products && page < Math.ceil(products?.total / products?.limit) && (
               <Grid onClick={handlePageForward}>&#8594;</Grid>
             )}
           </LayoutSection>
