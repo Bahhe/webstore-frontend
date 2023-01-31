@@ -1,7 +1,7 @@
-import React from "react"
-import styled from "styled-components"
-import { useGetProductsQuery } from "../../../features/products/productsApiSlice"
-import Spinner from "../../../components/Spinner"
+import React from 'react'
+import styled from 'styled-components'
+import { useGetProductsQuery } from '../../../features/products/productsApiSlice'
+import Spinner from '../../../components/Spinner'
 
 const ProductContainer = styled.div`
   padding: 1em;
@@ -32,30 +32,31 @@ const ProductTitle = styled.div`
 const InfoSection = styled.div``
 
 const OrderProduct = ({ productId }) => {
-  const { product, isLoading } = useGetProductsQuery("products", {
+  const { product, isLoading } = useGetProductsQuery('products', {
     selectFromResult: ({ data, isLoading, isSuccess }) => ({
       product: data?.entities[productId],
       isLoading,
       isSuccess,
     }),
   })
+  let content
   if (isLoading) {
-    return <Spinner />
+    content = <Spinner />
   }
   if (!product) {
-    return <p>no product found</p>
+    content = <p>no product found</p>
   }
-  return (
-    <ProductContainer>
-      <ProductInfo>
-        <Image src={product.img} />
-        <InfoSection>
-          <ProductTitle>{product.title}</ProductTitle>
-          <ProductPrice>${product.price}</ProductPrice>
-        </InfoSection>
-      </ProductInfo>
-    </ProductContainer>
+  content = (
+    <ProductInfo>
+      <Image src={product.img} />
+      <InfoSection>
+        <ProductTitle>{product.title}</ProductTitle>
+        <ProductPrice>${product.price}</ProductPrice>
+      </InfoSection>
+    </ProductInfo>
   )
+
+  return <ProductContainer>{content}</ProductContainer>
 }
 
 export default OrderProduct

@@ -1,16 +1,16 @@
-import styled from "styled-components"
-import { DataGrid } from "@mui/x-data-grid"
-import { Delete } from "@mui/icons-material"
+import styled from 'styled-components'
+import { DataGrid } from '@mui/x-data-grid'
+import { Delete } from '@mui/icons-material'
 import {
   useDeleteProductMutation,
   useGetProductsQuery,
-} from "../../../features/products/productsApiSlice"
-import { useNavigate } from "react-router-dom"
-import PulseLoader from "react-spinners/PulseLoader"
-import useTitle from "../../../hooks/useTitle"
-import { Tooltip } from "@mui/material"
-import { toast, Toaster } from "react-hot-toast"
-import { useEffect } from "react"
+} from '../../../features/products/productsApiSlice'
+import { useNavigate } from 'react-router-dom'
+import PulseLoader from 'react-spinners/PulseLoader'
+import useTitle from '../../../hooks/useTitle'
+import { Tooltip } from '@mui/material'
+import { toast, Toaster } from 'react-hot-toast'
+import { useEffect } from 'react'
 
 const Grid = styled.div``
 
@@ -46,34 +46,40 @@ const DeleteButton = styled.button`
 `
 
 const ProductListPage = () => {
-  useTitle("TIMGAD. | Products")
+  useTitle('TIMGAD. | Products')
   const navigate = useNavigate()
 
-  const [deleteProduct, {isSuccess: isSuccessDeleted}] = useDeleteProductMutation()
+  const [deleteProduct, { isSuccess: isSuccessDeleted }] =
+    useDeleteProductMutation()
 
-  const { data: products, isLoading, isSuccess } = useGetProductsQuery("products", {
-    refetchOnMountOrArgChange: true
+  const {
+    data: products,
+    isLoading,
+    isSuccess,
+  } = useGetProductsQuery('products', {
+    refetchOnMountOrArgChange: true,
   })
 
   useEffect(() => {
-    if(isSuccessDeleted) {
-      toast.success("Success!, product Deleted", {
+    if (isSuccessDeleted) {
+      toast.success('Success!, product Deleted', {
         duration: 3000,
-        icon: '🎉'
+        icon: '🎉',
       })
     }
   }, [isSuccessDeleted])
-  
+  let content
+
   if (isLoading) {
-    return <PulseLoader />
+    content = <PulseLoader />
   }
 
   if (isSuccess) {
     const columns = [
-      { field: "id", headerName: "ID", width: 240 },
+      { field: 'id', headerName: 'ID', width: 240 },
       {
-        field: "image",
-        headerName: "Image",
+        field: 'image',
+        headerName: 'Image',
         width: 130,
         renderCell: (params) => {
           return (
@@ -83,21 +89,21 @@ const ProductListPage = () => {
           )
         },
       },
-      { field: "title", headerName: "Title", width: 300 },
-      { field: "description", headerName: "Description", width: 190 },
+      { field: 'title', headerName: 'Title', width: 300 },
+      { field: 'description', headerName: 'Description', width: 190 },
       {
-        field: "stock",
-        headerName: "Stock",
+        field: 'stock',
+        headerName: 'Stock',
         width: 100,
       },
       {
-        field: "price",
-        headerName: "Price",
+        field: 'price',
+        headerName: 'Price',
         width: 100,
       },
       {
-        field: "settings",
-        headerName: "Settings",
+        field: 'settings',
+        headerName: 'Settings',
         width: 160,
         renderCell: (params) => {
           return (
@@ -113,7 +119,7 @@ const ProductListPage = () => {
                     await deleteProduct({ id: params.row.id })
                   }
                 >
-                  <Delete style={{ color: "red", cursor: "pointer"}} />
+                  <Delete style={{ color: 'red', cursor: 'pointer' }} />
                 </DeleteButton>
               </Tooltip>
             </CellContainer>
@@ -127,25 +133,29 @@ const ProductListPage = () => {
       image: product.img,
       title: product.title,
       description: product.desc,
-      stock: product.inStock ? "inStock" : "notInStock",
+      stock: product.inStock ? 'inStock' : 'notInStock',
       price: product.price,
     }))
 
-    return (
-      <Container>
-        <Toaster toastOptions={{position: 'top-center'}} />
-        <Grid style={{ height: 800, width: "95%" }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pemailSize={5}
-            rowsPerPemailOptions={[5]}
-            checkboxSelection
-          />
-        </Grid>
-      </Container>
+    content = (
+      <Grid style={{ height: 800, width: '95%' }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          checkboxSelection
+        />
+      </Grid>
     )
   }
+
+  return (
+    <Container>
+      <Toaster toastOptions={{ position: 'top-center' }} />
+      {product?.length ? content : <p>no products found</p>}
+    </Container>
+  )
 }
 
 export default ProductListPage

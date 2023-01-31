@@ -144,35 +144,35 @@ const OrderPage = () => {
                 <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
               </Icon>
               <Title>name:</Title>
-              <Content>{order.firstName + " " + order.lastName}</Content>
+              <Content>{order && order.firstName + " " + order.lastName}</Content>
             </InfoWrapper>
             <InfoWrapper>
               <Icon>
                 <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
               </Icon>
               <Title>email:</Title>
-              <Content>{order.email}</Content>
+              <Content>{order && order.email}</Content>
             </InfoWrapper>
             <InfoWrapper>
               <Icon>
                 <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
               </Icon>
               <Title>city:</Title>
-              <Content>{order.city}</Content>
+              <Content>{order && order.city}</Content>
             </InfoWrapper>
             <InfoWrapper>
               <Icon>
                 <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
               </Icon>
               <Title>phone number:</Title>
-              <Content>{order.number}</Content>
+              <Content>{order && order.number}</Content>
             </InfoWrapper>
             <InfoWrapper>
               <Icon>
                 <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
               </Icon>
               <Title>shipping method:</Title>
-              <Content>{order.shipping}</Content>
+              <Content>{order && order.shipping}</Content>
             </InfoWrapper>
             <Status>
               <Button onClick={hanldePending}>pending</Button>
@@ -183,9 +183,9 @@ const OrderPage = () => {
             </Status>
           </Info>
           <Products>
-            {order.products.map((productId) => (
+            {order?.length ? order.products.map((productId) => (
               <OrderProduct key={productId} productId={productId} />
-            ))}
+            )) : <p>no orders</p>}
           </Products>
         </Wrapper>
       </Container>

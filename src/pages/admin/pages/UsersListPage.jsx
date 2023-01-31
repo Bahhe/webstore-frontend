@@ -1,16 +1,16 @@
-import styled from "styled-components"
-import { DataGrid } from "@mui/x-data-grid"
-import { Delete } from "@mui/icons-material"
+import styled from 'styled-components'
+import { DataGrid } from '@mui/x-data-grid'
+import { Delete } from '@mui/icons-material'
 import {
   useDeleteUserMutation,
   useGetUsersQuery,
-} from "../../../features/users/usersApiSlice"
-import { useNavigate } from "react-router-dom"
-import PulseLoader from "react-spinners/PulseLoader"
-import useTitle from "../../../hooks/useTitle"
-import { Tooltip } from "@mui/material"
-import { toast, Toaster } from "react-hot-toast"
-import { useEffect } from "react"
+} from '../../../features/users/usersApiSlice'
+import { useNavigate } from 'react-router-dom'
+import useTitle from '../../../hooks/useTitle'
+import { Tooltip } from '@mui/material'
+import { toast, Toaster } from 'react-hot-toast'
+import { useEffect } from 'react'
+import Spinner from '../../../components/Spinner'
 
 const Grid = styled.div``
 
@@ -38,39 +38,39 @@ const EditButton = styled.div`
 `
 
 const UsersListPage = () => {
-  useTitle("TIMGAD. | Users")
-  const [deleteUser, {isSuccess: isSuccessDeleted}] = useDeleteUserMutation()
+  useTitle('TIMGAD. | Users')
+  const [deleteUser, { isSuccess: isSuccessDeleted }] = useDeleteUserMutation()
   const navigate = useNavigate()
-  const { data: users, isLoading, isSuccess } = useGetUsersQuery("users")
+  const { data: users, isLoading, isSuccess } = useGetUsersQuery('users')
 
   useEffect(() => {
-    if(isSuccessDeleted) {
-      toast.success("Success!, user deleted", {
+    if (isSuccessDeleted) {
+      toast.success('Success!, user deleted', {
         duration: 3000,
-        icons: '🎉'
+        icons: '🎉',
       })
     }
   }, [isSuccessDeleted])
-  
+  let content
 
   if (isLoading) {
-    return <PulseLoader />
+    content = <Spinner />
   }
 
   if (isSuccess) {
     const columns = [
-      { field: "id", headerName: "ID", width: 250 },
-      { field: "firstName", headerName: "First name", width: 130 },
-      { field: "lastName", headerName: "Last name", width: 130 },
-      { field: "email", headerName: "Email", width: 220 },
+      { field: 'id', headerName: 'ID', width: 250 },
+      { field: 'firstName', headerName: 'First name', width: 130 },
+      { field: 'lastName', headerName: 'Last name', width: 130 },
+      { field: 'email', headerName: 'Email', width: 220 },
       {
-        field: "transactions",
-        headerName: "Transactions",
+        field: 'transactions',
+        headerName: 'Transactions',
         width: 160,
       },
       {
-        field: "settings",
-        headerName: "Settings",
+        field: 'settings',
+        headerName: 'Settings',
         width: 160,
         renderCell: (params) => {
           return (
@@ -86,7 +86,7 @@ const UsersListPage = () => {
                     onClick={async () =>
                       await deleteUser({ id: params.row.id })
                     }
-                    style={{ color: "red", cursor: "pointer" }}
+                    style={{ color: 'red', cursor: 'pointer' }}
                   />
                 </Tooltip>
               )}
@@ -102,24 +102,27 @@ const UsersListPage = () => {
       firstName: user.firstName,
       email: user.email,
       admin: user.isAdmin,
-      transactions: "to be filled later",
+      transactions: 'to be filled later',
     }))
 
-    return (
-      <Container>
-        <Toaster toastOptions={{position: 'top-center'}} />
-        <Grid style={{ height: 800, width: "95%" }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pemailSize={3}
-            rowsPerPemailOptions={[3]}
-            checkboxSelection
-          />
-        </Grid>
-      </Container>
+    content = (
+      <Grid style={{ height: 800, width: '95%' }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={3}
+          rowsPerPageOptions={[3]}
+          checkboxSelection
+        />
+      </Grid>
     )
   }
+  return (
+    <Container>
+      <Toaster toastOptions={{ position: 'top-center' }} />
+      {users?.length ? content : <p>no users</p>}
+    </Container>
+  )
 }
 
 export default UsersListPage
