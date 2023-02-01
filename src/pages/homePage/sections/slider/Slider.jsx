@@ -33,9 +33,6 @@ const Arrow = styled.div`
     background-color: orange;
     color: white;
   }
-  ${mobile({
-    opacity: '1',
-  })}
 `
 
 const Container = styled.div`
