@@ -42,7 +42,7 @@ const Title = styled.h1`
   font-weight: 500;
 `
 const UsersList = styled.div`
-  height: 70vh;
+  height: 50vh;
   overflow-y: auto;
   padding: 0 1em;
 `
@@ -80,20 +80,21 @@ const Display = styled.button`
 `
 const Right = styled.section`
   margin: 1em;
+  padding: 1em;
   box-shadow: 0 0 20px #ccc;
   border-radius: 3em;
 `
 const Table = styled.section`
   overflow-y: auto;
-  height: 18em;
-  padding: 2em;
+  height: 15em;
+  padding: 0 2em 2em 2em;
 `
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `
 const Statistics = styled.section`
-  padding: 1em;
+  padding: 2em 1em;
   display: flex;
   width: 100%;
   align-items: center;
@@ -108,16 +109,14 @@ const Item = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
-  padding: 3em;
-  width: 17em;
-  height: 18vh;
+  padding: 3em 4em;
   border-radius: 3em;
   box-shadow: 0 0 20px #ccc;
   cursor: pointer;
 `
 const ItemName = styled.h3`
   font-weight: 400;
-  font-size: 1.5em;
+  font-size: 1.2em;
   opacity: 0.9;
   text-transform: capitalize;
   color: #363670;
@@ -132,7 +131,12 @@ const ItemQuantity = styled.p`
 `
 const DashboardWrapper = styled.div``
 
-const Chart = styled.section``
+const Chart = styled.section`
+  margin: 1em;
+  padding: 1em;
+  box-shadow: 0 0 20px #ccc;
+  border-radius: 3em;
+`
 
 const data = [
   {
@@ -217,19 +221,19 @@ const HomePageContent = () => {
     <Container>
       <Statistics>
         <Item onClick={() => navigate('/admin/products')}>
-          <Inventory style={{ fontSize: '3em', color: '#5757f3' }} />
+          <Inventory style={{ fontSize: '2em', color: '#5757f3' }} />
           <ItemQuantity>
             {products ? Object.values(products?.entities).length: 0}
           </ItemQuantity>
           <ItemName>total products</ItemName>
         </Item>
         <Item onClick={() => navigate('/admin/users')}>
-          <GroupOutlined style={{ fontSize: '3em', color: '#5757f3' }} />
+          <GroupOutlined style={{ fontSize: '2em', color: '#5757f3' }} />
           <ItemQuantity>{users ? Object.values(users?.entities).length : 0}</ItemQuantity>
           <ItemName>total members</ItemName>
         </Item>
         <Item onClick={() => navigate('/admin/orders')}>
-          <ListAltOutlined style={{ fontSize: '3em', color: '#5757f3' }} />
+          <ListAltOutlined style={{ fontSize: '2em', color: '#5757f3' }} />
           <ItemQuantity>{orders ? Object.values(orders?.entities).length : 0}</ItemQuantity>
           <ItemName>total orders</ItemName>
         </Item>
@@ -312,8 +316,8 @@ const HomePageContent = () => {
                 color: '#0ae',
                 width: '100%',
                 textAlign: 'center',
-                margin: '1em 0',
-                padding: '.5em 0',
+                margin: '.5em 0',
+                padding: '.5em 0 0 0',
               }}
             >
               orders

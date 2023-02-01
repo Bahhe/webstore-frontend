@@ -52,12 +52,18 @@ const ListItem = styled.li`
   align-items: center;
   cursor: pointer;
   transition: 0.5 ease-in-out;
+  ${laptop({
+    fontSize: '3em',
+  })}
 `
 const Admin = styled.section`
   display: flex;
   align-items: center;
   font-size: 0.5em;
   cursor: pointer;
+  ${laptop({
+    fontSize: '0.4em',
+  })}
 `
 const AdminSideBar = () => {
   const { data: orders } = useGetOrdersQuery({

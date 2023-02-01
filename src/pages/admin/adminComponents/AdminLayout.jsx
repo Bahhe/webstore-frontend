@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom"
 const Container = styled.main`
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
 `
 const Wrapper = styled.section`
   width: 80%;

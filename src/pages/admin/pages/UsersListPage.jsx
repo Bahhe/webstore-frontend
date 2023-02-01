@@ -110,7 +110,7 @@ const UsersListPage = () => {
     }))
 
     content = (
-      <Grid style={{ height: 800, width: '95%' }}>
+      <Grid style={{ height: '70vh', width: '95%' }}>
         <DataGrid
           rows={rows}
           columns={columns}

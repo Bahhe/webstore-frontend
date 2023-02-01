@@ -146,7 +146,7 @@ const OrdersListPage = () => {
       status: order.status,
     }))
     content = (
-      <Grid style={{ height: 800, width: '95%' }}>
+      <Grid style={{ height: '80vh', width: '95%' }}>
         <DataGrid
           rows={rows}
           columns={columns}

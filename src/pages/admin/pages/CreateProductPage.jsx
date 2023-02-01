@@ -32,7 +32,7 @@ const Edit = styled.section`
   box-shadow: 0 0 20px #ccc;
   padding: 1em;
   width: 45em;
-  overflow: hidden;
+  overflow: hidden;;
 `
 
 const Content = styled.section`
