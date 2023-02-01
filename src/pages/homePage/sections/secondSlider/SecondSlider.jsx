@@ -1,13 +1,16 @@
-import React from "react"
-import ArrowBackIcon from "@mui/icons-material/ArrowBack"
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
-import { useState } from "react"
-import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
-import Products from "./Products"
-
-import styled from "styled-components"
-import { mobile } from "../../../../assests/globalStyles/responsive"
-import Spinner from "../../../../components/Spinner"
+import React from 'react'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { useState } from 'react'
+import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
+import Products from './Products'
+import styled from 'styled-components'
+import { mobile } from '../../../../assests/globalStyles/responsive'
+import Spinner from '../../../../components/Spinner'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Navigation, Pagination, Lazy } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 const Arrow = styled.div`
   display: flex;
@@ -18,8 +21,8 @@ const Arrow = styled.div`
   height: 5em;
   top: 0;
   bottom: 0;
-  left: ${(props) => props.direction === "left" && "5em"};
-  right: ${(props) => props.direction === "right" && "5em"};
+  left: ${(props) => props.direction === 'left' && '5em'};
+  right: ${(props) => props.direction === 'right' && '5em'};
   margin: auto;
   border-radius: 50%;
   position: absolute;
@@ -32,12 +35,12 @@ const Arrow = styled.div`
     opacity: 1;
   }
   ${mobile({
-    right: (props) => (props.direction === "right" && "1em"),
-    opacity: (props) => (props.direction === "left" ? "0" : "1"),
-    visibility: (props) => (props.direction === "left" ? "hidden" : "visible"),
-    backgroundColor: "white",
-    width: "3em",
-    height: "3em",
+    right: (props) => props.direction === 'right' && '1em',
+    opacity: (props) => (props.direction === 'left' ? '0' : '1'),
+    visibility: (props) => (props.direction === 'left' ? 'hidden' : 'visible'),
+    backgroundColor: 'white',
+    width: '3em',
+    height: '3em',
   })}
 `
 
@@ -54,10 +57,21 @@ const Container = styled.div`
     visibility: visible;
   }
   ${mobile({
-    width: "100%",
+    width: '100%',
   })}
   &::before {
-    background-color: #ff1777;
+    background: #fc4a1a; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #f7b733,
+      #fc4a1a
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #f7b733,
+      #fc4a1a
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     content: '';
     position: absolute;
     top: 0;
@@ -73,13 +87,13 @@ const SlideContainer = styled.div`
   width: 100%;
   display: flex;
   ${mobile({
-    width: "80%",
-    overflow: 'hidden'
+    width: '80%',
+    overflow: 'hidden',
   })}
 `
 
 const SecondSlider = () => {
-  const [slideIndex, setSlideIndex] = useState(0)
+  const [slideIndex] = useState(0)
 
   const {
     data: products,
@@ -87,10 +101,9 @@ const SecondSlider = () => {
     isLoading,
     isError,
     error,
-  } = useGetProductsQuery("products")
+  } = useGetProductsQuery('products')
   let sliderContent
   let filteredIds
-  let dataLength
 
   if (isLoading) {
     sliderContent = <Spinner color="black" />
@@ -104,37 +117,46 @@ const SecondSlider = () => {
     filteredIds =
       ids?.length &&
       ids.filter((productId) =>
-        entities[productId].section.includes("secondSlider")
+        entities[productId].section.includes('secondSlider')
       )
-    dataLength = filteredIds?.length && filteredIds.length - 1
-
     sliderContent =
       filteredIds?.length &&
       filteredIds.map((productId) => (
-        <Products
-          key={productId}
-          productId={productId}
-          slideIndex={slideIndex}
-        />
+        <SwiperSlide key={productId}>
+          <Products productId={productId} slideIndex={slideIndex} />
+        </SwiperSlide>
       ))
-  }
-
-  const handleClick = (direction) => {
-    if (direction === "left") {
-      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : dataLength)
-    } else {
-      setSlideIndex(slideIndex < dataLength ? slideIndex + 1 : 0)
-    }
   }
 
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
-        <ArrowBackIcon style={{ fontSize: "1.5em" }} />
+      <Arrow direction="left" className="image-swiper-button-prev">
+        <ArrowBackIcon style={{ fontSize: '1.5em' }} />
       </Arrow>
-      <SlideContainer>{sliderContent}</SlideContainer>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
-        <ArrowForwardIcon style={{ fontSize: "1.5em" }} />
+      <SlideContainer>
+        <Swiper
+          navigation={{
+            nextEl: '.image-swiper-button-next',
+            prevEl: '.image-swiper-button-prev',
+            disabledClass: 'swiper-button-disabled',
+          }}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            dynamicBullets: true,
+          }}
+          modules={[Navigation, Pagination, Autoplay, Lazy]}
+          slidesPerView={1}
+          loop={true}
+          lazy={true}
+        >
+          {sliderContent}
+        </Swiper>
+      </SlideContainer>
+      <Arrow direction="right" className="image-swiper-button-next">
+        <ArrowForwardIcon style={{ fontSize: '1.5em' }} />
       </Arrow>
     </Container>
   )

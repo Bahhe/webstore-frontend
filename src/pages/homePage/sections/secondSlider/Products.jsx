@@ -1,12 +1,13 @@
-import React from "react"
-import CheckIcon from "@mui/icons-material/Check"
-import styled from "styled-components"
-import { useNavigate } from "react-router-dom"
-import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
-import { useDispatch } from "react-redux"
-import { addToCart } from "../../../../features/carts/cartSlice"
-import { mobile } from "../../../../assests/globalStyles/responsive"
-import Spinner from "../../../../components/Spinner"
+import React from 'react'
+import CheckIcon from '@mui/icons-material/Check'
+import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../../../features/carts/cartSlice'
+import { mobile } from '../../../../assests/globalStyles/responsive'
+import Spinner from '../../../../components/Spinner'
+import 'swiper/css/lazy'
 
 const Slide = styled.div`
   min-width: 100%;
@@ -21,7 +22,7 @@ const Content = styled.div`
   align-items: center;
   gap: 5em;
   ${mobile({
-    flexDirection: "column",
+    flexDirection: 'column',
   })}
 `
 const ImgContainer = styled.div`
@@ -31,15 +32,15 @@ const ImgContainer = styled.div`
   cursor: pointer;
   width: 50%;
   ${mobile({
-    width: "100%",
-    marginTop: "1em",
+    width: '100%',
+    marginTop: '1em',
   })}
 `
 const Img = styled.img`
   width: 70%;
   object-fit: contain;
   ${mobile({
-    width: "100%",
+    width: '100%',
   })}
 `
 const InfoContainer = styled.div`
@@ -49,8 +50,8 @@ const InfoContainer = styled.div`
   flex-direction: column;
   margin-left: 5em;
   ${mobile({
-    width: "85%",
-    margin: "0",
+    width: '85%',
+    margin: '0',
   })}
 `
 const Title = styled.div`
@@ -110,11 +111,11 @@ const ShopNow = styled.div`
   transition: 0.3s ease-in-out;
 `
 
-const Products = ({ productId, slideIndex }) => {
+const Products = ({ productId }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { product, isLoading, isSuccess } = useGetProductsQuery("products", {
+  const { product, isLoading, isSuccess } = useGetProductsQuery('products', {
     selectFromResult: ({ data, isLoading, isSuccess }) => ({
       product: data?.entities[productId],
       isLoading,
@@ -151,10 +152,10 @@ const Products = ({ productId, slideIndex }) => {
   }
   if (isSuccess) {
     content = (
-      <Slide slideIndex={slideIndex}>
+      <Slide>
         <Content key={product.id}>
           <ImgContainer onClick={() => navigate(`/shop/product/${product.id}`)}>
-            <Img src={product.img} />
+            <Img data-src={product.img} className="swiper-lazy" />
           </ImgContainer>
           <InfoContainer>
             <Title onClick={() => navigate(`/shop/product/${product.id}`)}>
@@ -163,26 +164,26 @@ const Products = ({ productId, slideIndex }) => {
             <Points>
               <CheckIcon
                 style={{
-                  display: "flex",
-                  width: "1em",
-                  height: "1em",
-                  borderRadius: "50%",
-                  margin: "0 .5em 0 0",
+                  display: 'flex',
+                  width: '1em',
+                  height: '1em',
+                  borderRadius: '50%',
+                  margin: '0 .5em 0 0',
                 }}
               />
               <span
                 style={{
-                  textTransform: "uppercase",
-                  fontWeight: "400",
+                  textTransform: 'uppercase',
+                  fontWeight: '400',
                 }}
               >
-                cpu:{" "}
+                cpu:{' '}
               </span>
               <span
                 style={{
-                  textTransform: "capitalize",
-                  margin: "0 0 0 1em",
-                  fontWeight: "400",
+                  textTransform: 'capitalize',
+                  margin: '0 0 0 1em',
+                  fontWeight: '400',
                 }}
               >
                 {product.cpu}
@@ -191,26 +192,26 @@ const Products = ({ productId, slideIndex }) => {
             <Points>
               <CheckIcon
                 style={{
-                  display: "flex",
-                  width: "1em",
-                  height: "1em",
-                  borderRadius: "50%",
-                  margin: "0 .5em 0 0",
+                  display: 'flex',
+                  width: '1em',
+                  height: '1em',
+                  borderRadius: '50%',
+                  margin: '0 .5em 0 0',
                 }}
               />
               <span
                 style={{
-                  textTransform: "uppercase",
-                  fontWeight: "400",
+                  textTransform: 'uppercase',
+                  fontWeight: '400',
                 }}
               >
-                ram:{" "}
+                ram:{' '}
               </span>
               <span
                 style={{
-                  textTransform: "capitalize",
-                  margin: "0 0 0 1em",
-                  fontWeight: "400",
+                  textTransform: 'capitalize',
+                  margin: '0 0 0 1em',
+                  fontWeight: '400',
                 }}
               >
                 {product.display}
@@ -219,26 +220,26 @@ const Products = ({ productId, slideIndex }) => {
             <Points>
               <CheckIcon
                 style={{
-                  display: "flex",
-                  width: "1em",
-                  height: "1em",
-                  borderRadius: "50%",
-                  margin: "0 .5em 0 0",
+                  display: 'flex',
+                  width: '1em',
+                  height: '1em',
+                  borderRadius: '50%',
+                  margin: '0 .5em 0 0',
                 }}
               />
               <span
                 style={{
-                  textTransform: "uppercase",
-                  fontWeight: "400",
+                  textTransform: 'uppercase',
+                  fontWeight: '400',
                 }}
               >
-                hard drive:{" "}
+                hard drive:{' '}
               </span>
               <span
                 style={{
-                  textTransform: "capitalize",
-                  margin: "0 0 0 1em",
-                  fontWeight: "400",
+                  textTransform: 'capitalize',
+                  margin: '0 0 0 1em',
+                  fontWeight: '400',
                 }}
               >
                 {product.storage}
@@ -247,26 +248,26 @@ const Products = ({ productId, slideIndex }) => {
             <Points>
               <CheckIcon
                 style={{
-                  display: "flex",
-                  width: "1em",
-                  height: "1em",
-                  borderRadius: "50%",
-                  margin: "0 .5em 0 0",
+                  display: 'flex',
+                  width: '1em',
+                  height: '1em',
+                  borderRadius: '50%',
+                  margin: '0 .5em 0 0',
                 }}
               />
               <span
                 style={{
-                  textTransform: "uppercase",
-                  fontWeight: "400",
+                  textTransform: 'uppercase',
+                  fontWeight: '400',
                 }}
               >
-                display:{" "}
+                display:{' '}
               </span>
               <span
                 style={{
-                  textTransform: "capitalize",
-                  margin: "0 0 0 1em",
-                  fontWeight: "400",
+                  textTransform: 'capitalize',
+                  margin: '0 0 0 1em',
+                  fontWeight: '400',
                 }}
               >
                 {product.ram}
@@ -275,26 +276,26 @@ const Products = ({ productId, slideIndex }) => {
             <Points>
               <CheckIcon
                 style={{
-                  display: "flex",
-                  width: "1em",
-                  height: "1em",
-                  borderRadius: "50%",
-                  margin: "0 .5em 0 0",
+                  display: 'flex',
+                  width: '1em',
+                  height: '1em',
+                  borderRadius: '50%',
+                  margin: '0 .5em 0 0',
                 }}
               />
               <span
                 style={{
-                  textTransform: "uppercase",
-                  fontWeight: "400",
+                  textTransform: 'uppercase',
+                  fontWeight: '400',
                 }}
               >
-                vga:{" "}
+                vga:{' '}
               </span>
               <span
                 style={{
-                  textTransform: "capitalize",
-                  margin: "0 0 0 1em",
-                  fontWeight: "400",
+                  textTransform: 'capitalize',
+                  margin: '0 0 0 1em',
+                  fontWeight: '400',
                 }}
               >
                 {product.vga}

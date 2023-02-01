@@ -41,7 +41,11 @@ const UsersListPage = () => {
   useTitle('TIMGAD. | Users')
   const [deleteUser, { isSuccess: isSuccessDeleted }] = useDeleteUserMutation()
   const navigate = useNavigate()
-  const { data: users, isLoading, isSuccess } = useGetUsersQuery('users')
+  const {
+    data: users,
+    isLoading,
+    isSuccess,
+  } = useGetUsersQuery('users', { refetchOnMountOrArgChange: true })
 
   useEffect(() => {
     if (isSuccessDeleted) {
@@ -110,8 +114,8 @@ const UsersListPage = () => {
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={3}
-          rowsPerPageOptions={[3]}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
           checkboxSelection
         />
       </Grid>
@@ -120,7 +124,7 @@ const UsersListPage = () => {
   return (
     <Container>
       <Toaster toastOptions={{ position: 'top-center' }} />
-      {users?.length ? content : <p>no users</p>}
+      {users ? content : <p>no users</p>}
     </Container>
   )
 }

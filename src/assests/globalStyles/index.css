@@ -36,3 +36,7 @@ body {
     to(transparent)
   );
 }
+
+.swiper-pagination-bullet-active {
+     background-color: white !important;
+}

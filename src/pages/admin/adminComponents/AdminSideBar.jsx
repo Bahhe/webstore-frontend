@@ -1,21 +1,21 @@
-import React, { useEffect } from "react"
-import styled from "styled-components"
-import { Dashboard } from "@mui/icons-material"
-import { useNavigate } from "react-router-dom"
-import useAuth from "../../../hooks/useAuth"
-import { useGetUsersQuery } from "../../../features/users/usersApiSlice"
-import { useSendLogoutMutation } from "../../../features/auth/authApiSlice"
-import { laptop } from "../../../assests/globalStyles/responsive"
-import Loader from "../../../components/Loader"
-import { FaUserAlt } from "react-icons/fa"
-import { Badge, Fab, Tooltip } from "@mui/material"
-import AddIcon from "@mui/icons-material/Add"
-import WebIcon from "@mui/icons-material/Web"
-import GroupsIcon from "@mui/icons-material/Groups"
-import LaptopIcon from "@mui/icons-material/Laptop"
-import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople"
-import LogoutIcon from "@mui/icons-material/Logout"
-import { useGetOrdersQuery } from "../../../features/orders/ordersApiSlice"
+import React, { useEffect } from 'react'
+import styled from 'styled-components'
+import { Dashboard } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
+import useAuth from '../../../hooks/useAuth'
+import { useGetUsersQuery } from '../../../features/users/usersApiSlice'
+import { useSendLogoutMutation } from '../../../features/auth/authApiSlice'
+import { laptop } from '../../../assests/globalStyles/responsive'
+import Loader from '../../../components/Loader'
+import { FaUserAlt } from 'react-icons/fa'
+import { Badge, Fab, Tooltip } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import WebIcon from '@mui/icons-material/Web'
+import GroupsIcon from '@mui/icons-material/Groups'
+import LaptopIcon from '@mui/icons-material/Laptop'
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople'
+import LogoutIcon from '@mui/icons-material/Logout'
+import { useGetOrdersQuery } from '../../../features/orders/ordersApiSlice'
 
 const Wrapper = styled.aside`
   position: fixed;
@@ -41,7 +41,7 @@ const Container = styled.ul`
   align-items: center;
   justify-content: center;
   ${laptop({
-    width: "auto",
+    width: 'auto',
   })}
 `
 const ListItem = styled.li`
@@ -60,17 +60,17 @@ const Admin = styled.section`
   cursor: pointer;
 `
 const AdminSideBar = () => {
-  const { orders } = useGetOrdersQuery("orders", {
-    selectFromResult: ({ data }) => ({
-      orders: data?.entities,
-    }),
+  const { data: orders } = useGetOrdersQuery({
+    refetchOnMountOrArgChange: true,
   })
   const numberOfOrders =
-    orders &&
-    Object.values(orders).filter((order) => order.status === "waiting").length
+    orders?.ids?.length &&
+    Object.values(orders?.entities).filter(
+      (order) => order.status === 'waiting'
+    ).length
 
   const { id } = useAuth()
-  const { user } = useGetUsersQuery("users", {
+  const { user } = useGetUsersQuery('users', {
     selectFromResult: ({ data }) => ({
       user: data?.entities[id],
     }),
@@ -96,53 +96,54 @@ const AdminSideBar = () => {
       <Tooltip title="my account">
         <Admin onClick={() => navigate(`/admin/user/edit/${user.id}`)}>
           <FaUserAlt
-            style={{ color: "white", fontSize: "5em", margin: "1em 0 0 0" }}
+            style={{ color: 'white', fontSize: '5em', margin: '1em 0 0 0' }}
           />
         </Admin>
       </Tooltip>
       <Tooltip title="logout">
         <Admin onClick={onLogoutClicked}>
           <LogoutIcon
-            style={{ color: "white", fontSize: "5em", margin: "1em 0 0 0" }}
+            style={{ color: 'white', fontSize: '5em', margin: '1em 0 0 0' }}
           />
         </Admin>
       </Tooltip>
       <Container>
-        <ListItem onClick={() => navigate("/admin")}>
+        <ListItem onClick={() => navigate('/admin')}>
           <Tooltip title="Dashboard">
-            <Dashboard style={{ marginRight: "0.2em", fontSize: ".5em" }} />
+            <Dashboard style={{ marginRight: '0.2em', fontSize: '.5em' }} />
           </Tooltip>
         </ListItem>
-        <ListItem onClick={() => navigate("/")}>
+        <ListItem onClick={() => navigate('/')}>
           <Tooltip title="website home page">
-            <WebIcon style={{ marginRight: "0.2em", fontSize: ".5em" }} />
+            <WebIcon style={{ marginRight: '0.2em', fontSize: '.5em' }} />
           </Tooltip>
         </ListItem>
-        <ListItem onClick={() => navigate("/admin/users")}>
+        <ListItem onClick={() => navigate('/admin/users')}>
           <Tooltip title="users list">
-            <GroupsIcon style={{ marginRight: "0.2em", fontSize: ".5em" }} />
+            <GroupsIcon style={{ marginRight: '0.2em', fontSize: '.5em' }} />
           </Tooltip>
         </ListItem>
-        <ListItem onClick={() => navigate("/admin/products")}>
+        <ListItem onClick={() => navigate('/admin/products')}>
           <Tooltip title="products list">
-            <LaptopIcon style={{ marginRight: "0.2em", fontSize: ".5em" }} />
+            <LaptopIcon style={{ marginRight: '0.2em', fontSize: '.5em' }} />
           </Tooltip>
         </ListItem>
-        <ListItem onClick={() => navigate("/admin/orders")}>
+        <ListItem onClick={() => navigate('/admin/orders')}>
           <Tooltip title="orders list">
             <Badge
-              badgeContent={numberOfOrders && numberOfOrders}
+              badgeContent={numberOfOrders ? numberOfOrders : 0}
               color="success"
+              showZero
             >
               <EmojiPeopleIcon
-                style={{ marginRight: "0.2em", fontSize: ".5em" }}
+                style={{ marginRight: '0.2em', fontSize: '.5em' }}
               />
             </Badge>
           </Tooltip>
         </ListItem>
         <ListItem
-          style={{ color: "red", marginTop: "1em" }}
-          onClick={() => navigate("/admin/product/create")}
+          style={{ color: 'red', marginTop: '1em' }}
+          onClick={() => navigate('/admin/product/create')}
         >
           <Tooltip title="add product">
             <Fab color="white" aria-label="add">

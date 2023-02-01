@@ -3,13 +3,13 @@ import {
   Inventory,
   ListAltOutlined,
   Visibility,
-} from "@mui/icons-material"
-import React, { useCallback, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
-import { useGetOrdersQuery } from "../../../../features/orders/ordersApiSlice"
-import { useGetUsersQuery } from "../../../../features/users/usersApiSlice"
-import Orders from "./Orders"
+} from '@mui/icons-material'
+import React, { useCallback, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
+import { useGetOrdersQuery } from '../../../../features/orders/ordersApiSlice'
+import { useGetUsersQuery } from '../../../../features/users/usersApiSlice'
+import Orders from './Orders'
 import {
   LineChart,
   Line,
@@ -18,17 +18,16 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-} from "recharts"
-import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
-import { PulseLoader } from "react-spinners"
-import { laptop } from "../../../../assests/globalStyles/responsive"
+} from 'recharts'
+import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
+import { laptop } from '../../../../assests/globalStyles/responsive'
 
 const Container = styled.main`
   display: flex;
   flex-direction: column;
   padding: 0 5em;
   ${laptop({
-    padding: "0",
+    padding: '0',
   })}
 `
 const Left = styled.section`
@@ -100,8 +99,8 @@ const Statistics = styled.section`
   align-items: center;
   justify-content: space-between;
   ${laptop({
-    width: "auto",
-    justifyContent: "space-evenly",
+    width: 'auto',
+    justifyContent: 'space-evenly',
   })}
 `
 const Item = styled.div`
@@ -137,43 +136,43 @@ const Chart = styled.section``
 
 const data = [
   {
-    name: "Page A",
+    name: 'Page A',
     uv: 4000,
     pv: 2400,
     amt: 2400,
   },
   {
-    name: "Page B",
+    name: 'Page B',
     uv: 3000,
     pv: 1398,
     amt: 2210,
   },
   {
-    name: "Page C",
+    name: 'Page C',
     uv: 2000,
     pv: 9800,
     amt: 2290,
   },
   {
-    name: "Page D",
+    name: 'Page D',
     uv: 2780,
     pv: 3908,
     amt: 2000,
   },
   {
-    name: "Page E",
+    name: 'Page E',
     uv: 1890,
     pv: 4800,
     amt: 2181,
   },
   {
-    name: "Page F",
+    name: 'Page F',
     uv: 2390,
     pv: 3800,
     amt: 2500,
   },
   {
-    name: "Page G",
+    name: 'Page G',
     uv: 3490,
     pv: 4300,
     amt: 2100,
@@ -204,53 +203,47 @@ const HomePageContent = () => {
 
   const navigate = useNavigate()
 
-  const { products } = useGetProductsQuery("products", {
-    selectFromResult: ({ data }) => ({
-      products: data?.entities,
-    }),
+  const { data : products } = useGetProductsQuery({
+    refetchOnMountOrArgChange: true,
   })
-  const { orders } = useGetOrdersQuery("orders", {
-    selectFromResult: ({ data }) => ({
-      orders: data?.entities,
-    }),
+  const { data: orders } = useGetOrdersQuery({
+    refetchOnMountOrArgChange: true,
   })
-  const { users } = useGetUsersQuery("users", {
-    selectFromResult: ({ data }) => ({
-      users: data?.entities,
-    }),
+  const { data: users} = useGetUsersQuery({
+    refetchOnMountOrArgChange: true,
   })
 
   return (
     <Container>
       <Statistics>
-        <Item onClick={() => navigate("/admin/products")}>
-          <Inventory style={{ fontSize: "3em", color: "#5757f3" }} />
+        <Item onClick={() => navigate('/admin/products')}>
+          <Inventory style={{ fontSize: '3em', color: '#5757f3' }} />
           <ItemQuantity>
-            {products && Object.values(products).length}
+            {products ? Object.values(products?.entities).length: 0}
           </ItemQuantity>
           <ItemName>total products</ItemName>
         </Item>
-        <Item onClick={() => navigate("/admin/users")}>
-          <GroupOutlined style={{ fontSize: "3em", color: "#5757f3" }} />
-          <ItemQuantity>{users && Object.values(users).length}</ItemQuantity>
+        <Item onClick={() => navigate('/admin/users')}>
+          <GroupOutlined style={{ fontSize: '3em', color: '#5757f3' }} />
+          <ItemQuantity>{users ? Object.values(users?.entities).length : 0}</ItemQuantity>
           <ItemName>total members</ItemName>
         </Item>
-        <Item onClick={() => navigate("/admin/orders")}>
-          <ListAltOutlined style={{ fontSize: "3em", color: "#5757f3" }} />
-          <ItemQuantity>{orders && Object.values(orders).length}</ItemQuantity>
+        <Item onClick={() => navigate('/admin/orders')}>
+          <ListAltOutlined style={{ fontSize: '3em', color: '#5757f3' }} />
+          <ItemQuantity>{orders ? Object.values(orders?.entities).length : 0}</ItemQuantity>
           <ItemName>total orders</ItemName>
         </Item>
       </Statistics>
-      <Wrapper style={{ alignItems: "flex-start" }}>
+      <Wrapper style={{ alignItems: 'flex-start' }}>
         <Left>
-          <Title style={{ color: "#0ae", width: "100%", textAlign: "center" }}>
+          <Title style={{ color: '#0ae', width: '100%', textAlign: 'center' }}>
             members
           </Title>
           <UsersList>
             {!users ? (
-              <PulseLoader />
+              <p>no users</p>
             ) : (
-              Object.values(users).map((user) => (
+              Object.values(users.entities).map((user) => (
                 <User key={user.id}>
                   <Wrapper>
                     <Image src="https://firebasestorage.googleapis.com/v0/b/webstore-d48be.appspot.com/o/user(1).png?alt=media&token=477b5102-c1b2-4580-a74b-c3ce9907acae" />
@@ -262,7 +255,7 @@ const HomePageContent = () => {
                     <Display
                       onClick={() => navigate(`/admin/user/edit/${user.id}`)}
                     >
-                      <Visibility style={{ margin: "0 .4em 0 0" }} />
+                      <Visibility style={{ margin: '0 .4em 0 0' }} />
                       display
                     </Display>
                   </Wrapper>
@@ -274,9 +267,9 @@ const HomePageContent = () => {
         <DashboardWrapper>
           <Chart
             style={{
-              boxShadow: "0 0 20px #ccc",
-              borderRadius: "3em",
-              padding: "1em",
+              boxShadow: '0 0 20px #ccc',
+              borderRadius: '3em',
+              padding: '1em',
             }}
           >
             <LineChart
@@ -316,20 +309,20 @@ const HomePageContent = () => {
           <Right>
             <Title
               style={{
-                color: "#0ae",
-                width: "100%",
-                textAlign: "center",
-                margin: "1em 0",
-                padding: ".5em 0",
+                color: '#0ae',
+                width: '100%',
+                textAlign: 'center',
+                margin: '1em 0',
+                padding: '.5em 0',
               }}
             >
               orders
             </Title>
             <Table>
               {!orders ? (
-                <PulseLoader />
+                <p>no orders yet</p>
               ) : (
-                Object.values(orders).map((order) => (
+                Object.values(orders?.entities).map((order) => (
                   <Orders key={order.id} order={order} />
                 ))
               )}

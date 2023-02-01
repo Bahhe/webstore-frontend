@@ -1,8 +1,7 @@
 import React from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, FreeMode } from "swiper"
+import { Navigation, Lazy } from "swiper"
 import "swiper/css"
-import "swiper/css/free-mode"
 import styled from "styled-components"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
@@ -99,11 +98,11 @@ const ProductSlider = () => {
           prevEl: ".image-swiper-button-prev",
           disabledClass: "swiper-button-disabled",
         }}
-        modules={[Navigation, FreeMode]}
+        modules={[Navigation, Lazy]}
         slidesPerView={1}
         spaceBetween={80}
-        freeMode={true}
         loop={true}
+        lazy={true}
         breakpoints={{
           1600: {
             slidesPerView: 4,

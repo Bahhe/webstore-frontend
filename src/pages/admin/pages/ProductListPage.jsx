@@ -142,8 +142,8 @@ const ProductListPage = () => {
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
+          pageSize={20}
+          rowsPerPageOptions={[20]}
           checkboxSelection
         />
       </Grid>
@@ -153,7 +153,7 @@ const ProductListPage = () => {
   return (
     <Container>
       <Toaster toastOptions={{ position: 'top-center' }} />
-      {product?.length ? content : <p>no products found</p>}
+      {products ? content : <p>no products found</p>}
     </Container>
   )
 }

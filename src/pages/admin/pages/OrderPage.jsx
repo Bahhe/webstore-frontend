@@ -1,15 +1,15 @@
-import React, { useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import styled from "styled-components"
+import React, { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import styled from 'styled-components'
 import {
   useDeleteOrderMutation,
   useGetOrdersQuery,
   useUpdateOrderMutation,
-} from "../../../features/orders/ordersApiSlice"
-import OrderProduct from "./OrderProduct"
-import PulseLoader from "react-spinners/PulseLoader"
-import useTitle from "../../../hooks/useTitle"
-import FeedIcon from "@mui/icons-material/Feed"
+} from '../../../features/orders/ordersApiSlice'
+import OrderProduct from './OrderProduct'
+import PulseLoader from 'react-spinners/PulseLoader'
+import useTitle from '../../../hooks/useTitle'
+import FeedIcon from '@mui/icons-material/Feed'
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +49,7 @@ const Products = styled.div`
 
 const Status = styled.div`
   margin: 2em 0 0 1em;
+  width: 100%;
 `
 
 const Button = styled.button`
@@ -86,32 +87,34 @@ const Icon = styled.div`
 `
 
 const OrderPage = () => {
-  useTitle("TIMGAD. | Orders")
+  useTitle('TIMGAD. | Orders')
   const { orderId } = useParams()
   const navigate = useNavigate()
   const [updateOrder, { isSuccess: isOrderSuccess }] = useUpdateOrderMutation()
   const [deleteOrder, { isSuccess: isDeleteOrderSuccess }] =
     useDeleteOrderMutation()
-  const { order, isLoading, isSuccess } = useGetOrdersQuery("orders", {
-    selectFromResult: ({ data, isLoading, isSuccess }) => ({
+  const { order, isLoading, isSuccess, isError, error } = useGetOrdersQuery('orders', {
+    selectFromResult: ({ data, isLoading, isSuccess, isError, error }) => ({
       order: data?.entities[orderId],
       isLoading,
       isSuccess,
+      isError,
+      error,
     }),
   })
 
   useEffect(() => {
     if (isOrderSuccess) {
-      navigate("/admin/orders")
+      navigate('/admin/orders')
     }
   }, [isOrderSuccess, navigate])
 
   const handleApproved = async () => {
-    await updateOrder({ id: order.id, status: "approved" })
+    await updateOrder({ id: order.id, status: 'approved' })
   }
 
   const hanldePending = async () => {
-    await updateOrder({ id: order.id, status: "pending" })
+    await updateOrder({ id: order.id, status: 'pending' })
   }
 
   const handleDelete = async () => {
@@ -120,56 +123,64 @@ const OrderPage = () => {
 
   useEffect(() => {
     if (isDeleteOrderSuccess) {
-      navigate("/admin/orders")
+      navigate('/admin/orders')
     }
   }, [isDeleteOrderSuccess, navigate])
 
   useEffect(() => {
     if (isOrderSuccess) {
-      navigate("/admin/orders")
+      navigate('/admin/orders')
     }
   }, [isOrderSuccess, navigate])
 
+  let content
+
+  if (isError) {
+    content = <p>{error?.data?.message}</p>
+  }
+
   if (isLoading) {
-    return <PulseLoader />
+    content = <PulseLoader />
   }
   if (isSuccess) {
-    return (
+    content = (
       <Container>
         <MainTitle>order</MainTitle>
         <Wrapper>
           <Info>
             <InfoWrapper>
               <Icon>
-                <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
+                <FeedIcon style={{ opacity: '.5', fontSize: '3em' }} />
               </Icon>
               <Title>name:</Title>
-              <Content>{order && order.firstName + " " + order.lastName}</Content>
+              <Content>
+                {order && order.firstName + ' ' + order.lastName}
+              </Content>
             </InfoWrapper>
             <InfoWrapper>
               <Icon>
-                <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
+                <FeedIcon style={{ opacity: '.5', fontSize: '3em' }} />
               </Icon>
               <Title>email:</Title>
               <Content>{order && order.email}</Content>
             </InfoWrapper>
             <InfoWrapper>
               <Icon>
-                <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
+                <FeedIcon style={{ opacity: '.5', fontSize: '3em' }} />
               </Icon>
               <Title>city:</Title>
               <Content>{order && order.city}</Content>
             </InfoWrapper>
             <InfoWrapper>
               <Icon>
-                <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
+                <FeedIcon style={{ opacity: '.5', fontSize: '3em' }} />
               </Icon>
               <Title>phone number:</Title>
               <Content>{order && order.number}</Content>
             </InfoWrapper>
             <InfoWrapper>
               <Icon>
-                <FeedIcon style={{ opacity: ".5", fontSize: "3em" }} />
+                <FeedIcon style={{ opacity: '.5', fontSize: '3em' }} />
               </Icon>
               <Title>shipping method:</Title>
               <Content>{order && order.shipping}</Content>
@@ -177,20 +188,25 @@ const OrderPage = () => {
             <Status>
               <Button onClick={hanldePending}>pending</Button>
               <Button onClick={handleApproved}>approve</Button>
-              <Button style={{ backgroundColor: "red" }} onClick={handleDelete}>
+              <Button style={{ backgroundColor: 'red' }} onClick={handleDelete}>
                 delete
               </Button>
             </Status>
           </Info>
           <Products>
-            {order?.length ? order.products.map((productId) => (
-              <OrderProduct key={productId} productId={productId} />
-            )) : <p>no orders</p>}
+            {order ? (
+              order.products.map((productId) => (
+                <OrderProduct key={productId} productId={productId} />
+              ))
+            ) : (
+              <p>no products</p>
+            )}
           </Products>
         </Wrapper>
       </Container>
     )
   }
+  return content
 }
 
 export default OrderPage

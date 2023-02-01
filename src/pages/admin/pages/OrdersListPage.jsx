@@ -44,7 +44,15 @@ const OrdersListPage = () => {
   const navigate = useNavigate()
   const [deleteOrder, { isSuccess: isSuccessDeleted }] =
     useDeleteOrderMutation()
-  const { data: orders, isLoading, isSuccess } = useGetOrdersQuery('orders')
+  const {
+    data: orders,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetOrdersQuery({
+    refetchOnMountOrArgChange: true,
+  })
   useEffect(() => {
     if (isSuccessDeleted) {
       toast.success('Success!, order deleted', {
@@ -56,6 +64,9 @@ const OrdersListPage = () => {
   let content
   if (isLoading) {
     content = <Spinner />
+  }
+  if (isError) {
+    content = <p>{error?.data?.message}</p>
   }
 
   if (isSuccess) {
@@ -139,18 +150,17 @@ const OrdersListPage = () => {
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
           checkboxSelection
         />
       </Grid>
     )
   }
-
   return (
     <Container>
       <Toaster toastOptions={{ position: 'top-center' }} />
-      {orders?.length ? content : <p>no orders</p>}
+      {content}
     </Container>
   )
 }

@@ -1,21 +1,21 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useState, useRef } from "react"
-import styled from "styled-components"
-import Product from "./Product"
-import { useAddNewOrderMutation } from "../../features/orders/ordersApiSlice"
-import { Link, useNavigate } from "react-router-dom"
-import { resetCart } from "../../features/carts/cartSlice"
-import { mobile } from "../../assests/globalStyles/responsive"
-import useTitle from "../../hooks/useTitle"
-import useAuth from "../../hooks/useAuth"
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState, useRef } from 'react'
+import styled from 'styled-components'
+import Product from './Product'
+import { useAddNewOrderMutation } from '../../features/orders/ordersApiSlice'
+import { Link, useNavigate } from 'react-router-dom'
+import { resetCart } from '../../features/carts/cartSlice'
+import { mobile } from '../../assests/globalStyles/responsive'
+import useTitle from '../../hooks/useTitle'
+import useAuth from '../../hooks/useAuth'
 import {
   useGetUserByIdQuery,
   useUpdateUserMutation,
-} from "../../features/users/usersApiSlice"
-import PulseLoader from "react-spinners/PulseLoader"
-import emailjs from "@emailjs/browser"
-import { toast, Toaster } from "react-hot-toast"
+} from '../../features/users/usersApiSlice'
+import PulseLoader from 'react-spinners/PulseLoader'
+import emailjs from '@emailjs/browser'
+import { toast, Toaster } from 'react-hot-toast'
 
 const Container = styled.div`
   padding: 1em 0;
@@ -39,7 +39,7 @@ const SectionsContainer = styled.div`
   display: flex;
   gap: 2em;
   ${mobile({
-    flexDirection: "column",
+    flexDirection: 'column',
   })}
 `
 const LeftSection = styled.form`
@@ -122,7 +122,7 @@ const Option = styled.option``
 
 const Checkout = () => {
   const form = useRef()
-  useTitle("TIMGAD. | Checkout")
+  useTitle('TIMGAD. | Checkout')
   const { id } = useAuth()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -156,16 +156,15 @@ const Checkout = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("!Success, Wait for us to call you", {
-        duration: 3000,
-        icons: "🎉",
-      })
+      alert(
+        '!Congratulations, your order has been placed successfully we will call you soon to confirm your order'
+      )
       emailjs
         .sendForm(
-          "service_7ifymxp",
-          "template_1jluchl",
+          'service_7ifymxp',
+          'template_1jluchl',
           form.current,
-          "K2SgTvTxH6jO38nqH"
+          'K2SgTvTxH6jO38nqH'
         )
         .then(
           (result) => {
@@ -176,17 +175,17 @@ const Checkout = () => {
           }
         )
       dispatch(resetCart())
-      navigate("/")
+      navigate('/')
     }
   }, [isSuccess, navigate, dispatch])
 
-  const [email, setEmail] = useState("")
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [city, setCity] = useState("")
-  const [address, setAddress] = useState("")
-  const [phoneNumber, setPhoneNumber] = useState("")
-  const [shipping, setShipping] = useState("yaladine")
+  const [email, setEmail] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [city, setCity] = useState('')
+  const [address, setAddress] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [shipping, setShipping] = useState('yaladine')
   const [valid, setValid] = useState(false)
 
   const canSave = [
@@ -267,11 +266,11 @@ const Checkout = () => {
 
   return (
     <Container>
-      <Toaster toastOptions={{ position: "top-center" }} />
+      <Toaster toastOptions={{ position: 'top-center' }} />
       <PageTitle>checkout</PageTitle>
       <SmallTitle>shipping address</SmallTitle>
       {user && (
-        <p style={{ marginBottom: "1em", fontSize: ".8em", opacity: ".9" }}>
+        <p style={{ marginBottom: '1em', fontSize: '.8em', opacity: '.9' }}>
           click <Link to={`/user/${user.id}`}>here</Link> if you want to change
           your shipping address
         </p>
@@ -282,7 +281,7 @@ const Checkout = () => {
             <>
               <InputContainer>
                 <Label>
-                  <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                  <span style={{ color: 'red', fontWeight: '300' }}>*</span>
                   email address:
                 </Label>
                 <InputField
@@ -295,7 +294,7 @@ const Checkout = () => {
 
               <InputContainer>
                 <Label>
-                  <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                  <span style={{ color: 'red', fontWeight: '300' }}>*</span>
                   first name:
                 </Label>
                 <InputField
@@ -308,7 +307,7 @@ const Checkout = () => {
               </InputContainer>
               <InputContainer>
                 <Label>
-                  <span style={{ color: "red", fontWeight: "300" }}>*</span>last
+                  <span style={{ color: 'red', fontWeight: '300' }}>*</span>last
                   name
                 </Label>
                 <InputField
@@ -325,7 +324,7 @@ const Checkout = () => {
             user.address ? null : (
               <InputContainer>
                 <Label>
-                  <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                  <span style={{ color: 'red', fontWeight: '300' }}>*</span>
                   address:
                 </Label>
                 <InputField
@@ -340,7 +339,7 @@ const Checkout = () => {
           ) : (
             <InputContainer>
               <Label>
-                <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                <span style={{ color: 'red', fontWeight: '300' }}>*</span>
                 address:
               </Label>
               <InputField
@@ -356,7 +355,7 @@ const Checkout = () => {
             user.city ? null : (
               <InputContainer>
                 <Label>
-                  <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                  <span style={{ color: 'red', fontWeight: '300' }}>*</span>
                   city:
                 </Label>
                 <InputField
@@ -371,7 +370,7 @@ const Checkout = () => {
           ) : (
             <InputContainer>
               <Label>
-                <span style={{ color: "red", fontWeight: "300" }}>*</span>city:
+                <span style={{ color: 'red', fontWeight: '300' }}>*</span>city:
               </Label>
               <InputField
                 type="text"
@@ -386,7 +385,7 @@ const Checkout = () => {
             user.number ? null : (
               <InputContainer>
                 <Label>
-                  <span style={{ color: "red", fontWeight: "300" }}>*</span>
+                  <span style={{ color: 'red', fontWeight: '300' }}>*</span>
                   phone number:
                 </Label>
                 <InputField
@@ -401,7 +400,7 @@ const Checkout = () => {
           ) : (
             <InputContainer>
               <Label>
-                <span style={{ color: "red", fontWeight: "300" }}>*</span>phone
+                <span style={{ color: 'red', fontWeight: '300' }}>*</span>phone
                 number:
               </Label>
               <InputField
@@ -420,7 +419,7 @@ const Checkout = () => {
                 type="select"
                 id="shipping"
                 name="shipping"
-                value={shipping || "yalidine"}
+                value={shipping || 'yalidine'}
                 onChange={onShippingChanged}
               >
                 <Option value="yalidine">yalidine</Option>
@@ -433,27 +432,27 @@ const Checkout = () => {
               {isLoading || isLoadingUpdate ? (
                 <PulseLoader color="white" />
               ) : (
-                "next"
+                'next'
               )}
             </Button>
           </ButtonContainer>
         </LeftSection>
         <RightSection>
           <RightSectionContainer>
-            <Title style={{ textTransform: "uppercase" }}>order summary</Title>
+            <Title style={{ textTransform: 'uppercase' }}>order summary</Title>
             <Desc>items</Desc>
             {content}
             <Desc>products total</Desc>
-            <Desc style={{ padding: "1em 0" }}>{getTotal().totalPrice} DA</Desc>
+            <Desc style={{ padding: '1em 0' }}>{getTotal().totalPrice} DA</Desc>
             <Desc>approximate shippment price</Desc>
-            <Desc style={{ padding: "1em 0" }}>500 DA</Desc>
+            <Desc style={{ padding: '1em 0' }}>500 DA</Desc>
             <Desc>order total</Desc>
-            <Desc style={{ padding: "1em 0", color: "red" }}>
+            <Desc style={{ padding: '1em 0', color: 'red' }}>
               {getTotal().totalPrice + 10} DA
             </Desc>
             <Button
-              onClick={() => navigate("/cart")}
-              style={{ margin: "1em 0" }}
+              onClick={() => navigate('/cart')}
+              style={{ margin: '1em 0' }}
             >
               edit cart
             </Button>

@@ -2,8 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import SearchIcon from "@mui/icons-material/Search"
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
-import "swiper/css"
-import "swiper/css/free-mode"
+import "swiper/css/lazy"
 import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../../../../features/carts/cartSlice"
@@ -125,7 +124,7 @@ const Product = ({ productId }) => {
     content = (
       <Container>
         <ImgContainer onClick={() => navigate(`/shop/product/${product.id}`)}>
-          <Img src={product.img} />
+          <Img data-src={product.img} className='swiper-lazy'/>
           <LinksContainer>
             <LinksWrapper>
               <Links onClick={handleClick}>

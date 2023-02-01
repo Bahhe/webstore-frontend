@@ -1,10 +1,11 @@
-import React from "react"
-import styled, { keyframes } from "styled-components"
-import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
-import { useDispatch } from "react-redux"
-import { addToCart } from "../../../../features/carts/cartSlice"
-import { useNavigate } from "react-router-dom"
-import { mobile } from "../../../../assests/globalStyles/responsive"
+import React from 'react'
+import styled, { keyframes } from 'styled-components'
+import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../../../features/carts/cartSlice'
+import { useNavigate } from 'react-router-dom'
+import { mobile } from '../../../../assests/globalStyles/responsive'
+import 'swiper/css/lazy'
 
 const Wrapper = styled.div`
   min-width: 80vw;
@@ -15,7 +16,7 @@ const Wrapper = styled.div`
   transform: translateX(${(props) => props.slideIndex * -80}vw);
   transition: 0.5s ease-in-out;
   ${mobile({
-    flexDirection: "column",
+    flexDirection: 'column',
   })}
 `
 const Left = styled.div`
@@ -34,7 +35,7 @@ const ImageContainer = styled.div`
   cursor: pointer;
   width: 70%;
   ${mobile({
-    width: "90%",
+    width: '90%',
   })}
 `
 
@@ -58,7 +59,7 @@ const Title = styled.h1`
   cursor: pointer;
   margin: 1em 0;
   ${mobile({
-    fontSize: "1.6em",
+    fontSize: '1.6em',
   })}
 `
 const Desc = styled.p`
@@ -69,8 +70,8 @@ const Desc = styled.p`
   word-spacing: 0.4em;
   color: #ffffffbc;
   ${mobile({
-    width: "100%",
-    fontSize: ".9em",
+    width: '100%',
+    fontSize: '.9em',
   })}
 `
 
@@ -113,7 +114,7 @@ const Button = styled.button`
     border-radius: 10px;
   }
   &:before {
-    content: "";
+    content: '';
     background: linear-gradient(
       45deg,
       #ff0000,
@@ -150,7 +151,7 @@ const Button = styled.button`
   }
   &:after {
     z-index: -1;
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;
@@ -161,11 +162,11 @@ const Button = styled.button`
   }
 `
 
-const Product = ({ productId, slideIndex }) => {
+const Product = ({ productId }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { product } = useGetProductsQuery("products", {
+  const { product } = useGetProductsQuery('products', {
     selectFromResult: ({ data }) => ({
       product: data?.entities[productId],
     }),
@@ -181,19 +182,19 @@ const Product = ({ productId, slideIndex }) => {
           price: product.price,
         })
       )
-      navigate("/checkout")
+      navigate('/checkout')
     }
   }
 
   let content
 
   content = (
-    <Wrapper key={product && product.id} slideIndex={slideIndex}>
+    <Wrapper key={product && product.id}>
       <Left>
         <ImageContainer
           onClick={() => navigate(`/shop/product/${product && product.id}`)}
         >
-          <Image src={product && product.img} />
+          <Image data-src={product && product.img} className="swiper-lazy" />
         </ImageContainer>
       </Left>
       <Right>

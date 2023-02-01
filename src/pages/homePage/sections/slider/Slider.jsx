@@ -6,6 +6,10 @@ import Product from './Product'
 import styled from 'styled-components'
 import { mobile } from '../../../../assests/globalStyles/responsive'
 import Spinner from '../../../../components/Spinner'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Navigation, Pagination, Lazy } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 const Arrow = styled.div`
   display: flex;
@@ -82,8 +86,6 @@ const Slider = () => {
 
   let filteredIds
   let sliderContent
-  let dataLength
-  let handleClick
   if (isLoading) {
     sliderContent = <Spinner color="white" />
   }
@@ -96,36 +98,46 @@ const Slider = () => {
     filteredIds =
       ids?.length &&
       ids.filter((productId) => entities[productId].section.includes('slider'))
-    dataLength = filteredIds?.length && filteredIds.length - 1
-
-    handleClick = (direction) => {
-      if (direction === 'left') {
-        setSlideIndex(slideIndex > 0 ? slideIndex - 1 : dataLength)
-      } else {
-        setSlideIndex(slideIndex < dataLength ? slideIndex + 1 : 0)
-      }
-    }
 
     sliderContent =
       ids?.length &&
       filteredIds.map((productId) => (
-        <Product
-          key={productId}
-          productId={productId}
-          slideIndex={slideIndex}
-        />
+        <SwiperSlide key={productId}>
+          <Product productId={productId} slideIndex={slideIndex} />
+        </SwiperSlide>
       ))
   }
 
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick('left')}>
+      <Arrow direction="left" className="image-swiper-button-prev">
         <ArrowBackIosIcon style={{ fontSize: '1em' }} />
       </Arrow>
-      <Slide>{sliderContent}</Slide>
-      <Arrow ref={ref} direction="right" onClick={() => handleClick('right')}>
+      <Arrow ref={ref} direction="right" className="image-swiper-button-next">
         <ArrowForwardIosIcon style={{ fontSize: '1em' }} />
       </Arrow>
+      <Slide>
+        <Swiper
+          navigation={{
+            nextEl: '.image-swiper-button-next',
+            prevEl: '.image-swiper-button-prev',
+            disabledClass: 'swiper-button-disabled',
+          }}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            dynamicBullets: true,
+          }}
+          modules={[Navigation, Pagination, Autoplay, Lazy]}
+          slidesPerView={1}
+          loop={true}
+          lazy={true}
+        >
+          {sliderContent}
+        </Swiper>
+      </Slide>
     </Container>
   )
 }
