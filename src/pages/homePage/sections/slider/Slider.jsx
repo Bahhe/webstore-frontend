@@ -121,7 +121,7 @@ const Slider = () => {
             disabledClass: 'swiper-button-disabled',
           }}
           autoplay={{
-            delay: 2500,
+            delay: 3000,
             disableOnInteraction: false,
           }}
           pagination={{

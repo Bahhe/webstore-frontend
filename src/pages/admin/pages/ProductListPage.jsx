@@ -66,10 +66,13 @@ const ProductListPage = () => {
     data: products,
     isLoading,
     isSuccess,
-  } = useListProductsQuery({
-    search,
-    limit: 9999,
-  })
+  } = useListProductsQuery(
+    {
+      search,
+      limit: 9999,
+    },
+    { refetchOnMountOrArgChange: true }
+  )
 
   useEffect(() => {
     if (isSuccessDeleted) {
