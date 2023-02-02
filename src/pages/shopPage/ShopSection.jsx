@@ -312,7 +312,10 @@ const ShopSection = () => {
   }
 
   let shopProducts
-  if (isLoading) shopProducts = <Spinner color="black" />
+  if (isLoading) {
+    shopProducts = <Spinner color="black" />
+  }
+
   shopProducts =
     products && !products?.products?.length ? (
       <p>no product found</p>
@@ -525,7 +528,8 @@ const ShopSection = () => {
           <Left>
             <NumberOfItems>
               {products && products?.products?.length > 1 ? 'items' : 'item'}{' '}
-              {products && products?.products?.length} of {products && products?.total}
+              {products && products?.products?.length} of{' '}
+              {products && products?.total}
             </NumberOfItems>
           </Left>
           <Right>
@@ -552,23 +556,27 @@ const ShopSection = () => {
         <ProductsContainer>{shopProducts}</ProductsContainer>
         <NavigationBar style={{ justifyContent: 'center' }}>
           <LayoutSection>
-            {products && page > 1 && <Grid onClick={handlePageBackward}>&#8592;</Grid>}
-            {products && [...Array(Math.ceil(products?.total / products?.limit))].map(
-              (val, index) => (
-                <Num
-                  onClick={() => handlePageNumber(index + 1)}
-                  key={index}
-                  style={{ fontSize: '.9em' }}
-                  state={index + 1}
-                  page={page}
-                >
-                  {index + 1}
-                </Num>
-              )
+            {products && page > 1 && (
+              <Grid onClick={handlePageBackward}>&#8592;</Grid>
             )}
-            {products && page < Math.ceil(products?.total / products?.limit) && (
-              <Grid onClick={handlePageForward}>&#8594;</Grid>
-            )}
+            {products &&
+              [...Array(Math.ceil(products?.total / products?.limit))].map(
+                (val, index) => (
+                  <Num
+                    onClick={() => handlePageNumber(index + 1)}
+                    key={index}
+                    style={{ fontSize: '.9em' }}
+                    state={index + 1}
+                    page={page}
+                  >
+                    {index + 1}
+                  </Num>
+                )
+              )}
+            {products &&
+              page < Math.ceil(products?.total / products?.limit) && (
+                <Grid onClick={handlePageForward}>&#8594;</Grid>
+              )}
           </LayoutSection>
         </NavigationBar>
       </ProductsSection>

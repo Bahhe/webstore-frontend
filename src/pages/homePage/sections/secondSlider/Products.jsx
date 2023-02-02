@@ -60,7 +60,6 @@ const Title = styled.div`
   font-weight: 500;
   margin: 0 0 1em 0;
   cursor: pointer;
-  color: #f4fffd;
 `
 const Points = styled.div`
   display: flex;
@@ -68,12 +67,11 @@ const Points = styled.div`
   font-size: 0.9em;
   opacity: 0.8;
   margin: 0 0 0.5em 0;
-  color: white;
+  text-transform: uppercase;
 `
 const Price = styled.div`
   font-size: 1.7em;
   margin: 1em 0 1em 0;
-  color: #f7f7ff;
 `
 const BtnsContainer = styled.div`
   display: flex;
@@ -181,7 +179,6 @@ const Products = ({ productId }) => {
               </span>
               <span
                 style={{
-                  textTransform: 'capitalize',
                   margin: '0 0 0 1em',
                   fontWeight: '400',
                 }}
@@ -201,7 +198,6 @@ const Products = ({ productId }) => {
               />
               <span
                 style={{
-                  textTransform: 'uppercase',
                   fontWeight: '400',
                 }}
               >
@@ -209,7 +205,6 @@ const Products = ({ productId }) => {
               </span>
               <span
                 style={{
-                  textTransform: 'capitalize',
                   margin: '0 0 0 1em',
                   fontWeight: '400',
                 }}
@@ -237,7 +232,6 @@ const Products = ({ productId }) => {
               </span>
               <span
                 style={{
-                  textTransform: 'capitalize',
                   margin: '0 0 0 1em',
                   fontWeight: '400',
                 }}
@@ -265,7 +259,6 @@ const Products = ({ productId }) => {
               </span>
               <span
                 style={{
-                  textTransform: 'capitalize',
                   margin: '0 0 0 1em',
                   fontWeight: '400',
                 }}
@@ -293,7 +286,6 @@ const Products = ({ productId }) => {
               </span>
               <span
                 style={{
-                  textTransform: 'capitalize',
                   margin: '0 0 0 1em',
                   fontWeight: '400',
                 }}

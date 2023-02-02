@@ -3,23 +3,24 @@ import { DataGrid } from '@mui/x-data-grid'
 import { Delete } from '@mui/icons-material'
 import {
   useDeleteProductMutation,
-  useGetProductsQuery,
+  useListProductsQuery,
 } from '../../../features/products/productsApiSlice'
 import { useNavigate } from 'react-router-dom'
 import PulseLoader from 'react-spinners/PulseLoader'
 import useTitle from '../../../hooks/useTitle'
 import { Tooltip } from '@mui/material'
 import { toast, Toaster } from 'react-hot-toast'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const Grid = styled.div``
 
 const Container = styled.div`
   width: 90%;
   height: 100vh;
-  margin: 5em 0 0 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `
 const CellContainer = styled.div`
   display: flex;
@@ -44,6 +45,13 @@ const DeleteButton = styled.button`
   background-color: transparent;
   border: none;
 `
+const Search = styled.input`
+  width: 30%;
+  margin: 1em 0;
+  padding: 1em;
+  border: 1px solid #300e0e6d;
+  border-radius: 1em;
+`
 
 const ProductListPage = () => {
   useTitle('TIMGAD. | Products')
@@ -52,12 +60,15 @@ const ProductListPage = () => {
   const [deleteProduct, { isSuccess: isSuccessDeleted }] =
     useDeleteProductMutation()
 
+  const [search, setSearch] = useState('')
+
   const {
     data: products,
     isLoading,
     isSuccess,
-  } = useGetProductsQuery('products', {
-    refetchOnMountOrArgChange: true,
+  } = useListProductsQuery({
+    search,
+    limit: 9999,
   })
 
   useEffect(() => {
@@ -128,7 +139,7 @@ const ProductListPage = () => {
       },
     ]
 
-    const rows = Object.values(products?.entities).map((product) => ({
+    const rows = Object.values(products.products).map((product) => ({
       id: product.id,
       image: product.img,
       title: product.title,
@@ -153,6 +164,11 @@ const ProductListPage = () => {
   return (
     <Container>
       <Toaster toastOptions={{ position: 'top-center' }} />
+      <Search
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="search products..."
+      />
       {products ? content : <p>no products found</p>}
     </Container>
   )

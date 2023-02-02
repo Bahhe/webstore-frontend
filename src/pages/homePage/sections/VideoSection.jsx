@@ -20,7 +20,7 @@ overflow: hidden;
     display: "none",
   })}
   &::before {
-    background-color: #ff1777;
+    background-color: #FF2F7B;
     content: '';
     position: absolute;
     top: 0;

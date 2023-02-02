@@ -85,7 +85,7 @@ const Form = styled.form`
 
 const Label = styled.label`
   text-transform: capitalize;
-  opacity: 0.6;
+  opacity: 0.9;
   font-weight: 500;
   margin: 0 0 0.5em 0;
 `
@@ -102,7 +102,7 @@ const Input = styled.input`
   background-color: transparent;
   box-shadow: 0 0 5px #ccc;
   &::placeholder {
-    opacity: 0.2;
+    opacity: 0.7;
   }
 `
 const InStock = styled.input`
@@ -339,6 +339,7 @@ const CreateProductPage = () => {
                   <Option value="hp">hp</Option>
                   <Option value="lenovo">lenovo</Option>
                   <Option value="asus">asus</Option>
+                  <Option value="hp">hp</Option>
                   <Option value="other">other</Option>
                 </Select>
                 <Wrapper>

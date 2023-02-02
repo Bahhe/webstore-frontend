@@ -34,7 +34,8 @@ const Left = styled.section`
   margin: 1em;
   padding: 1em;
   box-shadow: 0 0 20px #ccc;
-  border-radius: 3em;
+  border-radius: 1em;
+  border: 1px solid rgba(0, 0, 0, 0.15);
 `
 const Title = styled.h1`
   font-size: 1.5em;
@@ -42,7 +43,7 @@ const Title = styled.h1`
   font-weight: 500;
 `
 const UsersList = styled.div`
-  height: 50vh;
+  height: 56vh;
   overflow-y: auto;
   padding: 0 1em;
 `
@@ -52,6 +53,13 @@ const User = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 1em 0 0 0;
+  padding: 0.2em;
+  border-radius: 1em;
+  background: linear-gradient(
+    90deg,
+    rgba(230, 220, 220, 1) 0%,
+    rgba(255, 255, 255, 0.6783088235294117) 100%
+  );
 `
 const Image = styled.img`
   width: 3em;
@@ -82,11 +90,12 @@ const Right = styled.section`
   margin: 1em;
   padding: 1em;
   box-shadow: 0 0 20px #ccc;
-  border-radius: 3em;
+  border-radius: 1em;
+  border: 1px solid rgba(0, 0, 0, 0.15);
 `
 const Table = styled.section`
   overflow-y: auto;
-  height: 15em;
+  height: 10em;
   padding: 0 2em 2em 2em;
 `
 const Wrapper = styled.div`
@@ -109,10 +118,11 @@ const Item = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
-  padding: 3em 4em;
-  border-radius: 3em;
+  padding: 2em 3em;
+  border-radius: 1em;
   box-shadow: 0 0 20px #ccc;
   cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.15);
 `
 const ItemName = styled.h3`
   font-weight: 400;
@@ -135,7 +145,7 @@ const Chart = styled.section`
   margin: 1em;
   padding: 1em;
   box-shadow: 0 0 20px #ccc;
-  border-radius: 3em;
+  border-radius: 1em;
 `
 
 const data = [
@@ -207,13 +217,13 @@ const HomePageContent = () => {
 
   const navigate = useNavigate()
 
-  const { data : products } = useGetProductsQuery({
+  const { data: products } = useGetProductsQuery({
     refetchOnMountOrArgChange: true,
   })
   const { data: orders } = useGetOrdersQuery({
     refetchOnMountOrArgChange: true,
   })
-  const { data: users} = useGetUsersQuery({
+  const { data: users } = useGetUsersQuery({
     refetchOnMountOrArgChange: true,
   })
 
@@ -223,26 +233,28 @@ const HomePageContent = () => {
         <Item onClick={() => navigate('/admin/products')}>
           <Inventory style={{ fontSize: '2em', color: '#5757f3' }} />
           <ItemQuantity>
-            {products ? Object.values(products?.entities).length: 0}
+            {products ? Object.values(products?.entities).length : 0}
           </ItemQuantity>
           <ItemName>total products</ItemName>
         </Item>
         <Item onClick={() => navigate('/admin/users')}>
           <GroupOutlined style={{ fontSize: '2em', color: '#5757f3' }} />
-          <ItemQuantity>{users ? Object.values(users?.entities).length : 0}</ItemQuantity>
+          <ItemQuantity>
+            {users ? Object.values(users?.entities).length : 0}
+          </ItemQuantity>
           <ItemName>total members</ItemName>
         </Item>
         <Item onClick={() => navigate('/admin/orders')}>
           <ListAltOutlined style={{ fontSize: '2em', color: '#5757f3' }} />
-          <ItemQuantity>{orders ? Object.values(orders?.entities).length : 0}</ItemQuantity>
+          <ItemQuantity>
+            {orders ? Object.values(orders?.entities).length : 0}
+          </ItemQuantity>
           <ItemName>total orders</ItemName>
         </Item>
       </Statistics>
       <Wrapper style={{ alignItems: 'flex-start' }}>
         <Left>
-          <Title style={{ color: '#0ae', width: '100%', textAlign: 'center' }}>
-            members
-          </Title>
+          <Title style={{ width: '100%', textAlign: 'center' }}>members</Title>
           <UsersList>
             {!users ? (
               <p>no users</p>
@@ -272,8 +284,9 @@ const HomePageContent = () => {
           <Chart
             style={{
               boxShadow: '0 0 20px #ccc',
-              borderRadius: '3em',
+              borderRadius: '1em',
               padding: '1em',
+              border: '1px solid rgba(0, 0, 0, 0.15)',
             }}
           >
             <LineChart
@@ -313,7 +326,6 @@ const HomePageContent = () => {
           <Right>
             <Title
               style={{
-                color: '#0ae',
                 width: '100%',
                 textAlign: 'center',
                 margin: '.5em 0',

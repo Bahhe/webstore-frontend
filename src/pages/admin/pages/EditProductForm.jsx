@@ -1,15 +1,16 @@
-import styled from "styled-components"
-import { useNavigate } from "react-router-dom"
-import { useUpdateProductMutation } from "../../../features/products/productsApiSlice"
-import { useState, useEffect } from "react"
+import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import { useUpdateProductMutation } from '../../../features/products/productsApiSlice'
+import { useState, useEffect } from 'react'
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
-} from "firebase/storage"
-import app from "../../../services/firebase"
-import CircularProgress from "@mui/material/CircularProgress"
+} from 'firebase/storage'
+import app from '../../../services/firebase'
+import CircularProgress from '@mui/material/CircularProgress'
+import { Close } from '@mui/icons-material'
 
 const Container = styled.main`
   display: flex;
@@ -90,7 +91,7 @@ const Form = styled.form`
 
 const Label = styled.label`
   text-transform: capitalize;
-  opacity: 0.6;
+  opacity: 0.9;
   font-weight: 500;
   margin: 0 0 0.5em 0;
 `
@@ -151,7 +152,8 @@ const EditProductForm = ({ product }) => {
   const navigate = useNavigate()
   const [updateProduct, { isSuccess, isLoading }] = useUpdateProductMutation()
 
-  const [file, setFile] = useState("")
+  const [showImage, setShowImage] = useState(false)
+  const [file, setFile] = useState('')
   const [progress, setProgress] = useState(0)
 
   const [title, setTitle] = useState(product.title)
@@ -159,25 +161,25 @@ const EditProductForm = ({ product }) => {
   const [price, setPrice] = useState(product.price)
   const [stock, setStock] = useState(product.inStock || false)
   const [slider, setSlider] = useState(
-    product.section.includes("slider") || false
+    product.section.includes('slider') || false
   )
   const [secondSlider, setSecondSlider] = useState(
-    product.section.includes("secondSlider") || false
+    product.section.includes('secondSlider') || false
   )
   const [categories, setCategories] = useState(
-    product.categories.includes("allInOne")
-      ? "allInOne"
-      : product.categories.includes("gaming")
-      ? "gaming"
-      : product.categories.includes("tablet")
-      ? "tablet"
-      : product.categories.includes("apple")
-      ? "apple"
-      : product.categories.includes("chromebook")
-      ? "chromebook"
-      : product.categories.includes("touchScreen")
-      ? "touchScreen"
-      : "other"
+    product.categories.includes('allInOne')
+      ? 'allInOne'
+      : product.categories.includes('gaming')
+      ? 'gaming'
+      : product.categories.includes('tablet')
+      ? 'tablet'
+      : product.categories.includes('apple')
+      ? 'apple'
+      : product.categories.includes('chromebook')
+      ? 'chromebook'
+      : product.categories.includes('touchScreen')
+      ? 'touchScreen'
+      : 'other'
   )
   const [cpu, setCpu] = useState(product.cpu)
   const [ram, setRam] = useState(product.ram)
@@ -185,24 +187,27 @@ const EditProductForm = ({ product }) => {
   const [display, setDisplay] = useState(product.display)
   const [vga, setVga] = useState(product.vga)
   const [brand, setBrand] = useState(
-    product.categories.includes("dell")
-      ? "dell"
-      : product.categories.includes("acer")
-      ? "acer"
-      : product.categories.includes("apple")
-      ? "apple"
-      : product.categories.includes("hp")
-      ? "hp"
-      : product.categories.includes("lenovo")
-      ? "lenovo"
-      : product.categories.includes("asus")
-      ? "asus"
-      : "other"
+    product.categories.includes('dell')
+      ? 'dell'
+      : product.categories.includes('acer')
+      ? 'acer'
+      : product.categories.includes('apple')
+      ? 'apple'
+      : product.categories.includes('hp')
+      ? 'hp'
+      : product.categories.includes('lenovo')
+      ? 'lenovo'
+      : product.categories.includes('asus')
+      ? 'asus'
+      : product.categories.includes('hp')
+      ? 'hp'
+      : 'other'
   )
 
   const [valid, setValid] = useState(false)
 
-  const canSave = [description, cpu, ram, disk, vga, price].every(Boolean) && !isLoading
+  const canSave =
+    [description, cpu, ram, disk, vga, price].every(Boolean) && !isLoading
 
   useEffect(() => {
     if (canSave) {
@@ -211,7 +216,7 @@ const EditProductForm = ({ product }) => {
   }, [cpu, description, disk, price, ram, vga, canSave])
   useEffect(() => {
     if (isSuccess) {
-      navigate("/admin/products")
+      navigate('/admin/products')
     }
   }, [isSuccess, navigate])
 
@@ -225,7 +230,7 @@ const EditProductForm = ({ product }) => {
     setDescription(e.target.value)
   }
   const onPriceChanged = (e) => {
-    setPrice(e.target.value.replace(/\D/g, ""))
+    setPrice(e.target.value.replace(/\D/g, ''))
   }
   const onStockChanged = (e) => {
     setStock((prev) => !prev)
@@ -266,16 +271,20 @@ const EditProductForm = ({ product }) => {
       const storageRef = ref(storage, fileName)
       const uploadTask = uploadBytesResumable(storageRef, file)
       uploadTask.on(
-        "state_changed",
+        'state_changed',
         (snapshot) => {
           setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-          console.log("Upload is " + (snapshot.bytesTransferred / snapshot.totalBytes) * 100 + "% done")
+          console.log(
+            'Upload is ' +
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100 +
+              '% done'
+          )
           switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused")
+            case 'paused':
+              console.log('Upload is paused')
               break
-            case "running":
-              console.log("Upload is running")
+            case 'running':
+              console.log('Upload is running')
               break
             default:
               break
@@ -294,8 +303,8 @@ const EditProductForm = ({ product }) => {
               categories: [categories, brand],
               price: price,
               section: [
-                slider ? "slider" : "",
-                secondSlider ? "secondSlider" : "",
+                slider ? 'slider' : '',
+                secondSlider ? 'secondSlider' : '',
               ],
               inStock: stock,
               cpu: cpu,
@@ -316,7 +325,7 @@ const EditProductForm = ({ product }) => {
         img: product.img,
         categories: [categories, brand],
         price: price,
-        section: [slider ? "slider" : "", secondSlider ? "secondSlider" : ""],
+        section: [slider ? 'slider' : '', secondSlider ? 'secondSlider' : ''],
         inStock: stock,
         cpu: cpu,
         ram: ram,
@@ -326,19 +335,19 @@ const EditProductForm = ({ product }) => {
       }
       await updateProduct(productObject)
     }
-    setFile("")
-    setTitle("")
-    setDescription("")
-    setPrice("")
+    setFile('')
+    setTitle('')
+    setDescription('')
+    setPrice('')
     setSlider(false)
     setSecondSlider(false)
     setStock(true)
-    setCpu("")
-    setRam("")
-    setDisk("")
-    setDisplay("")
-    setVga("")
-    navigate("/admin/products")
+    setCpu('')
+    setRam('')
+    setDisk('')
+    setDisplay('')
+    setVga('')
+    navigate('/admin/products')
   }
 
   const content = (
@@ -346,7 +355,7 @@ const EditProductForm = ({ product }) => {
       <Edit>
         <Header>
           <Title>edit</Title>
-          <Button onClick={() => navigate("/admin/product/create")}>
+          <Button onClick={() => navigate('/admin/product/create')}>
             create
           </Button>
         </Header>
@@ -407,7 +416,44 @@ const EditProductForm = ({ product }) => {
               <FormTwo>
                 <Label>image:</Label>
                 <ImageSection>
-                  <ProductImage src={product.img} />
+                  {showImage && (
+                    <div
+                      onClick={() => setShowImage((prev) => !prev)}
+                      style={{
+                        position: 'fixed',
+                        top: '-200px',
+                        left: '50%',
+                        width: '70vw',
+                        transform: 'translate(-50%, 50%)',
+                        height: '70vh',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Close
+                        style={{
+                          color: 'white',
+                          cursor: 'pointer',
+                          position: 'fixed',
+                          right: '2em',
+                          top: '2em',
+                        }}
+                      />
+                      <img
+                        src={product.img}
+                        style={{
+                          maxWidth: '80%',
+                        }}
+                      />
+                    </div>
+                  )}
+                  <ProductImage
+                    onClick={() => setShowImage((prev) => !prev)}
+                    src={product.img}
+                  />
                 </ImageSection>
                 <Label>new image:</Label>
                 <ImageInput type="file" id="file" onChange={onImageChanged} />
@@ -433,6 +479,7 @@ const EditProductForm = ({ product }) => {
                   <Option value="lenovo">lenovo</Option>
                   <Option value="apple">apple</Option>
                   <Option value="asus">asus</Option>
+                  <Option value="hp">hp</Option>
                   <Option value="other">other</Option>
                 </Select>
                 <Label htmlFor="stock">stock:</Label>
@@ -471,8 +518,10 @@ const EditProductForm = ({ product }) => {
                 </Sections>
                 {progress ? (
                   <>
-                    <CircularProgress style={{ margin: "0 auto" }} />
-                    <p style={{ margin: ".5em auto", fontSize: '.8em' }} >{Math.round(progress)}%</p>
+                    <CircularProgress style={{ margin: '0 auto' }} />
+                    <p style={{ margin: '.5em auto', fontSize: '.8em' }}>
+                      {Math.round(progress)}%
+                    </p>
                   </>
                 ) : (
                   <Button disabled={!valid}>update</Button>
