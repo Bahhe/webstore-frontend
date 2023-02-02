@@ -423,7 +423,6 @@ const Checkout = () => {
                 onChange={onShippingChanged}
               >
                 <Option value="yalidine">yalidine</Option>
-                <Option value="EMS">EMS</Option>
               </Select>
             </Wrapper>
           </Shipping>
