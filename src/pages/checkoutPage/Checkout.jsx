@@ -448,7 +448,7 @@ const Checkout = () => {
             <Desc style={{ padding: '1em 0' }}>500 DA</Desc>
             <Desc>order total</Desc>
             <Desc style={{ padding: '1em 0', color: 'red' }}>
-              {getTotal().totalPrice + 10} DA
+              {getTotal().totalPrice + 500} DA
             </Desc>
             <Button
               onClick={() => navigate('/cart')}
