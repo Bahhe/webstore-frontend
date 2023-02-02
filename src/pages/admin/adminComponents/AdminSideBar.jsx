@@ -66,7 +66,7 @@ const Admin = styled.section`
   })}
 `
 const AdminSideBar = () => {
-  const { data: orders } = useGetOrdersQuery({
+  const { data: orders } = useGetOrdersQuery('orders', {
     refetchOnMountOrArgChange: true,
   })
   const numberOfOrders =

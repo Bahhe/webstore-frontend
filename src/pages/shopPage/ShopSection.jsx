@@ -250,6 +250,8 @@ const ShopSection = () => {
     sort,
     search,
     limit,
+  }, {
+    refetchOnMountOrArgChange: true,
   })
 
   const handleFilters = (e) => {

@@ -217,13 +217,13 @@ const HomePageContent = () => {
 
   const navigate = useNavigate()
 
-  const { data: products } = useGetProductsQuery({
+  const { data: products } = useGetProductsQuery('products', {
     refetchOnMountOrArgChange: true,
   })
-  const { data: orders } = useGetOrdersQuery({
+  const { data: orders } = useGetOrdersQuery('orders', {
     refetchOnMountOrArgChange: true,
   })
-  const { data: users } = useGetUsersQuery({
+  const { data: users } = useGetUsersQuery('users', {
     refetchOnMountOrArgChange: true,
   })
 
