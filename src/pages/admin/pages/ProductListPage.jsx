@@ -144,7 +144,7 @@ const ProductListPage = () => {
       image: product.img,
       title: product.title,
       description: product.desc,
-      stock: product.inStock ? 'inStock' : 'notInStock',
+      stock: product.inStock ? 'In stock' : 'Out of stock',
       price: product.price,
     }))
 

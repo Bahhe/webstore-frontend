@@ -200,7 +200,7 @@ const ViewProduct = () => {
         <Title>{product.title}</Title>
         <Price>{product.price} DA</Price>
         <Desc>{product.desc}</Desc>
-        <InStock>{product.inStock ? "in stock." : "not in stock"}</InStock>
+        <InStock>{product.inStock ? "In stock." : "Out of stock"}</InStock>
         <ButtonContainer>
           <Button onClick={onAddToCartClicked}>
             <ShoppingCartOutlinedIcon style={{ margin: "0 .7em 0 0" }} />
