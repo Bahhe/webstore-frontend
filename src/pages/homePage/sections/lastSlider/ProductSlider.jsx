@@ -1,6 +1,6 @@
 import React from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Lazy } from "swiper"
+import { Navigation } from "swiper"
 import "swiper/css"
 import styled from "styled-components"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
@@ -98,11 +98,10 @@ const ProductSlider = () => {
           prevEl: ".image-swiper-button-prev",
           disabledClass: "swiper-button-disabled",
         }}
-        modules={[Navigation, Lazy]}
+        modules={[Navigation]}
         slidesPerView={1}
         spaceBetween={80}
         loop={true}
-        lazy={true}
         breakpoints={{
           1600: {
             slidesPerView: 4,

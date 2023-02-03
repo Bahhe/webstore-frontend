@@ -1,13 +1,13 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
 import Product from './Product'
 import styled from 'styled-components'
 import { mobile } from '../../../../assests/globalStyles/responsive'
 import Spinner from '../../../../components/Spinner'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Navigation, Pagination, Lazy } from 'swiper'
+import { Autoplay, Navigation, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
@@ -50,9 +50,17 @@ const Container = styled.div`
     margin: '4em 0 0 0',
   })}
   &::before {
-    background: #0575E6;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #0575e6; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #021b79,
+      #0575e6
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #021b79,
+      #0575e6
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     content: '';
     position: absolute;
@@ -128,10 +136,9 @@ const Slider = () => {
           pagination={{
             dynamicBullets: true,
           }}
-          modules={[Navigation, Pagination, Autoplay, Lazy]}
+          modules={[Navigation, Pagination, Autoplay]}
           slidesPerView={1}
           loop={true}
-          lazy={true}
         >
           {sliderContent}
         </Swiper>

@@ -5,107 +5,24 @@ import { useNavigate } from 'react-router-dom'
 import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../../../../features/carts/cartSlice'
-import { mobile } from '../../../../assests/globalStyles/responsive'
 import Spinner from '../../../../components/Spinner'
-import 'swiper/css/lazy'
+import {
+  Content,
+  ImgContainer,
+  Img,
+  InfoContainer,
+  Title,
+  Points,
+  Price,
+  BtnsContainer,
+  AddToCart,
+  ShopNow,
+} from './Products.styles'
 
 const Slide = styled.div`
   min-width: 100%;
   display: flex;
   transform: translateX(${(props) => props.slideIndex * -100}%);
-  transition: 0.3s ease-in-out;
-`
-
-const Content = styled.div`
-  min-width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 5em;
-  ${mobile({
-    flexDirection: 'column',
-  })}
-`
-const ImgContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  width: 50%;
-  ${mobile({
-    width: '100%',
-    marginTop: '1em',
-  })}
-`
-const Img = styled.img`
-  width: 70%;
-  object-fit: contain;
-  ${mobile({
-    width: '100%',
-  })}
-`
-const InfoContainer = styled.div`
-  width: 50%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-left: 5em;
-  ${mobile({
-    width: '85%',
-    margin: '0',
-  })}
-`
-const Title = styled.div`
-  font-size: 2em;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin: 0 0 1em 0;
-  cursor: pointer;
-`
-const Points = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 0.9em;
-  opacity: 0.8;
-  margin: 0 0 0.5em 0;
-  text-transform: uppercase;
-`
-const Price = styled.div`
-  font-size: 1.7em;
-  margin: 1em 0 1em 0;
-`
-const BtnsContainer = styled.div`
-  display: flex;
-`
-const AddToCart = styled.div`
-  text-transform: capitalize;
-  text-align: center;
-  width: 10em;
-  height: 3em;
-  padding: 1em;
-  margin: 0 0.3em 0 0;
-  background-color: #2e282a;
-  color: white;
-  border-radius: 0.5em;
-  &:hover {
-    background-color: white;
-    color: #2e282a;
-  }
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-`
-const ShopNow = styled.div`
-  text-transform: capitalize;
-  text-align: center;
-  width: 10em;
-  height: 3em;
-  padding: 1em;
-  background-color: white;
-  border-radius: 0.5em;
-  &:hover {
-    background-color: #2e282a;
-    color: white;
-  }
-  cursor: pointer;
   transition: 0.3s ease-in-out;
 `
 
@@ -153,7 +70,7 @@ const Products = ({ productId }) => {
       <Slide>
         <Content key={product.id}>
           <ImgContainer onClick={() => navigate(`/shop/product/${product.id}`)}>
-            <Img data-src={product.img} className="swiper-lazy" />
+            <Img src={product.img} />
           </ImgContainer>
           <InfoContainer>
             <Title onClick={() => navigate(`/shop/product/${product.id}`)}>

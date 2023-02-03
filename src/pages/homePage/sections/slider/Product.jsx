@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 import { addToCart } from '../../../../features/carts/cartSlice'
 import { useNavigate } from 'react-router-dom'
 import { mobile } from '../../../../assests/globalStyles/responsive'
-import 'swiper/css/lazy'
 
 const Wrapper = styled.div`
   min-width: 80vw;
@@ -194,7 +193,7 @@ const Product = ({ productId }) => {
         <ImageContainer
           onClick={() => navigate(`/shop/product/${product && product.id}`)}
         >
-          <Image data-src={product && product.img} className="swiper-lazy" />
+          <Image src={product && product.img} />
         </ImageContainer>
       </Left>
       <Right>
@@ -210,7 +209,6 @@ const Product = ({ productId }) => {
       </Right>
     </Wrapper>
   )
-
   return content
 }
 

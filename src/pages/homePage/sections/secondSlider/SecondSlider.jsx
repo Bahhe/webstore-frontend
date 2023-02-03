@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { mobile } from '../../../../assests/globalStyles/responsive'
 import Spinner from '../../../../components/Spinner'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Navigation, Pagination, Lazy } from 'swiper'
+import { Autoplay, Navigation, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
@@ -136,10 +136,9 @@ const SecondSlider = () => {
           pagination={{
             dynamicBullets: true,
           }}
-          modules={[Navigation, Pagination, Autoplay, Lazy]}
+          modules={[Navigation, Pagination, Autoplay]}
           slidesPerView={1}
           loop={true}
-          lazy={true}
         >
           {sliderContent}
         </Swiper>
