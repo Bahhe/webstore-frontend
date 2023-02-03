@@ -10,6 +10,7 @@ const Container = styled.div`
   ${mobile({
     flexDirection: 'column',
     width: '100%',
+    padding: '1em 0',
   })}
 `
 const FilterSection = styled.div`
@@ -109,6 +110,9 @@ const NumberOfItems = styled.div`
   text-align: right;
   font-size: 0.8em;
   color: rgba(0, 0, 0, 0.8);
+  ${mobile({
+    display: 'none',
+  })}
 `
 const SortBySection = styled.div`
   display: flex;
@@ -132,6 +136,21 @@ const SortOptions = styled.select`
     width: '8em',
   })}
 `
+const CategoryOptions = styled.select`
+display: none;
+  height: 2.5em;
+  margin: 0 1em 0 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.2em;
+  text-transform: capitalize;
+  border-radius: 1em;
+  padding: 0.5em 1em;
+  border: none;
+  ${mobile({
+    width: '8em',
+    display: 'block',
+  })}
+`
 const Options = styled.option``
 
 const ProductsContainer = styled.div`
@@ -150,6 +169,9 @@ const ProductsTitle = styled.h1`
   font-weight: 600;
   text-transform: uppercase;
   padding: 0 0 1em 0;
+  ${mobile({
+    display: 'none',
+  })}
 `
 
 const SearchContainer = styled.div`
@@ -208,4 +230,5 @@ export {
   Container,
   FilterSection,
   TitleSection,
+  CategoryOptions,
 }

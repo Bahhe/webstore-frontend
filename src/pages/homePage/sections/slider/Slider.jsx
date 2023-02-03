@@ -5,11 +5,11 @@ import { useGetProductsQuery } from '../../../../features/products/productsApiSl
 import Product from './Product'
 import styled from 'styled-components'
 import { mobile } from '../../../../assests/globalStyles/responsive'
-import Spinner from '../../../../components/Spinner'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Navigation, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import Loader from '../../../../components/Loader'
 
 const Arrow = styled.div`
   display: flex;
@@ -93,7 +93,7 @@ const Slider = () => {
   let filteredIds
   let sliderContent
   if (isLoading) {
-    sliderContent = <Spinner color="white" />
+    return <Loader color="black" />
   }
   if (isError) {
     sliderContent = <p>{error?.data?.message}</p>

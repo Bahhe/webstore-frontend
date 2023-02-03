@@ -36,6 +36,7 @@ import {
   Container,
   FilterSection,
   TitleSection,
+  CategoryOptions
 } from './ShopSection.styles'
 
 const Num = styled.div`
@@ -72,6 +73,9 @@ const Grid = styled.div`
     background-color: orange;
     color: white;
   }
+  ${mobile({
+    fontSize: '1.5em',
+  })}
 `
 
 const ShopSection = () => {
@@ -125,6 +129,15 @@ const ShopSection = () => {
     setLimit(9)
     setSearch('')
     setSort(e.target.value)
+    refetch()
+  }
+
+  const handleCategory = (e) => {
+    setCategory(e.target.value)
+    setPage(1)
+    setLimit(9)
+    setSearch('')
+    setSort('newest')
     refetch()
   }
 
@@ -384,12 +397,25 @@ const ShopSection = () => {
               {products && products?.products?.length} of{' '}
               {products && products?.total}
             </NumberOfItems>
+            <CategoryOptions onChange={handleCategory}>
+              <Options value="">category</Options>
+              <Options value="allInOne">all in one</Options>
+              <Options value="tablet">tablet</Options>
+              <Options value="gaming">gaming pc</Options>
+              <Options value="chromebook">chromebook</Options>
+              <Options value="hp">hp</Options>
+              <Options value="dell">dell</Options>
+              <Options value="asus">asus</Options>
+              <Options value="lenovo">lenovo</Options>
+              <Options value="acer">acer</Options>
+              <Options value="apple">apple</Options>
+            </CategoryOptions>
           </Left>
           <Right>
             <SortBySection>
-              <SortTitle>sort by :</SortTitle>
+              <SortTitle>sort:</SortTitle>
               <SortOptions onChange={handleSort}>
-                <Options value="newest">newest</Options>
+                <Options value="newest">latest</Options>
                 <Options value="lowest">price: lowest - highest</Options>
                 <Options value="highest">price: highest - lowest</Options>
               </SortOptions>
