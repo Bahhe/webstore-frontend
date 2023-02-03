@@ -35,7 +35,6 @@ const Brand = styled.div`
   font-size: 3em;
   font-weight: 700;
   font-style: italic;
-  font-family: "Bebas Neue", cursive;
   cursor: pointer;
   transition: 0.5s ease-out;
   ::before {

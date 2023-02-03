@@ -1,14 +1,14 @@
-import React from "react"
-import styled from "styled-components"
-import cpu from "../../../assests/images/cpu.webp"
-import ram from "../../../assests/images/ram.webp"
-import ssd from "../../../assests/images/ssd.webp"
-import gpu from "../../../assests/images/gpu.webp"
-import { mobile } from "../../../assests/globalStyles/responsive"
+import React from 'react'
+import styled from 'styled-components'
+import cpu from '../../../assests/images/cpu.webp'
+import ram from '../../../assests/images/ram.webp'
+import ssd from '../../../assests/images/ssd.webp'
+import gpu from '../../../assests/images/gpu.webp'
+import { mobile } from '../../../assests/globalStyles/responsive'
 
 const Container = styled.div`
-position: relative;
-overflow: hidden;
+  position: relative;
+  overflow: hidden;
   display: flex;
   margin: 5em 0 0 0;
   padding: 1em;
@@ -17,10 +17,21 @@ overflow: hidden;
     flex-direction: column;
   }
   ${mobile({
-    display: "none",
+    display: 'none',
   })}
   &::before {
-    background-color: #FF2F7B;
+    background: #fd746c; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #ff9068,
+      #fd746c
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #ff9068,
+      #fd746c
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     content: '';
     position: absolute;
     top: 0;
@@ -53,8 +64,8 @@ const Image = styled.img`
 const Desc = styled.p`
   width: 30ch;
   text-align: center;
-  color: rgba(255,255,255,0.8);
-  letter-spacing: .1em;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.1em;
   text-transform: capitalize;
 `
 const Title = styled.h3`

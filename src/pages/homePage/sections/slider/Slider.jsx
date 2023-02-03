@@ -50,19 +50,22 @@ const Container = styled.div`
     margin: '4em 0 0 0',
   })}
   &::before {
+    background: #0575E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #4b2fff;
-    transform: skewY(15deg);
+    transform: skewY(-10deg);
+    z-index: -1;
   }
 `
 
 const Slide = styled.div`
-  overflow: hidden;
   width: 80%;
   margin: 0 auto;
   display: flex;
@@ -70,8 +73,6 @@ const Slide = styled.div`
 
 const Slider = () => {
   const ref = useRef(null)
-
-  const [slideIndex, setSlideIndex] = useState(0)
 
   const {
     data: products,
@@ -100,7 +101,7 @@ const Slider = () => {
       ids?.length &&
       filteredIds.map((productId) => (
         <SwiperSlide key={productId}>
-          <Product productId={productId} slideIndex={slideIndex} />
+          <Product productId={productId} />
         </SwiperSlide>
       ))
   }

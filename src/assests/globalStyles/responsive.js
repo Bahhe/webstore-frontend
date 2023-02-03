@@ -16,14 +16,6 @@ export const mobile = (props) => {
   `
 }
 
-export const tablet = (props) => {
-  return css`
-    @media only screen and (max-width: 1200px) {
-      ${props}
-    }
-  `
-}
-
 export const mobileCart = (props) => {
   return css`
     @media only screen and (min-width: 480px) {

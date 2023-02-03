@@ -1,98 +1,24 @@
-import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
-import { mobile } from "../../../assests/globalStyles/responsive"
-import Loader from "../../../components/Loader"
-import { useAddNewUserMutation } from "../../users/usersApiSlice"
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import Loader from '../../../components/Loader'
+import { useAddNewUserMutation } from '../../users/usersApiSlice'
+import {
+  Form,
+  Container,
+  Title,
+  Left,
+  Right,
+  SectionTitle,
+  SmallTitle,
+  Input,
+  RadioButton,
+  Label,
+  Radio,
+  Button,
+  LegalInformations,
+} from './RegisterSection.styles'
 
-const Form = styled.form`
-  width: 80%;
-  position: relative;
-  padding-bottom: 5em;
-  padding-top: 10em;
-`
-const Container = styled.main`
-  width: 100%;
-  display: flex;
-  gap: 2em;
-  ${mobile({
-    flexDirection: "column",
-  })}
-`
-const Title = styled.h2`
-  width: 100%;
-  font-size: 2.5em;
-  font-weight: 400;
-  text-transform: capitalize;
-  padding: 0.5em 0;
-  ${mobile({
-    display: "none",
-  })}
-`
-const Left = styled.section`
-  flex: 1;
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 1em;
-`
-const Right = styled.section`
-  flex: 1;
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 1em;
-`
-const SectionTitle = styled.h2`
-  font-size: 1.3em;
-  text-transform: uppercase;
-  padding: 1em 0;
-  margin: 1em 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  opacity: 0.7;
-`
-const SmallTitle = styled.label`
-  text-transform: capitalize;
-  font-weight: 500;
-  opacity: 0.9;
-`
-const Input = styled.input`
-  width: 100%;
-  height: 2.9em;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 1em 0;
-`
-const RadioButton = styled.div`
-  margin: 2em 0;
-  display: flex;
-`
-const Label = styled.label`
-  margin: 0 0 0 1em;
-  text-transform: capitalize;
-  opacity: 0.9;
-`
-const Radio = styled.input`
-  width: 2em;
-  border: none;
-  cursor: pointer;
-`
-const Button = styled.button`
-  width: 10em;
-  font-size: 1.2em;
-  font-weight: 500;
-  text-transform: uppercase;
-  background-color: #333;
-  border: none;
-  color: white;
-  text-align: center;
-  padding: 0.7em;
-  margin: 1em 0;
-  cursor: pointer;
-  &:disabled {
-    opacity: 0.5;
-  }
-`
-const LegalInformations = styled.footer`
-  font-size: 0.8em;
-  opacity: 0.8;
-`
 const USER_REGEX = /^[A-z]{3,10}$/
 const PWD_REGEX = /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
 const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
@@ -104,10 +30,10 @@ const RegisterSection = () => {
   const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false)
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [newsLetter, setNewsLetter] = useState(false)
   const [validPassword, setValidPassword] = useState(false)
   const [validFirstName, setValidFirstName] = useState(false)
@@ -132,11 +58,11 @@ const RegisterSection = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setFirstName("")
-      setLastName("")
-      setEmail("")
-      setPassword("")
-      navigate("/login")
+      setFirstName('')
+      setLastName('')
+      setEmail('')
+      setPassword('')
+      navigate('/login')
     }
   }, [isSuccess, navigate])
 
@@ -166,14 +92,16 @@ const RegisterSection = () => {
       <Container>
         <Left>
           <SectionTitle>personal information</SectionTitle>
-          <span style={{ color: "red" }}>
+          <span style={{ color: 'red' }}>
             {isError && error?.status !== 409 && error?.data?.message}
           </span>
-          <SmallTitle htmlFor="firstName"><span style={{color: 'red', fontWeight: '300'}} >*</span>first name</SmallTitle>
+          <SmallTitle htmlFor="firstName">
+            <span style={{ color: 'red', fontWeight: '300' }}>*</span>first name
+          </SmallTitle>
           <br />
           {firstName && !validFirstName && (
             <span
-              style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
+              style={{ color: 'red', fontSize: '.8em', margin: '0 0 0 1em' }}
             >
               * First Name length 3 to 8 characters and only English letters
             </span>
@@ -186,11 +114,13 @@ const RegisterSection = () => {
             value={firstName}
             onChange={onFirstNameChanged}
           />
-          <SmallTitle htmlFor="lastName"><span style={{color: 'red', fontWeight: '300'}} >*</span>last name</SmallTitle>
+          <SmallTitle htmlFor="lastName">
+            <span style={{ color: 'red', fontWeight: '300' }}>*</span>last name
+          </SmallTitle>
           <br />
           {lastName && !validLastName && (
             <span
-              style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
+              style={{ color: 'red', fontSize: '.8em', margin: '0 0 0 1em' }}
             >
               * First Name length 3 to 8 characters and only English letters
             </span>
@@ -215,34 +145,36 @@ const RegisterSection = () => {
           </RadioButton>
           <LegalInformations>
             By continuing, you agree to Timgad's
-            <Link style={{ textDecoration: "none" }} to="">
-              {" "}
-              Conditions of Use{" "}
+            <Link style={{ textDecoration: 'none' }} to="">
+              {' '}
+              Conditions of Use{' '}
             </Link>
             and
-            <Link style={{ textDecoration: "none" }} to="">
-              {" "}
-              Privacy Notice.{" "}
+            <Link style={{ textDecoration: 'none' }} to="">
+              {' '}
+              Privacy Notice.{' '}
             </Link>
           </LegalInformations>
-          <p style={{ fontSize: ".9em", marginTop: "1em", opacity: ".8" }}>
+          <p style={{ fontSize: '.9em', marginTop: '1em', opacity: '.8' }}>
             Already have an account ? <Link to="/login">sign in</Link>
           </p>
         </Left>
         <Right>
           <SectionTitle>sign-in information</SectionTitle>
-          <SmallTitle htmlFor="email"><span style={{color: 'red', fontWeight: '300'}} >*</span>email</SmallTitle>
+          <SmallTitle htmlFor="email">
+            <span style={{ color: 'red', fontWeight: '300' }}>*</span>email
+          </SmallTitle>
           <br />
           {email && !validEmail && (
             <span
-              style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
+              style={{ color: 'red', fontSize: '.8em', margin: '0 0 0 1em' }}
             >
               * Email is not valid
             </span>
           )}
           {isError && error?.status === 409 && (
             <span
-              style={{ color: "red", fontSize: ".8em", margin: "0 0 0 1em" }}
+              style={{ color: 'red', fontSize: '.8em', margin: '0 0 0 1em' }}
             >
               {error?.data?.message} <Link to="/login">login</Link>
             </span>
@@ -254,31 +186,33 @@ const RegisterSection = () => {
             value={email}
             onChange={onEmailChanged}
           />
-          <SmallTitle htmlFor="password"><span style={{color: 'red', fontWeight: '300'}} >*</span>password</SmallTitle>
+          <SmallTitle htmlFor="password">
+            <span style={{ color: 'red', fontWeight: '300' }}>*</span>password
+          </SmallTitle>
           <br />
           <span
             style={{
-              color: "red",
-              fontSize: ".8em",
-              margin: "0 0 0 3em",
-              textTransform: "capitalize",
+              color: 'red',
+              fontSize: '.8em',
+              margin: '0 0 0 3em',
+              textTransform: 'capitalize',
             }}
           >
             {password && !validPassword && (
               <>
                 <br />
-                <span style={{ margin: "0 0 0 1em" }}>
+                <span style={{ margin: '0 0 0 1em' }}>
                   * Passwords will contain at least 1 upper case letter
                 </span>
                 <br />
-                <span style={{ margin: "0 0 0 1em" }}>
+                <span style={{ margin: '0 0 0 1em' }}>
                   * 1 lower case letter
                 </span>
                 <br />
-                <span style={{ margin: "0 0 0 1em" }}>
+                <span style={{ margin: '0 0 0 1em' }}>
                   * 1 number or special character
                 </span>
-                <span style={{ margin: "0 0 0 1em" }}>
+                <span style={{ margin: '0 0 0 1em' }}>
                   * only English Letters
                 </span>
               </>
@@ -287,7 +221,7 @@ const RegisterSection = () => {
           <Input
             id="password"
             name="password"
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={onPasswordChanged}
           />
