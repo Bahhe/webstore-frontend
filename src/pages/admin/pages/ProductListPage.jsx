@@ -66,16 +66,20 @@ const ProductListPage = () => {
     data: products,
     isLoading,
     isSuccess,
+    refetch,
   } = useListProductsQuery(
     {
       search,
       limit: 9999,
     },
-    { refetchOnMountOrArgChange: true }
+    {
+      refetchOnMountOrArgChange: true,
+    }
   )
 
   useEffect(() => {
     if (isSuccessDeleted) {
+      refetch()
       toast.success('Success!, product Deleted', {
         duration: 3000,
         icon: '🎉',

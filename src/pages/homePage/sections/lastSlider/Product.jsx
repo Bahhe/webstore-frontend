@@ -1,13 +1,13 @@
-import React from "react"
-import styled from "styled-components"
-import SearchIcon from "@mui/icons-material/Search"
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
-import { useGetProductsQuery } from "../../../../features/products/productsApiSlice"
-import { useDispatch } from "react-redux"
-import { addToCart } from "../../../../features/carts/cartSlice"
-import { useNavigate } from "react-router-dom"
-import { StarBorder } from "@mui/icons-material"
-import Spinner from "../../../../components/Spinner"
+import React from 'react'
+import styled from 'styled-components'
+import SearchIcon from '@mui/icons-material/Search'
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../../../features/carts/cartSlice'
+import { useNavigate } from 'react-router-dom'
+import { StarBorder } from '@mui/icons-material'
+import Spinner from '../../../../components/Spinner'
 
 const LinksWrapper = styled.div`
   display: flex;
@@ -27,10 +27,9 @@ const Links = styled.div`
 `
 const LinksContainer = styled.div`
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,7 +95,7 @@ const StarsContainer = styled.div`
 const Product = ({ productId }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { product, isLoading, isSuccess } = useGetProductsQuery("products", {
+  const { product, isLoading, isSuccess } = useGetProductsQuery('products', {
     selectFromResult: ({ data, isLoading, isSuccess }) => ({
       product: data?.entities[productId],
       isLoading,
@@ -122,15 +121,15 @@ const Product = ({ productId }) => {
   if (isSuccess) {
     content = (
       <Container>
-        <ImgContainer onClick={() => navigate(`/shop/product/${product.id}`)}>
-          <Img src={product.img}/>
+        <ImgContainer>
+          <Img onClick={() => navigate(`/shop/product/${product.id}`)} src={product.img} />
           <LinksContainer>
             <LinksWrapper>
               <Links onClick={handleClick}>
-                <ShoppingCartOutlinedIcon style={{ fontSize: "1.6em" }} />
+                <ShoppingCartOutlinedIcon style={{ fontSize: '1.6em' }} />
               </Links>
               <Links onClick={() => navigate(`/shop/product/${product.id}`)}>
-                <SearchIcon style={{ fontSize: "1.6em" }} />
+                <SearchIcon style={{ fontSize: '1.6em' }} />
               </Links>
             </LinksWrapper>
           </LinksContainer>
@@ -139,11 +138,11 @@ const Product = ({ productId }) => {
           {product.title}
         </Title>
         <StarsContainer>
-          <StarBorder style={{ fontSize: "1em", color: "orange" }} />
-          <StarBorder style={{ fontSize: "1em", color: "orange" }} />
-          <StarBorder style={{ fontSize: "1em", color: "orange" }} />
-          <StarBorder style={{ fontSize: "1em", color: "orange" }} />
-          <StarBorder style={{ fontSize: "1em", color: "orange" }} />
+          <StarBorder style={{ fontSize: '1em', color: 'orange' }} />
+          <StarBorder style={{ fontSize: '1em', color: 'orange' }} />
+          <StarBorder style={{ fontSize: '1em', color: 'orange' }} />
+          <StarBorder style={{ fontSize: '1em', color: 'orange' }} />
+          <StarBorder style={{ fontSize: '1em', color: 'orange' }} />
         </StarsContainer>
         <Price>{product.price} DA</Price>
       </Container>

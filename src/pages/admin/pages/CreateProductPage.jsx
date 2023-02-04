@@ -74,6 +74,7 @@ const CreateProductPage = () => {
   }, [isSuccess, navigate])
 
   const onSubmitClicked = (e) => {
+    setValid(prev => !prev)
     e.preventDefault()
     const fileName = new Date().getTime() + file.name
     const storage = getStorage(app)
