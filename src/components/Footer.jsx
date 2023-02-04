@@ -38,9 +38,11 @@ const Footer = () => {
             <LogoImage src={logo} alt="logo" />
           </Title>
           <Desc>
-            TIMGAD INFORMATIQUE is a well-known business in Algeria's Batna,
-            with over 20 years of experience in selling and repairing
-            laptops.♥.️
+            Timgad Informatique is an established business in the city of Batna,
+            Algeria with over 20 years of experience in the sale and repair of
+            laptops. Our highly-trained staff are dedicated to providing the
+            highest quality services, ensuring customer satisfaction is our top
+            priority ♥.️
           </Desc>
         </Left>
         <Middle>
