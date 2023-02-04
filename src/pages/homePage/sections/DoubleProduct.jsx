@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { mobile } from "../../../assests/globalStyles/responsive"
+import { tablet } from "../../../assests/globalStyles/responsive"
 
 const Container = styled.div`
   width: 80%;
@@ -10,7 +10,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1em;
-  ${mobile({ display: "none" })}
+  ${tablet({ display: "none" })}
 `
 const ImgOne = styled.img`
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
@@ -22,7 +22,7 @@ const ImgOne = styled.img`
   &:hover {
     opacity: 0.8;
   }
-  ${mobile({ width: "100%" })}
+  ${tablet({ width: "100%" })}
 `
 
 const ImgTwo = styled.img`
@@ -35,7 +35,7 @@ const ImgTwo = styled.img`
   &:hover {
     opacity: 0.8;
   }
-  ${mobile({ width: "100%" })}
+  ${tablet({ width: "100%" })}
 `
 
 const DoubleProduct = () => {

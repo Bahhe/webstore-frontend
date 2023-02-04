@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import CartProduct from "./CartProduct"
 import { useSelector } from "react-redux"
-import { mobile } from "../../assests/globalStyles/responsive"
+import { tablet } from "../../assests/globalStyles/responsive"
 import useTitle from "../../hooks/useTitle"
 
 const Container = styled.div`
   width: 100%;
-  ${mobile({
+  ${tablet({
     width: '90%',
     flexDirection: "column",
     alignItems: "center",
@@ -19,7 +19,7 @@ const TitleSection = styled.div``
 const MainContent = styled.div`
   display: flex;
   gap: 5em;
-  ${mobile({
+  ${tablet({
     flexDirection: "column",
   })}
 `

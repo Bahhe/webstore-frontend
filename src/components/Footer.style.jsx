@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { mobile } from '../assests/globalStyles/responsive'
+import { tablet } from '../assests/globalStyles/responsive'
 
 const Container = styled.footer`
   background-color: #2e2e2e;
@@ -13,7 +13,7 @@ const UpperSection = styled.section`
   justify-content: center;
   align-items: center;
   margin: 1em 3em 3em 3em;
-  ${mobile({
+  ${tablet({
     flexDirection: 'column',
     margin: '9em 3em 3em 3em',
   })}
@@ -139,7 +139,7 @@ const IconWrapper = styled.div``
 
 const LogoImage = styled.img`
   width: 50%;
-  ${mobile({
+  ${tablet({
     width: '100%',
   })}
 `

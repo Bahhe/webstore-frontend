@@ -1,13 +1,13 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { setCredentials } from "../../features/auth/authSlice"
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { setCredentials } from '../../features/auth/authSlice'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://api.timgadinformatique.store",
-  credentials: "include",
+  baseUrl: 'https://api.timgadinformatique.store',
+  credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token
     if (token) {
-      headers.set("authorization", `Bearer ${token}`)
+      headers.set('authorization', `Bearer ${token}`)
     }
     return headers
   },
@@ -16,13 +16,13 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
   if (result?.error?.status === 403) {
-    const refreshResult = await baseQuery("/auth/refresh", api, extraOptions)
+    const refreshResult = await baseQuery('/auth/refresh', api, extraOptions)
     if (refreshResult?.data) {
       api.dispatch(setCredentials({ ...refreshResult.data }))
       result = await baseQuery(args, api, extraOptions)
     } else {
       if (refreshResult?.error?.status === 403) {
-        refreshResult.error.data.message = "Your login has expired. "
+        refreshResult.error.data.message = 'Your login has expired. '
       }
       return refreshResult
     }
@@ -31,8 +31,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 }
 
 export const apiSlice = createApi({
-  reducerPath: "api",
+  reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["Product", "Cart", "Order", "User"],
+  tagTypes: ['Product', 'Cart', 'Order', 'User'],
   endpoints: (builder) => ({}),
 })

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { laptop } from '../../../../assests/globalStyles/responsive'
+import { laptop, smallLaptop } from '../../../../assests/globalStyles/responsive'
 
 const Container = styled.main`
   display: flex;
@@ -15,6 +15,9 @@ const Left = styled.section`
   box-shadow: 0 0 20px #ccc;
   border-radius: 1em;
   border: 1px solid rgba(0, 0, 0, 0.15);
+  ${smallLaptop({
+    width: '100%',
+  })}
 `
 const Title = styled.h1`
   font-size: 1.5em;
@@ -25,6 +28,9 @@ const UsersList = styled.div`
   height: 56vh;
   overflow-y: auto;
   padding: 0 1em;
+  ${smallLaptop({
+    height: '40vh',
+  })}
 `
 
 const User = styled.div`
@@ -80,6 +86,9 @@ const Table = styled.section`
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  ${smallLaptop({
+    flexDirection: 'column-reverse',
+  })}
 `
 const Statistics = styled.section`
   padding: 2em 1em;

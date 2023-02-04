@@ -153,7 +153,7 @@ const HomePageContent = () => {
             ) : (
               Object.values(users.entities).map((user) => (
                 <User key={user.id}>
-                  <Wrapper>
+                  <Wrapper style={{ flexDirection: 'row' }}>
                     <Image src="https://firebasestorage.googleapis.com/v0/b/webstore-d48be.appspot.com/o/user(1).png?alt=media&token=477b5102-c1b2-4580-a74b-c3ce9907acae" />
                     <UserInfo>
                       <Name>{`${user.firstName} ${user.lastName}`}</Name>

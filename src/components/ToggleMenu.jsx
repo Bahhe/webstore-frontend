@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { PulseLoader } from "react-spinners"
 import styled from "styled-components"
-import { mobile } from "../assests/globalStyles/responsive"
+import { mobile, tablet } from "../assests/globalStyles/responsive"
 import { useSendLogoutMutation } from "../features/auth/authApiSlice"
 import { selectCurrentToken } from "../features/auth/authSlice"
 import { useGetUserByIdQuery } from "../features/users/usersApiSlice"
@@ -25,7 +25,7 @@ const Container = styled.div`
   box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.2);
   transform: translateX(${(props) => props.translate});
   transition: 300ms ease-in-out;
-  ${mobile({
+  ${tablet({
     display: "flex",
   })}
 `

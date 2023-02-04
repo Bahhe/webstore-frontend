@@ -1,10 +1,10 @@
-import React from "react"
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
-import { mobile } from "../../../assests/globalStyles/responsive"
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
+import { tablet } from '../../../assests/globalStyles/responsive'
 import allInOne from '../../../assests/images/allInOne.webp'
 import gaming from '../../../assests/images/gaming.webp'
-import tablet from '../../../assests/images/tablet.webp'
+import Tablet from '../../../assests/images/tablet.webp'
 import chromebook from '../../../assests/images/chromebook.webp'
 import apple from '../../../assests/images/apple.webp'
 
@@ -17,13 +17,13 @@ const Container = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 20em);
   grid-template-areas:
-    "allInOne gaming gaming pcTablet"
-    "allInOne chromebook macs macs";
-  ${mobile({
-    display: "flex",
-    flexDirection: "column",
-    width: "80%",
-    margin: '0 auto'
+    'allInOne gaming gaming pcTablet'
+    'allInOne chromebook macs macs';
+  ${tablet({
+    display: 'flex',
+    flexDirection: 'column',
+    width: '80%',
+    margin: '0 auto',
   })}
 `
 const AllInOne = styled.div`
@@ -47,12 +47,12 @@ const AllInOne = styled.div`
     background: none;
     cursor: pointer;
   }
-  ${mobile({
-    height: "10em",
+  ${tablet({
+    height: '10em',
   })}
 `
 const PcTablet = styled.div`
-  background: url(${tablet});
+  background: url(${Tablet});
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -72,8 +72,8 @@ const PcTablet = styled.div`
     background: none;
     cursor: pointer;
   }
-  ${mobile({
-    height: "10em",
+  ${tablet({
+    height: '10em',
   })}
 `
 const Gaming = styled.div`
@@ -97,8 +97,8 @@ const Gaming = styled.div`
     background: none;
     cursor: pointer;
   }
-  ${mobile({
-    height: "10em",
+  ${tablet({
+    height: '10em',
   })}
 `
 const ChromeBook = styled.div`
@@ -122,8 +122,8 @@ const ChromeBook = styled.div`
     background: none;
     cursor: pointer;
   }
-  ${mobile({
-    height: "10em",
+  ${tablet({
+    height: '10em',
   })}
 `
 const Macs = styled.div`
@@ -147,27 +147,27 @@ const Macs = styled.div`
     background: none;
     cursor: pointer;
   }
-  ${mobile({
-    height: "10em",
+  ${tablet({
+    height: '10em',
   })}
 `
 const Categories = () => {
   const navigate = useNavigate()
   return (
     <Container>
-      <AllInOne onClick={() => navigate("/shop?category=allInOne")}>
+      <AllInOne onClick={() => navigate('/shop?category=allInOne')}>
         all in one
       </AllInOne>
-      <PcTablet onClick={() => navigate("/shop?category=tablet")}>
+      <PcTablet onClick={() => navigate('/shop?category=tablet')}>
         tablet pc
       </PcTablet>
-      <Gaming onClick={() => navigate("/shop?category=gaming")}>
+      <Gaming onClick={() => navigate('/shop?category=gaming')}>
         gaming pc
       </Gaming>
-      <ChromeBook onClick={() => navigate("/shop?category=chromebook")}>
+      <ChromeBook onClick={() => navigate('/shop?category=chromebook')}>
         chromebook
       </ChromeBook>
-      <Macs onClick={() => navigate("/shop?category=apple")}>apple</Macs>
+      <Macs onClick={() => navigate('/shop?category=apple')}>apple</Macs>
     </Container>
   )
 }

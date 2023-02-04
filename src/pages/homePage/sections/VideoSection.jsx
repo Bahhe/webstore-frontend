@@ -4,19 +4,20 @@ import cpu from '../../../assests/images/cpu.webp'
 import ram from '../../../assests/images/ram.webp'
 import ssd from '../../../assests/images/ssd.webp'
 import gpu from '../../../assests/images/gpu.webp'
-import { mobile } from '../../../assests/globalStyles/responsive'
+import { smallLaptop, tablet } from '../../../assests/globalStyles/responsive'
 
 const Container = styled.div`
   position: relative;
   overflow: hidden;
   display: flex;
+  justify-content: center;
   margin: 5em 0 0 0;
   padding: 1em;
   background-size: cover;
-  @media only screen and (max-width: 1280px) {
+  @media only screen and (max-width: 1024px) {
     flex-direction: column;
   }
-  ${mobile({
+  ${tablet({
     display: 'none',
   })}
   &::before {
@@ -40,7 +41,7 @@ const Container = styled.div`
     height: 100%;
     transform: skew(0deg, 6deg);
     z-index: -1;
-  }
+  } 
 `
 const Section = styled.section`
   margin: 1em;
@@ -49,6 +50,9 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  ${smallLaptop({
+    gap: '0',
+  })}
 `
 const Image = styled.img`
   width: 15rem;
@@ -60,6 +64,9 @@ const Image = styled.img`
   &:hover {
     filter: blur(5px);
   }
+  ${smallLaptop({
+    transform: 'scale(.70)',
+  })}
 `
 const Desc = styled.p`
   width: 30ch;
@@ -67,11 +74,17 @@ const Desc = styled.p`
   color: rgba(255, 255, 255, 0.8);
   letter-spacing: 0.1em;
   text-transform: capitalize;
+  ${smallLaptop({
+    transform: 'scale(.70)',
+  })}
 `
 const Title = styled.h3`
   font-size: 2em;
   text-transform: uppercase;
   color: #ffffffe5;
+  ${smallLaptop({
+    transform: 'scale(.70)',
+  })}
 `
 
 const VideoSection = () => {

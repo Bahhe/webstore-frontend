@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { mobile } from "../assests/globalStyles/responsive"
+import { mobile, tablet } from "../assests/globalStyles/responsive"
 
 const Title = styled.div`
   width: 100%;
@@ -13,10 +13,14 @@ const Title = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 4em 0 4em 0;
+  margin: 4em auto;
   ${mobile({
     width: "80%",
     fontSize: "1.3em",
+    display: (props) => props.display,
+  })}
+  ${tablet({
+    width: "80%",
     display: (props) => props.display,
   })}
   ::before {

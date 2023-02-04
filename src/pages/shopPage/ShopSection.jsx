@@ -9,7 +9,7 @@ import hp from '../../assests/images/hp.png'
 import { SiDell, SiAcer, SiAsus, SiApple, SiLenovo } from 'react-icons/si'
 import { FaLaptop } from 'react-icons/fa'
 import styled from 'styled-components'
-import { mobile } from '../../assests/globalStyles/responsive'
+import { tablet } from '../../assests/globalStyles/responsive'
 import {
   NavigationBar,
   Left,
@@ -54,7 +54,7 @@ const Num = styled.div`
     background-color: orange;
     color: white;
   }
-  ${mobile({
+  ${tablet({
     display: 'none',
   })}
 `
@@ -73,7 +73,7 @@ const Grid = styled.div`
     background-color: orange;
     color: white;
   }
-  ${mobile({
+  ${tablet({
     fontSize: '1.5em',
   })}
 `

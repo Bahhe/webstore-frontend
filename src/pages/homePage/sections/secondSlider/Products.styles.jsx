@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { mobile } from '../../../../assests/globalStyles/responsive'
+import { mobile, tablet } from '../../../../assests/globalStyles/responsive'
 
 
 const Content = styled.div`
@@ -7,7 +7,7 @@ const Content = styled.div`
   display: flex;
   align-items: center;
   gap: 5em;
-  ${mobile({
+  ${tablet({
     flexDirection: 'column',
   })}
 `

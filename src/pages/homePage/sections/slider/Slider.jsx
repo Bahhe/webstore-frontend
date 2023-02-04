@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { useGetProductsQuery } from '../../../../features/products/productsApiSlice'
 import Product from './Product'
 import styled from 'styled-components'
-import { mobile } from '../../../../assests/globalStyles/responsive'
+import { mobile, tabletMin } from '../../../../assests/globalStyles/responsive'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Navigation, Pagination } from 'swiper'
 import 'swiper/css'
@@ -48,6 +48,10 @@ const Container = styled.div`
   ${mobile({
     width: '100%',
     margin: '4em 0 0 0',
+  })}
+  ${tabletMin({
+    width: '100%',
+    margin: '6em 0 0 0',
   })}
   &::before {
     background: #0575e6; /* fallback for old browsers */

@@ -1,4 +1,4 @@
-import { mobile } from '../../assests/globalStyles/responsive'
+import { tablet } from '../../assests/globalStyles/responsive'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -22,7 +22,7 @@ const SectionsContainer = styled.div`
   width: 100%;
   display: flex;
   gap: 2em;
-  ${mobile({
+  ${tablet({
     flexDirection: 'column',
   })}
 `

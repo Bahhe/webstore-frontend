@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import { useGetUsersQuery } from '../../../features/users/usersApiSlice'
 import { useSendLogoutMutation } from '../../../features/auth/authApiSlice'
-import { laptop } from '../../../assests/globalStyles/responsive'
+import { laptop, smallLaptop } from '../../../assests/globalStyles/responsive'
 import Loader from '../../../components/Loader'
 import { FaUserAlt } from 'react-icons/fa'
 import { Badge, Fab, Tooltip } from '@mui/material'
@@ -148,7 +148,6 @@ const AdminSideBar = () => {
           </Tooltip>
         </ListItem>
         <ListItem
-          style={{ color: 'red', marginTop: '1em' }}
           onClick={() => navigate('/admin/product/create')}
         >
           <Tooltip title="add product">

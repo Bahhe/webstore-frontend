@@ -9,7 +9,7 @@ import { useGetProductByIdQuery } from "../../features/products/productsApiSlice
 import { useNavigate, useParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../../features/carts/cartSlice"
-import { mobile } from "../../assests/globalStyles/responsive"
+import { tablet } from "../../assests/globalStyles/responsive"
 import Loader from "../../components/Loader"
 import CloseIcon from "@mui/icons-material/Close"
 
@@ -18,7 +18,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   gap: 2em;
-  ${mobile({
+  ${tablet({
     flexDirection: "column",
   })}
 `
@@ -65,7 +65,7 @@ const ButtonContainer = styled.div`
   margin: 3em 0;
   display: flex;
   align-items: center;
-  ${mobile({
+  ${tablet({
     flexDirection: "column",
   })}
 `

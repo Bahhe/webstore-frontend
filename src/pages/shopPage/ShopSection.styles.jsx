@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { mobile } from '../../assests/globalStyles/responsive'
+import { tablet } from '../../assests/globalStyles/responsive'
 
 const Container = styled.div`
   width: 80%;
@@ -7,7 +7,7 @@ const Container = styled.div`
   padding: 5em 0;
   display: flex;
   gap: 2em;
-  ${mobile({
+  ${tablet({
     flexDirection: 'column',
     width: '100%',
     padding: '1em 0',
@@ -15,7 +15,7 @@ const Container = styled.div`
 `
 const FilterSection = styled.div`
   flex: 1;
-  ${mobile({
+  ${tablet({
     display: 'none',
   })}
 `
@@ -71,7 +71,7 @@ const ManufacturerSection = styled.div`
 
 const ProductsSection = styled.div`
   flex: 4;
-  ${mobile({
+  ${tablet({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -86,7 +86,7 @@ const NavigationBar = styled.div`
   width: 100%;
   background-color: rgba(0, 0, 0, 0.03);
   border-radius: 1em;
-  ${mobile({
+  ${tablet({
     width: '90%',
   })}
 `
@@ -110,7 +110,7 @@ const NumberOfItems = styled.div`
   text-align: right;
   font-size: 0.8em;
   color: rgba(0, 0, 0, 0.8);
-  ${mobile({
+  ${tablet({
     display: 'none',
   })}
 `
@@ -132,7 +132,7 @@ const SortOptions = styled.select`
   border-radius: 1em;
   padding: 0.5em 1em;
   border: none;
-  ${mobile({
+  ${tablet({
     width: '8em',
   })}
 `
@@ -146,7 +146,7 @@ display: none;
   border-radius: 1em;
   padding: 0.5em 1em;
   border: none;
-  ${mobile({
+  ${tablet({
     width: '8em',
     display: 'block',
   })}
@@ -156,7 +156,7 @@ const Options = styled.option``
 const ProductsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  ${mobile({
+  ${tablet({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -169,7 +169,7 @@ const ProductsTitle = styled.h1`
   font-weight: 600;
   text-transform: uppercase;
   padding: 0 0 1em 0;
-  ${mobile({
+  ${tablet({
     display: 'none',
   })}
 `
@@ -191,7 +191,7 @@ const SearchWrapper = styled.div`
   border-radius: 1em;
   border: 1px solid lightgrey;
   background-color: white;
-  ${mobile({
+  ${tablet({
     width: '80%',
   })}
 `

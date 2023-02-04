@@ -3,7 +3,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark"
 import styled from "styled-components"
-import { mobile } from "../../../assests/globalStyles/responsive"
+import { tablet } from "../../../assests/globalStyles/responsive"
 
 const Container = styled.div`
 font-weight:300;
@@ -13,7 +13,7 @@ font-weight:300;
   justify-content: center;
   gap: 2em;
   margin: 4em auto;
-  ${mobile({
+  ${tablet({
     flexDirection: "column",
     width: "80%",
   })}
@@ -31,7 +31,7 @@ const Left = styled.div`
   &:hover {
     color: rgba(0, 0, 0, 0.2);
   }
-  ${mobile({
+  ${tablet({
     width: "100%",
     justifyContent: "left",
   })}
@@ -49,7 +49,7 @@ const Middle = styled.div`
   &:hover {
     color: rgba(0, 0, 0, 0.2);
   }
-  ${mobile({
+  ${tablet({
     width: "100%",
     justifyContent: "left",
   })}
@@ -67,7 +67,7 @@ const Right = styled.div`
   &:hover {
     color: rgba(0, 0, 0, 0.2);
   }
-  ${mobile({
+  ${tablet({
     width: "100%",
     justifyContent: "left",
   })}

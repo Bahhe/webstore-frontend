@@ -4,7 +4,7 @@ import { useGetProductsQuery } from '../../../../features/products/productsApiSl
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../../../../features/carts/cartSlice'
 import { useNavigate } from 'react-router-dom'
-import { mobile } from '../../../../assests/globalStyles/responsive'
+import { mobile, smallLaptop, tablet } from '../../../../assests/globalStyles/responsive'
 
 const Wrapper = styled.div`
   min-width: 80vw;
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   justify-content: center;
   transform: translateX(${(props) => props.slideIndex * -80}vw);
   transition: 0.5s ease-in-out;
-  ${mobile({
+  ${tablet({
     flexDirection: 'column',
   })}
 `
@@ -36,6 +36,9 @@ const ImageContainer = styled.div`
   ${mobile({
     width: '90%',
   })}
+  ${tablet({
+    width: '70%',
+  })}
 `
 
 const Image = styled.img`
@@ -49,6 +52,9 @@ const Right = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  ${tablet({
+    justifyContent: 'start',
+  })}
 `
 const Title = styled.h1`
   font-weight: 800;
@@ -57,7 +63,10 @@ const Title = styled.h1`
   color: white;
   cursor: pointer;
   margin: 1em 0;
-  ${mobile({
+  ${smallLaptop({
+    fontSize: '2em',
+  })}
+  ${tablet({
     fontSize: '1.6em',
   })}
 `
@@ -68,9 +77,12 @@ const Desc = styled.p`
   text-transform: uppercase;
   word-spacing: 0.4em;
   color: #ffffffbc;
-  ${mobile({
+  ${tablet({
     width: '100%',
     fontSize: '.9em',
+  })}
+  ${smallLaptop({
+    fontSize: '1em',
   })}
 `
 

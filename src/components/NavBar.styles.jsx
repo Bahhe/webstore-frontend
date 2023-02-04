@@ -1,4 +1,4 @@
-import { mobile, mobileCart } from "../assests/globalStyles/responsive"
+import { mobile, mobileCart, tablet } from "../assests/globalStyles/responsive"
 import styled from "styled-components"
 
 const Wrapper = styled.div`
@@ -14,7 +14,7 @@ const Right = styled.div`
   justify-content: flex-end;
   flex: 1;
   text-align: center;
-  ${mobile({
+  ${tablet({
     display: "none",
   })}
 `
@@ -25,7 +25,7 @@ const Left = styled.div`
   align-items: center;
   justify-content: space-around;
   text-align: center;
-  ${mobile({
+  ${tablet({
     display: "none",
   })}
 `
@@ -40,7 +40,7 @@ const Logo = styled.span`
 
 const LogoImage = styled.img`
   width: 30%;
-  ${mobile({
+  ${tablet({
     width: "50%",
     margin: "0 auto",
   })}
@@ -59,7 +59,7 @@ const Links = styled.ul`
   justify-content: space-around;
   text-transform: uppercase;
   cursor: pointer;
-  ${mobile({
+  ${tablet({
     display: "none",
   })}
 `
