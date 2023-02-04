@@ -25,7 +25,7 @@ import {
   FooterDesc,
   Span,
   IconWrapper,
-  LogoImage
+  LogoImage,
 } from './Footer.style'
 
 const Footer = () => {
@@ -38,9 +38,9 @@ const Footer = () => {
             <LogoImage src={logo} alt="logo" />
           </Title>
           <Desc>
-            With over 20 years of experience in selling and repairing laptops,
-            TIMGAD INFORMATIQUE is a well-known business in Algeria's Batna. Our
-            customers are always happy ♥.️
+            TIMGAD INFORMATIQUE is a well-known business in Algeria's Batna,
+            with over 20 years of experience in selling and repairing
+            laptops.♥.️
           </Desc>
         </Left>
         <Middle>
