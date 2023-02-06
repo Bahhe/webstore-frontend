@@ -11,7 +11,7 @@ const Container = styled.div`
 `
 
 const EditProductPage = () => {
-  useTitle("TIMGAD. | Edit Product")
+  useTitle("BlackBeard. | Edit Product")
   const { productId } = useParams()
 
   const { product, isSuccess, isLoading, isError, error } = useGetProductsQuery(

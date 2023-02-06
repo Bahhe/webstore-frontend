@@ -10,7 +10,7 @@ const Container = styled.div`
 `
 
 const ProductView = () => {
-  useTitle("TIMGAD. | Product")
+  useTitle("BlackBeard. | Product")
   return (
     <Container>
       <ViewProduct />

@@ -27,7 +27,7 @@ import AdminPrefetch from "./features/auth/AdminPrefetch"
 import UserAuth from "./features/auth/UserAuth"
 
 function App() {
-  useTitle("TIMGAD.")
+  useTitle("BlackBeard.")
   return (
     <Routes>
       <Route path="*" element={<NotFound />} />

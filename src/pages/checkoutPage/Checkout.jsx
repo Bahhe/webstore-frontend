@@ -37,7 +37,7 @@ import {
 
 const Checkout = () => {
   const form = useRef()
-  useTitle('TIMGAD. | Checkout')
+  useTitle('BlackBeard. | Checkout')
   const { id } = useAuth()
   const navigate = useNavigate()
   const dispatch = useDispatch()

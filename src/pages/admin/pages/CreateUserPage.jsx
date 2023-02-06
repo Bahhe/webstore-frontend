@@ -96,7 +96,7 @@ const Input = styled.input`
 `
 
 const CreateUserPage = () => {
-  useTitle("TIMGAD. | Create User")
+  useTitle("BlackBeard. | Create User")
   return (
     <Container>
       <Edit>

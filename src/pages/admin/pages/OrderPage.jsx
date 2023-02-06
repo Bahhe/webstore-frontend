@@ -87,7 +87,7 @@ const Icon = styled.div`
 `
 
 const OrderPage = () => {
-  useTitle('TIMGAD. | Orders')
+  useTitle('BlackBeard. | Orders')
   const { orderId } = useParams()
   const navigate = useNavigate()
   const [updateOrder, { isSuccess: isOrderSuccess }] = useUpdateOrderMutation()

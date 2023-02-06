@@ -134,7 +134,7 @@ const CheckOutButton = styled.button`
 `
 
 const ShoppingCart = () => {
-  useTitle("TIMGAD. | Cart")
+  useTitle("BlackBeard. | Cart")
   const navigate = useNavigate()
   const { cart } = useSelector((state) => state.cart)
 

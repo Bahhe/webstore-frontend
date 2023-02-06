@@ -40,7 +40,7 @@ const CheckButton = styled.button`
 `
 
 const OrdersListPage = () => {
-  useTitle('TIMGAD. | Orders')
+  useTitle('BlackBeard. | Orders')
   const navigate = useNavigate()
   const [deleteOrder, { isSuccess: isSuccessDeleted }] =
     useDeleteOrderMutation()

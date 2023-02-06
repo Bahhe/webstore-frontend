@@ -24,7 +24,7 @@ const Title = styled.div`
     display: (props) => props.display,
   })}
   ::before {
-    content: "TIMGAD";
+    content: "BlackBeard";
     position: absolute;
     color: slategrey;
     opacity: 0.1;

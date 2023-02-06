@@ -138,9 +138,9 @@ const Span = styled.span`
 const IconWrapper = styled.div``
 
 const LogoImage = styled.img`
-  width: 50%;
+  width: 20%;
   ${tablet({
-    width: '100%',
+    width: '50%',
   })}
 `
 

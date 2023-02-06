@@ -38,7 +38,7 @@ const EditButton = styled.div`
 `
 
 const UsersListPage = () => {
-  useTitle('TIMGAD. | Users')
+  useTitle('BlackBeard. | Users')
   const [deleteUser, { isSuccess: isSuccessDeleted }] = useDeleteUserMutation()
   const navigate = useNavigate()
   const {

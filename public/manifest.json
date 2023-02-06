@@ -1,19 +1,19 @@
 {
-  "short_name": "timgad",
-  "name": "timgad",
+  "short_name": "blackbeard",
+  "name": "blackbeard",
   "icons": [
     {
-      "src": "timgadLogo.ico",
+      "src": "blackbeard.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "timgadLogo2.png",
+      "src": "blackbeard.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "timgadLogo2.png",
+      "src": "blackbeard.png",
       "type": "image/png",
       "sizes": "512x512"
     }

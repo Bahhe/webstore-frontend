@@ -1,5 +1,4 @@
 import React from 'react'
-import FacebookIcon from '@mui/icons-material/Facebook'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import logo from '../assests/images/logo.png'
 import { useNavigate } from 'react-router-dom'
@@ -10,7 +9,6 @@ import {
   Title,
   Desc,
   Middle,
-  Address,
   PhoneNumber,
   Email,
   SocialMedia,
@@ -38,54 +36,23 @@ const Footer = () => {
             <LogoImage src={logo} alt="logo" />
           </Title>
           <Desc>
-            Timgad Informatique is an established business in the city of Batna,
-            Algeria with over 20 years of experience in the sale and repair of
-            laptops. Our highly-trained staff are dedicated to providing the
-            highest quality services, ensuring customer satisfaction is our top
-            priority ♥.️
+            Black Beard is a premier laptop dropshipping business located in Batna, Algeria. We offer a wide selection of the latest laptops from top brands such as Dell, HP, and Apple. Our laptops are carefully selected to meet the needs of students, professionals, and gamers alike. With our easy-to-use platform, customers can browse and purchase laptops with just a few clicks. Our team of experts is available to answer any questions and provide support throughout the purchasing process. Experience fast and reliable shipping, top-notch customer service, and a hassle-free shopping experience with Black Beard. Get your dream laptop today
+            ♥.️
           </Desc>
         </Left>
         <Middle>
-          <Address>
-            <a
-              style={{
-                textDecoration: 'none',
-                color: 'rgba(255, 255, 255, 0.5)',
-              }}
-              href="https://goo.gl/maps/9q4QC5Yyod1oBcKc7"
-            >
-              Avant supérette "mini-prix, Les, Alleés, Alles Salah Nezzar, Batna
-              05000
-            </a>
-          </Address>
-          <PhoneNumber>+213 - 0561292009</PhoneNumber>
-          <Email>timgadinformatique@gmail.com</Email>
+          <PhoneNumber>+213 - 0666103710</PhoneNumber>
+          <Email>marchelldteach@gmail.com</Email>
           <SocialMedia>
             <IconWrapper>
               <a
-                href="https://www.instagram.com/timgad_informatique"
+                href="https://www.instagram.com/blackbeardte/"
                 rel="noreferrer"
                 target="_blank"
               >
                 <InstagramIcon
                   style={{
-                    color: '#007bff',
-                    margin: '.4em',
-                    fontSize: '2em',
-                    cursor: 'pointer',
-                  }}
-                />
-              </a>
-            </IconWrapper>
-            <IconWrapper>
-              <a
-                href="https://www.facebook.com/TIMGAD.INFORMATIQUE"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <FacebookIcon
-                  style={{
-                    color: '#007bff',
+                    color: '#000',
                     margin: '.4em',
                     fontSize: '2em',
                     cursor: 'pointer',
@@ -112,7 +79,7 @@ const Footer = () => {
       </UpperSection>
       <BottomSection>
         <FooterDesc>
-          TIMGAD INFORMATIQUE © 2023 Store. Made in 🇩🇿, All Rights Reserved.
+          BlackBeard © 2023 Store. Made in 🇩🇿, All Rights Reserved.
           Designed by
           <Span>
             <a

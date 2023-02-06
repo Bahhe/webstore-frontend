@@ -33,15 +33,14 @@ const Left = styled.div`
 const Logo = styled.span`
   flex: 1;
   font-weight: 900;
-  font-size: 2em;
   cursor: pointer;
   margin: 0.5em 0;
 `
 
 const LogoImage = styled.img`
-  width: 30%;
+  width: 10%;
   ${tablet({
-    width: "50%",
+    width: "20%",
     margin: "0 auto",
   })}
 `

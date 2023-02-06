@@ -35,7 +35,7 @@ import {
 } from './CreateProductPage.styles'
 
 const CreateProductPage = () => {
-  useTitle('TIMGAD. | Create Product')
+  useTitle('BlackBeard. | Create Product')
   const navigate = useNavigate()
 
   const [addNewProduct, { isSuccess, isLoading }] = useAddNewProductMutation()

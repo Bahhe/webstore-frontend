@@ -36,7 +36,7 @@ import {
   Container,
   FilterSection,
   TitleSection,
-  CategoryOptions
+  CategoryOptions,
 } from './ShopSection.styles'
 
 const Num = styled.div`
@@ -79,7 +79,7 @@ const Grid = styled.div`
 `
 
 const ShopSection = () => {
-  useTitle('TIMGAD. | Shop')
+  useTitle('BlackBeard. | Shop')
   const searchValue = new URLSearchParams(useLocation().search).get('search')
   const categoryValue = new URLSearchParams(useLocation().search).get(
     'category'

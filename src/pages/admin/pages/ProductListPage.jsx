@@ -54,7 +54,7 @@ const Search = styled.input`
 `
 
 const ProductListPage = () => {
-  useTitle('TIMGAD. | Products')
+  useTitle('BlackBeard. | Products')
   const navigate = useNavigate()
 
   const [deleteProduct, { isSuccess: isSuccessDeleted }] =

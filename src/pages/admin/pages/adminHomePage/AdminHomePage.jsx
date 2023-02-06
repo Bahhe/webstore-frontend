@@ -15,7 +15,7 @@ const Container = styled.main`
 `
 
 const AdminHomePage = () => {
-  useTitle("TIMGAD | Admin")
+  useTitle("BlackBeard | Admin")
   return (
     <Container>
       <Users />

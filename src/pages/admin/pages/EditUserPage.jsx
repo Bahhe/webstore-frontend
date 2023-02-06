@@ -6,7 +6,7 @@ import PulseLoader from "react-spinners/PulseLoader"
 import useTitle from "../../../hooks/useTitle"
 
 const EditUserPage = () => {
-  useTitle("TIMGAD. | Edit User")
+  useTitle("BlackBeard. | Edit User")
   const { userId } = useParams()
   const { user } = useGetUsersQuery("users", {
     selectFromResult: ({ data }) => ({
