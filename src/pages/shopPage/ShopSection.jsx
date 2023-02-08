@@ -6,7 +6,6 @@ import useTitle from '../../hooks/useTitle'
 import Spinner from '../../components/Spinner'
 import { SearchOutlined } from '@mui/icons-material'
 import hp from '../../assests/images/hp.png'
-import { SiDell, SiAcer, SiAsus, SiApple, SiLenovo } from 'react-icons/si'
 import { FaLaptop } from 'react-icons/fa'
 import styled from 'styled-components'
 import { tablet } from '../../assests/globalStyles/responsive'
@@ -38,6 +37,7 @@ import {
   TitleSection,
   CategoryOptions,
 } from './ShopSection.styles'
+import { brands, categoriesData } from './categories'
 
 const Num = styled.div`
   margin: 0.5em 0.2em;
@@ -89,7 +89,10 @@ const ShopSection = () => {
     categoryValue ? categoryValue : 'all'
   )
   const [sort, setSort] = useState('newest')
-  const [search, setSearch] = useState(searchValue ? searchValue : '')
+  const [search, setSearch] = useState('')
+  const [searchResult, setSearchResult] = useState(
+    searchValue ? searchValue : ''
+  )
   const [limit, setLimit] = useState(9)
 
   const {
@@ -101,7 +104,7 @@ const ShopSection = () => {
       category,
       page,
       sort,
-      search,
+      search: searchResult,
       limit,
     },
     {
@@ -113,7 +116,7 @@ const ShopSection = () => {
     setPage(1)
     setSort('newest')
     setLimit(9)
-    setSearch('')
+    setSearchResult('')
     setCategory(e.target.getAttribute('name'))
     refetch()
     document.documentElement.scrollTo({
@@ -127,7 +130,7 @@ const ShopSection = () => {
     setCategory('all')
     setPage(1)
     setLimit(9)
-    setSearch('')
+    setSearchResult('')
     setSort(e.target.value)
     refetch()
   }
@@ -136,17 +139,18 @@ const ShopSection = () => {
     setCategory(e.target.value)
     setPage(1)
     setLimit(9)
-    setSearch('')
+    setSearchResult('')
     setSort('newest')
     refetch()
   }
 
   const handleSearch = (e) => {
+    e.preventDefault()
     setCategory('all')
     setPage(1)
     setSort('newest')
     setLimit(9)
-    setSearch(e.target.value)
+    setSearchResult(search)
     refetch()
   }
 
@@ -199,104 +203,22 @@ const ShopSection = () => {
         </TitleSection>
         <CategoriesSection>
           <Title>Category</Title>
-          <Category>
-            <TextWrapper>
-              <FaLaptop
-                style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
-                }}
-              />
-              <Text name="all" onClick={handleFilters}>
-                all
-              </Text>
-            </TextWrapper>
-          </Category>
-          <Category>
-            <TextWrapper>
-              <FaLaptop
-                style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
-                }}
-              />
-              <Text name="gaming" onClick={handleFilters}>
-                gaming pc
-              </Text>
-            </TextWrapper>
-          </Category>
-          <Category>
-            <TextWrapper>
-              <FaLaptop
-                style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
-                }}
-              />
-              <Text name="allInOne" onClick={handleFilters}>
-                all in one
-              </Text>
-            </TextWrapper>
-          </Category>
-          <Category>
-            <TextWrapper>
-              <FaLaptop
-                style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
-                }}
-              />
-              <Text name="tablet" onClick={handleFilters}>
-                tablet pc
-              </Text>
-            </TextWrapper>
-          </Category>
-          <Category>
-            <TextWrapper>
-              <FaLaptop
-                style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
-                }}
-              />
-              <Text name="touchScreen" onClick={handleFilters}>
-                touchScreen
-              </Text>
-            </TextWrapper>
-          </Category>
-          <Category>
-            <TextWrapper>
-              <FaLaptop
-                style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
-                }}
-              />
-              <Text name="chromebook" onClick={handleFilters}>
-                chromebook
-              </Text>
-            </TextWrapper>
-          </Category>
-          <Category>
-            <TextWrapper>
-              <FaLaptop
-                style={{
-                  marginRight: '.2em',
-                  fontSize: '1.2em',
-                  opacity: '.6',
-                }}
-              />
-              <Text name="apple" onClick={handleFilters}>
-                apple
-              </Text>
-            </TextWrapper>
-          </Category>
+          {categoriesData.map((item, index) => (
+            <Category key={index}>
+              <TextWrapper>
+                <FaLaptop
+                  style={{
+                    marginRight: '.2em',
+                    fontSize: '1.2em',
+                    opacity: '.6',
+                  }}
+                />
+                <Text name={item.name} onClick={handleFilters}>
+                  {item.value}
+                </Text>
+              </TextWrapper>
+            </Category>
+          ))}
         </CategoriesSection>
         <ManufacturerSection>
           <Title>Manufacturer</Title>
@@ -314,71 +236,17 @@ const ShopSection = () => {
               </Text>
             </TextWrapper>
           </Category>
-          <Category>
-            <TextWrapper>
-              <SiDell
-                style={{
-                  marginRight: '.4em',
-                  fontSize: '1.2em',
-                }}
-              />
-              <Text name="dell" onClick={handleFilters}>
-                dell
-              </Text>
-            </TextWrapper>
-          </Category>
-          <Category>
-            <TextWrapper>
-              <SiAcer
-                style={{
-                  marginRight: '.4em',
-                  fontSize: '1.2em',
-                }}
-              />
-              <Text name="acer" onClick={handleFilters}>
-                acer
-              </Text>
-            </TextWrapper>
-          </Category>
-          <Category>
-            <TextWrapper>
-              <SiAsus
-                style={{
-                  marginRight: '.4em',
-                  fontSize: '1.2em',
-                }}
-              />
-              <Text name="asus" onClick={handleFilters}>
-                asus
-              </Text>
-            </TextWrapper>
-          </Category>
-          <Category>
-            <TextWrapper>
-              <SiLenovo
-                style={{
-                  marginRight: '.4em',
-                  fontSize: '1.2em',
-                }}
-              />
-              <Text name="lenovo" onClick={handleFilters}>
-                lenovo
-              </Text>
-            </TextWrapper>
-          </Category>
-          <Category>
-            <TextWrapper>
-              <SiApple
-                style={{
-                  marginRight: '.4em',
-                  fontSize: '1.2em',
-                }}
-              />
-              <Text name="apple" onClick={handleFilters}>
-                apple
-              </Text>
-            </TextWrapper>
-          </Category>
+          {brands.map((item, index) => (
+            <Category key={index}>
+              <TextWrapper>
+                {item.icons}
+
+                <Text name={item.name} onClick={handleFilters}>
+                  {item.name}
+                </Text>
+              </TextWrapper>
+            </Category>
+          ))}
           <Category>
             <TextWrapper>
               <Text name="other" onClick={handleFilters}>
@@ -423,13 +291,22 @@ const ShopSection = () => {
           </Right>
         </NavigationBar>
         <SearchContainer>
-          <SearchWrapper>
+          <SearchWrapper onSubmit={handleSearch}>
             <Search
               placeholder="Search product ..."
               value={search}
-              onChange={handleSearch}
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <SearchOutlined />
+            <button
+              type="submit"
+              style={{
+                border: 'none',
+                backgroundColor: 'transparent',
+                display: 'flex',
+              }}
+            >
+              <SearchOutlined />
+            </button>
           </SearchWrapper>
         </SearchContainer>
         <ProductsContainer>{shopProducts}</ProductsContainer>

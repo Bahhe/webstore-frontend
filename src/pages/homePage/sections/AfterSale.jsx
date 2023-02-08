@@ -1,12 +1,12 @@
-import React from "react"
-import LocalShippingIcon from "@mui/icons-material/LocalShipping"
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
-import QuestionMarkIcon from "@mui/icons-material/QuestionMark"
-import styled from "styled-components"
-import { tablet } from "../../../assests/globalStyles/responsive"
+import React from 'react'
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney'
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
+import styled from 'styled-components'
+import { tablet } from '../../../assests/globalStyles/responsive'
 
 const Container = styled.div`
-font-weight:300;
+  font-weight: 300;
   width: 80%;
   display: flex;
   align-items: center;
@@ -14,8 +14,8 @@ font-weight:300;
   gap: 2em;
   margin: 4em auto;
   ${tablet({
-    flexDirection: "column",
-    width: "80%",
+    flexDirection: 'column',
+    width: '80%',
   })}
 `
 const Left = styled.div`
@@ -32,8 +32,8 @@ const Left = styled.div`
     color: rgba(0, 0, 0, 0.2);
   }
   ${tablet({
-    width: "100%",
-    justifyContent: "left",
+    width: '100%',
+    justifyContent: 'left',
   })}
 `
 const Middle = styled.div`
@@ -50,8 +50,8 @@ const Middle = styled.div`
     color: rgba(0, 0, 0, 0.2);
   }
   ${tablet({
-    width: "100%",
-    justifyContent: "left",
+    width: '100%',
+    justifyContent: 'left',
   })}
 `
 const Right = styled.div`
@@ -68,8 +68,8 @@ const Right = styled.div`
     color: rgba(0, 0, 0, 0.2);
   }
   ${tablet({
-    width: "100%",
-    justifyContent: "left",
+    width: '100%',
+    justifyContent: 'left',
   })}
 `
 
@@ -77,16 +77,22 @@ const AfterSale = () => {
   return (
     <Container>
       <Left>
-        <LocalShippingIcon style={{ margin: ".5em", color: "rgba(0, 0, 0, 0.5)" }} />
-        Get Your Order Shipped To You In Any Place In Algeria
+        <LocalShippingIcon
+          style={{ margin: '.5em', color: 'rgba(0, 0, 0, 0.5)' }}
+        />
+        Delivery 58 province
       </Left>
       <Middle>
-        <AttachMoneyIcon style={{ margin: ".5em", color: "rgba(0, 0, 0, 0.5)" }} />
-        Our Products Are Guaranteed
+        <AttachMoneyIcon
+          style={{ margin: '.5em', color: 'rgba(0, 0, 0, 0.5)' }}
+        />
+        Free delivery for orders above 50,000
       </Middle>
       <Right>
-        <QuestionMarkIcon style={{ margin: ".5em", color: "rgba(0, 0, 0, 0.5)" }} />
-        After Sale Services
+        <QuestionMarkIcon
+          style={{ margin: '.5em', color: 'rgba(0, 0, 0, 0.5)' }}
+        />
+        Post-sale support and services Online
       </Right>
     </Container>
   )

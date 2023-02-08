@@ -19,6 +19,7 @@ import {
 } from './Products.styles'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css'
+import { data } from './data'
 
 const Slide = styled.div`
   min-width: 100%;
@@ -77,140 +78,35 @@ const Products = ({ productId }) => {
             <Title onClick={() => navigate(`/shop/product/${product.id}`)}>
               {product.title}
             </Title>
-            <Points>
-              <CheckIcon
-                style={{
-                  display: 'flex',
-                  width: '1em',
-                  height: '1em',
-                  borderRadius: '50%',
-                  margin: '0 .5em 0 0',
-                }}
-              />
-              <span
-                style={{
-                  textTransform: 'uppercase',
-                  fontWeight: '400',
-                }}
-              >
-                cpu:{' '}
-              </span>
-              <span
-                style={{
-                  margin: '0 0 0 1em',
-                  fontWeight: '400',
-                }}
-              >
-                {product.cpu}
-              </span>
-            </Points>
-            <Points>
-              <CheckIcon
-                style={{
-                  display: 'flex',
-                  width: '1em',
-                  height: '1em',
-                  borderRadius: '50%',
-                  margin: '0 .5em 0 0',
-                }}
-              />
-              <span
-                style={{
-                  fontWeight: '400',
-                }}
-              >
-                ram:{' '}
-              </span>
-              <span
-                style={{
-                  margin: '0 0 0 1em',
-                  fontWeight: '400',
-                }}
-              >
-                {product.display}
-              </span>
-            </Points>
-            <Points>
-              <CheckIcon
-                style={{
-                  display: 'flex',
-                  width: '1em',
-                  height: '1em',
-                  borderRadius: '50%',
-                  margin: '0 .5em 0 0',
-                }}
-              />
-              <span
-                style={{
-                  textTransform: 'uppercase',
-                  fontWeight: '400',
-                }}
-              >
-                hard drive:{' '}
-              </span>
-              <span
-                style={{
-                  margin: '0 0 0 1em',
-                  fontWeight: '400',
-                }}
-              >
-                {product.storage}
-              </span>
-            </Points>
-            <Points>
-              <CheckIcon
-                style={{
-                  display: 'flex',
-                  width: '1em',
-                  height: '1em',
-                  borderRadius: '50%',
-                  margin: '0 .5em 0 0',
-                }}
-              />
-              <span
-                style={{
-                  textTransform: 'uppercase',
-                  fontWeight: '400',
-                }}
-              >
-                display:{' '}
-              </span>
-              <span
-                style={{
-                  margin: '0 0 0 1em',
-                  fontWeight: '400',
-                }}
-              >
-                {product.ram}
-              </span>
-            </Points>
-            <Points>
-              <CheckIcon
-                style={{
-                  display: 'flex',
-                  width: '1em',
-                  height: '1em',
-                  borderRadius: '50%',
-                  margin: '0 .5em 0 0',
-                }}
-              />
-              <span
-                style={{
-                  textTransform: 'uppercase',
-                  fontWeight: '400',
-                }}
-              >
-                vga:{' '}
-              </span>
-              <span
-                style={{
-                  margin: '0 0 0 1em',
-                  fontWeight: '400',
-                }}
-              >
-                {product.vga}
-              </span>
-            </Points>
+            {data.map((item) => (
+              <Points>
+                <CheckIcon
+                  style={{
+                    display: 'flex',
+                    width: '1em',
+                    height: '1em',
+                    borderRadius: '50%',
+                    margin: '0 .5em 0 0',
+                  }}
+                />
+                <span
+                  style={{
+                    textTransform: 'uppercase',
+                    fontWeight: '400',
+                  }}
+                >
+                  {item}:{' '}
+                </span>
+                <span
+                  style={{
+                    margin: '0 0 0 1em',
+                    fontWeight: '400',
+                  }}
+                >
+                  {product[item]}
+                </span>
+              </Points>
+            ))}
             <Price>{product.price} DA</Price>
             <BtnsContainer>
               <AddToCart onClick={onAddToCartClicked}>add to cart</AddToCart>

@@ -1,11 +1,11 @@
-import React from "react"
-import styled from "styled-components"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { FreeMode, Navigation } from "swiper"
-import "swiper/css"
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos"
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
-import { mobile } from "../../../assests/globalStyles/responsive"
+import React from 'react'
+import styled from 'styled-components'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { FreeMode, Navigation } from 'swiper'
+import 'swiper/css'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { mobile } from '../../../assests/globalStyles/responsive'
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const Container = styled.div`
   height: 20em;
   position: relative;
   ${mobile({
-    width: "80%",
+    width: '80%',
   })}
 `
 const BrandsContainer = styled.div`
@@ -38,7 +38,7 @@ const Brand = styled.div`
   cursor: pointer;
   transition: 0.5s ease-out;
   ::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 2px;
@@ -63,10 +63,10 @@ const Arrow = styled.div`
   height: 5em;
   top: 0;
   bottom: 0;
-  left: ${(props) => props.direction === "left" && "1em"};
-  right: ${(props) => props.direction === "right" && "1em"};
+  left: ${(props) => props.direction === 'left' && '1em'};
+  right: ${(props) => props.direction === 'right' && '1em'};
   transform: translateX(
-    ${(props) => (props.direction === "right" ? "6" : "-6")}em
+    ${(props) => (props.direction === 'right' ? '6' : '-6')}em
   );
   margin: auto;
   border-radius: 50%;
@@ -80,24 +80,25 @@ const Arrow = styled.div`
   }
   ${mobile({
     transform: (props) =>
-      props.direction === "right" ? "translateX(3em)" : "translateX(-3em)",
+      props.direction === 'right' ? 'translateX(3em)' : 'translateX(-3em)',
   })}
 `
+const data = ['dell', 'apple', 'microsoft', 'hp', 'asus', 'lenovo']
 
 const Brands = () => {
   return (
     <Container>
       <Arrow direction="left" className="brands-swiper-button-prev">
-        <ArrowBackIosIcon style={{ fontSize: "1em" }} />
+        <ArrowBackIosIcon style={{ fontSize: '1em' }} />
       </Arrow>
       <Arrow direction="right" className="brands-swiper-button-next">
-        <ArrowForwardIosIcon style={{ fontSize: "1em" }} />
+        <ArrowForwardIosIcon style={{ fontSize: '1em' }} />
       </Arrow>
       <Swiper
         navigation={{
-          nextEl: ".brands-swiper-button-next",
-          prevEl: ".brands-swiper-button-prev",
-          disabledClass: "swiper-button-disabled",
+          nextEl: '.brands-swiper-button-next',
+          prevEl: '.brands-swiper-button-prev',
+          disabledClass: 'swiper-button-disabled',
         }}
         grabCursor={true}
         modules={[Navigation, FreeMode]}
@@ -118,39 +119,11 @@ const Brands = () => {
         }}
       >
         <BrandsContainer>
-          <SwiperSlide>
-            <Brand>apple</Brand>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Brand>dell</Brand>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Brand>asus</Brand>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Brand>hp</Brand>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Brand>acer</Brand>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Brand>lenovo</Brand>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Brand>microsoft</Brand>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Brand>lg</Brand>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Brand>sony</Brand>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Brand>toshiba</Brand>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Brand>samsung</Brand>
-          </SwiperSlide>
+          {data.map((item) => (
+            <SwiperSlide>
+              <Brand>{item}</Brand>
+            </SwiperSlide>
+          ))}
         </BrandsContainer>
       </Swiper>
     </Container>

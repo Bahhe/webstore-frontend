@@ -137,7 +137,7 @@ const SortOptions = styled.select`
   })}
 `
 const CategoryOptions = styled.select`
-display: none;
+  display: none;
   height: 2.5em;
   margin: 0 1em 0 0;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -181,7 +181,7 @@ const SearchContainer = styled.div`
   justify-content: center;
 `
 
-const SearchWrapper = styled.div`
+const SearchWrapper = styled.form`
   width: 40%;
   padding: 0 1em;
   position: relative;

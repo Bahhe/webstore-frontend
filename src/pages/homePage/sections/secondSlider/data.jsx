@@ -1,0 +1,1 @@
+export const data = ['cpu', 'ram', 'storage', 'vga', 'display']
