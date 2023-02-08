@@ -12,6 +12,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: white;
+  /* filter: blur(8px); */
   z-index: 999;
 `
 
