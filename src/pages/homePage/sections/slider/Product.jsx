@@ -4,7 +4,13 @@ import { useGetProductsQuery } from '../../../../features/products/productsApiSl
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../../../../features/carts/cartSlice'
 import { useNavigate } from 'react-router-dom'
-import { mobile, smallLaptop, tablet } from '../../../../assests/globalStyles/responsive'
+import {
+  mobile,
+  smallLaptop,
+  tablet,
+} from '../../../../assests/globalStyles/responsive'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 const Wrapper = styled.div`
   min-width: 80vw;
@@ -41,11 +47,6 @@ const ImageContainer = styled.div`
   })}
 `
 
-const Image = styled.img`
-  display: flex;
-  width: 100%;
-  object-fit: contain;
-`
 const Right = styled.div`
   flex: 1;
   display: flex;
@@ -205,7 +206,11 @@ const Product = ({ productId }) => {
         <ImageContainer
           onClick={() => navigate(`/shop/product/${product && product.id}`)}
         >
-          <Image src={product && product.img} />
+          <LazyLoadImage
+            src={product && product.img}
+            width='100%'
+            effect='blur'
+          />
         </ImageContainer>
       </Left>
       <Right>

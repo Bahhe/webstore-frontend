@@ -73,7 +73,7 @@ const Container = styled.div`
 `
 
 const SlideContainer = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
   ${mobile({
     width: '80%',

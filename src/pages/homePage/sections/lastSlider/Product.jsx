@@ -8,6 +8,8 @@ import { addToCart } from '../../../../features/carts/cartSlice'
 import { useNavigate } from 'react-router-dom'
 import { StarBorder } from '@mui/icons-material'
 import Spinner from '../../../../components/Spinner'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 const LinksWrapper = styled.div`
   display: flex;
@@ -63,12 +65,6 @@ const ImgContainer = styled.div`
   border-radius: 1em;
   box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.2);
 `
-const Img = styled.img`
-  width: 90%;
-  height: 100%;
-  object-fit: contain;
-  cursor: pointer;
-`
 const Title = styled.div`
   text-transform: capitalize;
   font-weight: 300;
@@ -122,7 +118,12 @@ const Product = ({ productId }) => {
     content = (
       <Container>
         <ImgContainer>
-          <Img onClick={() => navigate(`/shop/product/${product.id}`)} src={product.img} />
+          <LazyLoadImage
+            onClick={() => navigate(`/shop/product/${product.id}`)}
+            width="95%"
+            src={product.img}
+            effect="blur"
+          />
           <LinksContainer>
             <LinksWrapper>
               <Links onClick={handleClick}>

@@ -9,7 +9,6 @@ import Spinner from '../../../../components/Spinner'
 import {
   Content,
   ImgContainer,
-  Img,
   InfoContainer,
   Title,
   Points,
@@ -18,6 +17,8 @@ import {
   AddToCart,
   ShopNow,
 } from './Products.styles'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 const Slide = styled.div`
   min-width: 100%;
@@ -70,7 +71,7 @@ const Products = ({ productId }) => {
       <Slide>
         <Content key={product.id}>
           <ImgContainer onClick={() => navigate(`/shop/product/${product.id}`)}>
-            <Img src={product.img} />
+            <LazyLoadImage width="100%" src={product.img} effect="blur" />
           </ImgContainer>
           <InfoContainer>
             <Title onClick={() => navigate(`/shop/product/${product.id}`)}>

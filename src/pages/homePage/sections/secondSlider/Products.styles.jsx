@@ -6,6 +6,7 @@ const Content = styled.div`
   min-width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 5em;
   ${tablet({
     flexDirection: 'column',
@@ -16,21 +17,13 @@ const ImgContainer = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 50%;
+  flex: 1;
   ${mobile({
     width: '100%',
     marginTop: '1em',
   })}
 `
-const Img = styled.img`
-  width: 70%;
-  object-fit: contain;
-  ${mobile({
-    width: '100%',
-  })}
-`
 const InfoContainer = styled.div`
-  width: 50%;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -98,7 +91,6 @@ const ShopNow = styled.div`
 export {
   Content,
   ImgContainer,
-  Img,
   InfoContainer,
   Title,
   Points,

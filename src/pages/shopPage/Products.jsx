@@ -1,11 +1,13 @@
-import styled from "styled-components"
-import SearchIcon from "@mui/icons-material/Search"
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { addToCart } from "../../features/carts/cartSlice"
-import { StarBorder } from "@mui/icons-material"
-import PulseLoader from "react-spinners/PulseLoader"
+import styled from 'styled-components'
+import SearchIcon from '@mui/icons-material/Search'
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../features/carts/cartSlice'
+import { StarBorder } from '@mui/icons-material'
+import PulseLoader from 'react-spinners/PulseLoader'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 const LinksContainer = styled.div`
   position: absolute;
@@ -74,13 +76,6 @@ const ImageContainer = styled.div`
   );
   border-radius: 1em;
 `
-
-const Image = styled.img`
-  object-fit: contain;
-  width: 90%;
-  height: 100%;
-  cursor: pointer;
-`
 const InfoSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -126,18 +121,20 @@ const Products = ({ product }) => {
       <ProductContainer>
         <ImageSection>
           <ImageContainer>
-            <Image
+            <LazyLoadImage
+              width="100%"
               onClick={() => navigate(`/shop/product/${product.id}`)}
               src={product.img}
+              effect="blur"
             />
           </ImageContainer>
           <LinksContainer>
             <LinksWrapper>
               <Links onClick={handleClick}>
-                <ShoppingCartOutlinedIcon style={{ fontSize: "1.6em" }} />
+                <ShoppingCartOutlinedIcon style={{ fontSize: '1.6em' }} />
               </Links>
               <Links onClick={() => navigate(`/shop/product/${product.id}`)}>
-                <SearchIcon style={{ fontSize: "1.6em" }} />
+                <SearchIcon style={{ fontSize: '1.6em' }} />
               </Links>
             </LinksWrapper>
           </LinksContainer>
@@ -148,11 +145,11 @@ const Products = ({ product }) => {
           </Title>
           <StarsSection>
             <Stars>
-              <StarBorder style={{ fontSize: "1em", color: "orange" }} />
-              <StarBorder style={{ fontSize: "1em", color: "orange" }} />
-              <StarBorder style={{ fontSize: "1em", color: "orange" }} />
-              <StarBorder style={{ fontSize: "1em", color: "orange" }} />
-              <StarBorder style={{ fontSize: "1em", color: "orange" }} />
+              <StarBorder style={{ fontSize: '1em', color: 'orange' }} />
+              <StarBorder style={{ fontSize: '1em', color: 'orange' }} />
+              <StarBorder style={{ fontSize: '1em', color: 'orange' }} />
+              <StarBorder style={{ fontSize: '1em', color: 'orange' }} />
+              <StarBorder style={{ fontSize: '1em', color: 'orange' }} />
             </Stars>
           </StarsSection>
           <Price>{product.price} DA</Price>
