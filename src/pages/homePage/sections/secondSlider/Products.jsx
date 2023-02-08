@@ -78,8 +78,8 @@ const Products = ({ productId }) => {
             <Title onClick={() => navigate(`/shop/product/${product.id}`)}>
               {product.title}
             </Title>
-            {data.map((item) => (
-              <Points>
+            {data.map((item, index) => (
+              <Points key={index}>
                 <CheckIcon
                   style={{
                     display: 'flex',

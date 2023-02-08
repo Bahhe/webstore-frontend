@@ -119,8 +119,8 @@ const Brands = () => {
         }}
       >
         <BrandsContainer>
-          {data.map((item) => (
-            <SwiperSlide>
+          {data.map((item, index) => (
+            <SwiperSlide key={index}>
               <Brand>{item}</Brand>
             </SwiperSlide>
           ))}

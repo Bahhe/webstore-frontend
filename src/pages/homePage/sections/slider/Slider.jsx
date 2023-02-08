@@ -84,6 +84,7 @@ const Slide = styled.div`
 `
 
 const Slider = () => {
+
   const ref = useRef(null)
 
   const {
