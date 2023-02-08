@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import PulseLoader from "react-spinners/PulseLoader"
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader"
+
 
 const Container = styled.div`
   position: fixed;
@@ -11,15 +12,14 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
-  /* filter: blur(8px); */
+  backdrop-filter: blur(10px);
   z-index: 999;
 `
 
 const Loader = ({ color }) => {
   return (
     <Container>
-      <PulseLoader color={color} />
+      <ClimbingBoxLoader color={color} />
     </Container>
   )
 }

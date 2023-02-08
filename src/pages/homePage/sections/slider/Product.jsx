@@ -16,6 +16,7 @@ import {
   Desc,
   Button,
 } from './product.styles'
+import Spinner from '../../../../components/Spinner'
 
 const Wrapper = styled.div`
   min-width: 80vw;
@@ -64,6 +65,7 @@ const Product = ({ productId }) => {
             src={product && product.img}
             width="100%"
             effect="blur"
+            PlaceholderSrc={<Spinner />}
           />
         </ImageContainer>
       </Left>
