@@ -1,45 +1,45 @@
-import { lazy, Suspense } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Layout from './components/Layout'
-import Home from './pages/homePage/Home'
-import Login from './features/auth/login/Login'
-import Register from './features/auth/register/Register'
-const Shop = lazy(() => import('./pages/shopPage/Shop'))
-const Cart = lazy(() => import('./pages/cartPage/Cart'))
-const ProductView = lazy(() => import('./pages/productPage/ProductView'))
-const Checkout = lazy(() => import('./pages/checkoutPage/Checkout'))
-import Prefetch from './features/auth/Prefetch'
-import PersistLogin from './features/auth/login/PersistLogin'
+import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
+import Prefetch from "./features/auth/Prefetch";
+import AdminPrefetch from "./features/auth/AdminPrefetch";
+import UserAuth from "./features/auth/UserAuth";
+import Loader from "./components/Loader";
+import PersistLogin from "./features/auth/login/PersistLogin";
+import RequireAuth from "./features/auth/RequireAuth";
+import Layout from "./components/Layout";
+import Home from "./pages/homePage/Home";
+import Login from "./features/auth/login/Login";
+import Register from "./features/auth/register/Register";
+import useTitle from "./hooks/useTitle";
+const Shop = lazy(() => import("./pages/shopPage/Shop"));
+const Cart = lazy(() => import("./pages/cartPage/Cart"));
+const ProductView = lazy(() => import("./pages/productPage/ProductView"));
+const Checkout = lazy(() => import("./pages/checkoutPage/Checkout"));
 const AdminLayout = lazy(() =>
-  import('./pages/admin/adminComponents/AdminLayout')
-)
+  import("./pages/admin/adminComponents/AdminLayout")
+);
 const AdminHomePage = lazy(() =>
-  import('./pages/admin/pages/adminHomePage/AdminHomePage')
-)
-const UsersListPage = lazy(() => import('./pages/admin/pages/UsersListPage'))
-const EditUserPage = lazy(() => import('./pages/admin/pages/EditUserPage'))
-const CreateUserPage = lazy(() => import('./pages/admin/pages/CreateUserPage'))
+  import("./pages/admin/pages/adminHomePage/AdminHomePage")
+);
+const UsersListPage = lazy(() => import("./pages/admin/pages/UsersListPage"));
+const EditUserPage = lazy(() => import("./pages/admin/pages/EditUserPage"));
+const CreateUserPage = lazy(() => import("./pages/admin/pages/CreateUserPage"));
 const CreateProductPage = lazy(() =>
-  import('./pages/admin/pages/CreateProductPage')
-)
+  import("./pages/admin/pages/CreateProductPage")
+);
 const ProductListPage = lazy(() =>
-  import('./pages/admin/pages/ProductListPage')
-)
+  import("./pages/admin/pages/ProductListPage")
+);
 const EditProductPage = lazy(() =>
-  import('./pages/admin/pages/EditProductPage')
-)
-const OrdersListPage = lazy(() => import('./pages/admin/pages/OrdersListPage'))
-const OrderPage = lazy(() => import('./pages/admin/pages/OrderPage'))
-import RequireAuth from './features/auth/RequireAuth'
-const NotFound = lazy(() => import('./pages/notFound/NotFound'))
-import useTitle from './hooks/useTitle'
-const UserPage = lazy(() => import('./features/auth/user/UserPage'))
-import AdminPrefetch from './features/auth/AdminPrefetch'
-import UserAuth from './features/auth/UserAuth'
-import Loader from './components/Loader'
+  import("./pages/admin/pages/EditProductPage")
+);
+const OrdersListPage = lazy(() => import("./pages/admin/pages/OrdersListPage"));
+const OrderPage = lazy(() => import("./pages/admin/pages/OrderPage"));
+const NotFound = lazy(() => import("./pages/notFound/NotFound"));
+const UserPage = lazy(() => import("./features/auth/user/UserPage"));
 
 function App() {
-  useTitle('BlackBeard.')
+  useTitle("BlackBeard.");
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
@@ -95,7 +95,7 @@ function App() {
         {/* protected routes */}
       </Routes>
     </Suspense>
-  )
+  );
 }
 
-export default App
+export default App;

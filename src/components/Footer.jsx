@@ -1,7 +1,7 @@
-import React from 'react'
-import InstagramIcon from '@mui/icons-material/Instagram'
-import logo from '../assests/images/logo.png'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import logo from "../assests/images/logo.png";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   UpperSection,
@@ -24,20 +24,28 @@ import {
   Span,
   IconWrapper,
   LogoImage,
-} from './Footer.style'
+} from "./Footer.style";
 
 const Footer = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <Container>
       <UpperSection>
         <Left>
-          <Title onClick={() => navigate('/')}>
+          <Title onClick={() => navigate("/")}>
             <LogoImage src={logo} alt="logo" />
           </Title>
           <Desc>
-            Black Beard is a premier laptop dropshipping business located in Batna, Algeria. We offer a wide selection of the latest laptops from top brands such as Dell, HP, and Apple. Our laptops are carefully selected to meet the needs of students, professionals, and gamers alike. With our easy-to-use platform, customers can browse and purchase laptops with just a few clicks. Our team of experts is available to answer any questions and provide support throughout the purchasing process. Experience fast and reliable shipping, top-notch customer service, and a hassle-free shopping experience with Black Beard. Get your dream laptop today
-            ♥.️
+            Black Beard is a premier laptop business located in Batna, Algeria.
+            We offer a wide selection of the latest laptops from top brands such
+            as Dell, HP, and Apple. Our laptops are carefully selected to meet
+            the needs of students, professionals, and gamers alike. With our
+            easy-to-use platform, customers can browse and purchase laptops with
+            just a few clicks. Our team of experts is available to answer any
+            questions and provide support throughout the purchasing process.
+            Experience fast and reliable shipping, top-notch customer service,
+            and a hassle-free shopping experience with Black Beard. Get your
+            dream laptop today ♥.️
           </Desc>
         </Left>
         <Middle>
@@ -52,10 +60,10 @@ const Footer = () => {
               >
                 <InstagramIcon
                   style={{
-                    color: '#000',
-                    margin: '.4em',
-                    fontSize: '2em',
-                    cursor: 'pointer',
+                    color: "#000",
+                    margin: ".4em",
+                    fontSize: "2em",
+                    cursor: "pointer",
                   }}
                 />
               </a>
@@ -79,23 +87,22 @@ const Footer = () => {
       </UpperSection>
       <BottomSection>
         <FooterDesc>
-          BlackBeard © 2023 Store. Made in 🇩🇿, All Rights Reserved.
-          Designed by
+          BlackBeard © 2023 Store. Made in 🇩🇿, All Rights Reserved. Designed by
           <Span>
             <a
-              style={{ textDecoration: 'none', color: 'white' }}
+              style={{ textDecoration: "none", color: "white" }}
               href="https://www.instagram.com/therealbahaa/"
               rel="noreferrer"
               target="_blank"
             >
-              {' '}
+              {" "}
               Baha Eddine
             </a>
           </Span>
         </FooterDesc>
       </BottomSection>
     </Container>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
